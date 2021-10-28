@@ -57,12 +57,14 @@ public class UserService {
             DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             String date = formatter.format(new Date());
             Optional<User> existingUser = userRepository.findUserByEmail(user.getEmail());
-            if (false==existingUser.get().isActive()) {
-                existingUser.get().setActive(true);
-                userRepository.save(existingUser.get());
-                return new ResponseEntity<>("User is successfully added", HttpStatus.OK);
-            } else if (existingUser.get().isActive()) {
-                return new ResponseEntity<>("User already exists", HttpStatus.BAD_REQUEST);
+            if (existingUser.isPresent()) {
+                if (existingUser.get().isActive()) {
+                    return new ResponseEntity<>("User already present", HttpStatus.BAD_REQUEST);
+                } else {
+                    existingUser.get().setActive(true);
+                    userRepository.save(existingUser.get());
+                    return new ResponseEntity<>("User is successfully added", HttpStatus.OK);
+                }
             } else {
                 user.setCreatedDate(date);
                 user.setActive(true);
@@ -118,20 +120,20 @@ public class UserService {
 
     /**
      * This service is authenticating the user from the database
+     *
      * @param email
      * @param password
      * @return
      */
-    public ResponseEntity<Object> loginUser(String email, String password){
-        try{
-            Optional<User> user =userRepository.findUserByEmailAndPassword(email,password);
-            if(user.isPresent()){
-                return new ResponseEntity<>("You are successfully logged in",HttpStatus.OK);
-            }
-            else{
+    public ResponseEntity<Object> loginUser(String email, String password) {
+        try {
+            Optional<User> user = userRepository.findUserByEmailAndPassword(email, password);
+            if (user.isPresent()) {
+                return new ResponseEntity<>("You are successfully logged in", HttpStatus.OK);
+            } else {
                 return new ResponseEntity<>("You are entering wrong credentials", HttpStatus.NOT_FOUND);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

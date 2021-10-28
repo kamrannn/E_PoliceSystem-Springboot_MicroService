@@ -1,10 +1,11 @@
 package com.app.epolice.model.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "t_police_station")
-public class PoliceStation {
+public class PoliceStation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

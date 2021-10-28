@@ -8,6 +8,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @RestController
+@RequestMapping("/user")
 public class UserController {
     UserService userService;
     public UserController(UserService userService) {
