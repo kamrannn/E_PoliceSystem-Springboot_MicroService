@@ -33,9 +33,9 @@ public class UserService {
      *
      * @return
      */
-    public ResponseEntity<Object> ListAllUsers() {
+    public ResponseEntity<Object> listAllUsers() {
         try {
-            List<User> userList = userRepository.findAllByStatus(true);
+            List<User> userList = userRepository.findAllByActive(true);
             if (userList.isEmpty()) {
                 return new ResponseEntity<>("There are no users in the database", HttpStatus.NOT_FOUND);
             } else {
@@ -52,20 +52,20 @@ public class UserService {
      * @param user
      * @return
      */
-    public ResponseEntity<Object> AddUser(User user) {
+    public ResponseEntity<Object> addUser(User user) {
         try {
             DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             String date = formatter.format(new Date());
             Optional<User> existingUser = userRepository.findUserByEmail(user.getEmail());
-            if (existingUser.get().isStatus() == false) {
-                existingUser.get().setStatus(true);
+            if (false==existingUser.get().isActive()) {
+                existingUser.get().setActive(true);
                 userRepository.save(existingUser.get());
                 return new ResponseEntity<>("User is successfully added", HttpStatus.OK);
-            } else if (existingUser.get().isStatus()) {
+            } else if (existingUser.get().isActive()) {
                 return new ResponseEntity<>("User already exists", HttpStatus.BAD_REQUEST);
             } else {
                 user.setCreatedDate(date);
-                user.setStatus(true);
+                user.setActive(true);
                 userRepository.save(user);
                 return new ResponseEntity<>("User is successfully added", HttpStatus.OK);
             }
@@ -107,7 +107,7 @@ public class UserService {
                 return new ResponseEntity<>("There is no user against this id", HttpStatus.NOT_FOUND);
             } else {
                 user.get().setUpdatedDate(date);
-                user.get().setStatus(false);
+                user.get().setActive(false);
                 userRepository.save(user.get());
                 return new ResponseEntity<>("User is successfully deleted", HttpStatus.OK);
             }
@@ -117,12 +117,32 @@ public class UserService {
     }
 
     /**
+     * This service is authenticating the user from the database
+     * @param email
+     * @param password
+     * @return
+     */
+    public ResponseEntity<Object> loginUser(String email, String password){
+        try{
+            Optional<User> user =userRepository.findUserByEmailAndPassword(email,password);
+            if(user.isPresent()){
+                return new ResponseEntity<>("You are successfully logged in",HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>("You are entering wrong credentials", HttpStatus.NOT_FOUND);
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * Delete multiple users from db by using multiple users object
      *
      * @param userList
      * @return
      */
-    public ResponseEntity<Object> DeleteMultipleUsers(List<User> userList) {
+/*    public ResponseEntity<Object> DeleteMultipleUsers(List<User> userList) {
         try {
             DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             String date = formatter.format(new Date());
@@ -137,7 +157,7 @@ public class UserService {
                             return new ResponseEntity<>("There is no user against this id: " + user.getId(), HttpStatus.NOT_FOUND);
                         } else {
                             existingUser.get().setUpdatedDate(date);
-                            existingUser.get().setStatus(false);
+                            existingUser.get().setActive(false);
                             userRepository.save(existingUser.get());
                             return new ResponseEntity<>("Users are successfully deleted", HttpStatus.OK);
                         }
@@ -150,5 +170,5 @@ public class UserService {
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
 }

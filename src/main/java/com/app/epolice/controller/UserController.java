@@ -2,7 +2,6 @@ package com.app.epolice.controller;
 
 import com.app.epolice.model.entity.User;
 import com.app.epolice.service.UserService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -20,8 +19,8 @@ public class UserController {
      * @return
      */
     @GetMapping("/list")
-    public ResponseEntity<Object> ListUsers() {
-            return userService.ListAllUsers();
+    public ResponseEntity<Object> listUsers() {
+            return userService.listAllUsers();
     }
 
     /**
@@ -29,9 +28,9 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("/add")
-    public ResponseEntity<Object> AddUser(User user){
-        return userService.AddUser(user);
+    @PostMapping("/signup")
+    public ResponseEntity<Object> addUser(User user){
+        return userService.addUser(user);
     }
 
     /**
@@ -40,7 +39,7 @@ public class UserController {
      * @return
      */
     @PutMapping("/update")
-    public ResponseEntity<Object> UpdateUser(@RequestBody User user) {
+    public ResponseEntity<Object> updateUser(@RequestBody User user) {
         return userService.updateUser(user);
     }
 
@@ -50,7 +49,18 @@ public class UserController {
      * @return
      */
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> DeleteUser(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteUser(@PathVariable Long id) {
         return userService.deleteUser(id);
+    }
+
+    /**
+     * This method is for the login of the user
+     * @param email
+     * @param password
+     * @return
+     */
+    @GetMapping("/login")
+    public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password){
+        return userService.loginUser(email,password);
     }
 }

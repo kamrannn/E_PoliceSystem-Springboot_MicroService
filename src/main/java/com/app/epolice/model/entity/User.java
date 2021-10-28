@@ -1,18 +1,17 @@
 package com.app.epolice.model.entity;
 
-import lombok.Data;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "t_user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false)
     private String firstName;
     private String lastName;
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
     @Column(unique = true)
     private String phoneNo;
@@ -25,7 +24,24 @@ public class User {
     @Column(nullable = false)
     private String createdDate;
     private String updatedDate;
-    private boolean status;
+    private boolean active;
+
+    public User() {
+    }
+
+    public User(String firstName, String lastName, String email, String phoneNo, String dob, String gender, String cnic, String password, String createdDate, String updatedDate, boolean active) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNo = phoneNo;
+        this.dob = dob;
+        this.gender = gender;
+        this.cnic = cnic;
+        this.password = password;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
+        this.active = active;
+    }
 
     public long getId() {
         return id;
@@ -115,11 +131,11 @@ public class User {
         this.updatedDate = updatedDate;
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
