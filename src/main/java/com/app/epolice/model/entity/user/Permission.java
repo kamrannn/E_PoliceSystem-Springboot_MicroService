@@ -1,28 +1,26 @@
-package com.app.epolice.model.entity;
+package com.app.epolice.model.entity.user;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "t_police_station")
-public class PoliceStation implements Serializable {
+@Table(name = "t_permission")
+public class Permission implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = false, unique = true)
     private String name;
-    private String city;
-    private String address;
+    @Column(nullable = false)
     private String createdDate;
     private String updatedDate;
     private boolean active;
 
-    public PoliceStation() {
+    public Permission() {
     }
 
-    public PoliceStation(String name, String city, String address, String createdDate, String updatedDate, boolean active) {
+    public Permission(String name, String createdDate, String updatedDate, boolean active) {
         this.name = name;
-        this.city = city;
-        this.address = address;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.active = active;
@@ -42,22 +40,6 @@ public class PoliceStation implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getCreatedDate() {

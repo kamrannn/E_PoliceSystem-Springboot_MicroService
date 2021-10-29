@@ -1,4 +1,4 @@
-package com.app.epolice.model.entity;
+package com.app.epolice.model.entity.crime;
 
 import javax.persistence.*;
 

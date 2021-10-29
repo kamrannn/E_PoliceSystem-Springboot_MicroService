@@ -1,6 +1,6 @@
 package com.app.epolice.repository;
 
-import com.app.epolice.model.entity.User;
+import com.app.epolice.model.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +12,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAllByActive(boolean active);
     Optional<User> findUserByEmail(String email);
     Optional<User> findUserByEmailAndPassword(String email, String password);
+    Optional<User> findUserByIdAndEmailTokenAndSmsToken(long id ,String emailToken, String smsToken);
 }

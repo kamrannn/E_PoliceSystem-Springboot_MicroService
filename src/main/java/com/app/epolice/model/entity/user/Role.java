@@ -1,11 +1,11 @@
-package com.app.epolice.model.entity;
+package com.app.epolice.model.entity.user;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "t_permission")
-public class Permission implements Serializable {
+@Table(name = "t_role")
+public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -16,10 +16,10 @@ public class Permission implements Serializable {
     private String updatedDate;
     private boolean active;
 
-    public Permission() {
+    public Role() {
     }
 
-    public Permission(String name, String createdDate, String updatedDate, boolean active) {
+    public Role(String name, String createdDate, String updatedDate, boolean active) {
         this.name = name;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;

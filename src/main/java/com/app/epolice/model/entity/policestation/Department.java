@@ -1,4 +1,4 @@
-package com.app.epolice.model.entity;
+package com.app.epolice.model.entity.policestation;
 
 import javax.persistence.*;
 import java.io.Serializable;

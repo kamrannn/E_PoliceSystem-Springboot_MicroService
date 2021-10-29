@@ -1,7 +1,9 @@
 package com.app.epolice.service;
 
-import com.app.epolice.model.entity.User;
+import com.app.epolice.model.entity.user.User;
 import com.app.epolice.repository.UserRepository;
+import com.app.epolice.util.EmailNotification;
+import com.app.epolice.util.SmsNotification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,21 +13,26 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class UserService {
     /**
-     * Initializing the user Repository
+     * Initializing the Repositories
      */
     final UserRepository userRepository;
+    final EmailNotification emailNotification;
+    final SmsNotification smsNotification;
 
     /**
      * Parameterized constructor
      *
      * @param userRepository
      */
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,EmailNotification emailNotification,SmsNotification smsNotification) {
         this.userRepository = userRepository;
+        this.emailNotification = emailNotification;
+        this.smsNotification = smsNotification;
     }
 
     /**
@@ -66,8 +73,17 @@ public class UserService {
                     return new ResponseEntity<>("User is successfully added", HttpStatus.OK);
                 }
             } else {
+                Random rnd = new Random(); //Generating a random number
+                int emailToken = rnd.nextInt(999999) + 100000; //Generating a random number of 6 digits
+                emailNotification.sendMail(user.getEmail(), "Your verification code is: " + emailToken);
+                user.setEmailToken(emailToken+"");
+
+                int smsToken = rnd.nextInt(999999) + 100000;
+                smsNotification.Notification(user.getPhoneNo(), "Your verification code: " + smsToken);
+                user.setSmsToken(smsToken + "");
+
+                user.setActive(false); //the user is active in the start
                 user.setCreatedDate(date);
-                user.setActive(true);
                 userRepository.save(user);
                 return new ResponseEntity<>("User is successfully added", HttpStatus.OK);
             }
@@ -132,6 +148,28 @@ public class UserService {
                 return new ResponseEntity<>("You are successfully logged in", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("You are entering wrong credentials", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Authenticating the user account with sms token and email token
+     * @param id
+     * @param smsToken
+     * @param emailToken
+     * @return
+     */
+    public ResponseEntity<Object> AccountVerification(long id, String emailToken, String smsToken) {
+        try {
+            Optional<User> user = userRepository.findUserByIdAndEmailTokenAndSmsToken(id,emailToken,smsToken);
+            if (user.isPresent()) {
+                user.get().setActive(true);
+                userRepository.save(user.get());
+                return new ResponseEntity<>("User account has been verified, now you can login", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Your are entering wrong values for tokens", HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

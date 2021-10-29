@@ -1,36 +1,33 @@
-package com.app.epolice.model.entity;
+package com.app.epolice.model.entity.crime;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
-@Table(name = "t_role")
-public class Role implements Serializable {
+@Table(name = "t_crime_type")
+public class CrimeType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(nullable = false, unique = true)
+    private Long id;
     private String name;
-    @Column(nullable = false)
     private String createdDate;
     private String updatedDate;
     private boolean active;
 
-    public Role() {
+    public CrimeType() {
     }
 
-    public Role(String name, String createdDate, String updatedDate, boolean active) {
+    public CrimeType(String name, String createdDate, String updatedDate, boolean active) {
         this.name = name;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.active = active;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -1,6 +1,6 @@
 package com.app.epolice.controller;
 
-import com.app.epolice.model.entity.User;
+import com.app.epolice.model.entity.user.User;
 import com.app.epolice.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +30,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/signup")
-    public ResponseEntity<Object> addUser(User user){
+    public ResponseEntity<Object> addUser(@RequestBody User user){
         return userService.addUser(user);
     }
 
@@ -63,5 +63,17 @@ public class UserController {
     @GetMapping("/login")
     public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password){
         return userService.loginUser(email,password);
+    }
+
+    /**
+     * This method is to verify the sms and email token
+     * @param id
+     * @param smsToken
+     * @param emailToken
+     * @return
+     */
+    @GetMapping("/verification")
+    public ResponseEntity<Object> AccountVerification(@RequestHeader Long id, @RequestHeader String emailToken, @RequestHeader String smsToken){
+        return userService.AccountVerification(id,emailToken,smsToken);
     }
 }

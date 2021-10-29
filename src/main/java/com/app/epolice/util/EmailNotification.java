@@ -2,6 +2,7 @@ package com.app.epolice.util;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,9 +11,6 @@ public class EmailNotification {
     private JavaMailSender javaMailSender;
     public EmailNotification(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
-    }
-
-    public EmailNotification() {
     }
 
     /**

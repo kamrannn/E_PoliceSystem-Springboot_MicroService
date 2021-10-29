@@ -1,4 +1,4 @@
-package com.app.epolice.model.entity;
+package com.app.epolice.model.entity.user;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,6 +26,8 @@ public class User implements Serializable {
     private String createdDate;
     private String updatedDate;
     private boolean active;
+    private String smsToken;
+    private String emailToken;
 
     public User() {
     }
@@ -138,5 +140,21 @@ public class User implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String getSmsToken() {
+        return smsToken;
+    }
+
+    public void setSmsToken(String smsToken) {
+        this.smsToken = smsToken;
+    }
+
+    public String getEmailToken() {
+        return emailToken;
+    }
+
+    public void setEmailToken(String emailToken) {
+        this.emailToken = emailToken;
     }
 }
