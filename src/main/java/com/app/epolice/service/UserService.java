@@ -2,6 +2,7 @@ package com.app.epolice.service;
 
 import com.app.epolice.model.entity.user.User;
 import com.app.epolice.repository.UserRepository;
+import com.app.epolice.util.DateTime;
 import com.app.epolice.util.EmailNotification;
 import com.app.epolice.util.SmsNotification;
 import org.springframework.http.HttpStatus;
@@ -61,8 +62,8 @@ public class UserService {
      */
     public ResponseEntity<Object> addUser(User user) {
         try {
-            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            String date = formatter.format(new Date());
+/*            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String date = formatter.format(new Date());*/
             Optional<User> existingUser = userRepository.findUserByEmail(user.getEmail());
             if (existingUser.isPresent()) {
                 if (existingUser.get().isActive()) {
@@ -83,7 +84,7 @@ public class UserService {
                 user.setSmsToken(smsToken + "");
 
                 user.setActive(false); //the user is active in the start
-                user.setCreatedDate(date);
+                user.setCreatedDate(DateTime.getDateTime());
                 userRepository.save(user);
                 return new ResponseEntity<>("User is successfully added", HttpStatus.OK);
             }
@@ -182,33 +183,27 @@ public class UserService {
      * @param userList
      * @return
      */
-/*    public ResponseEntity<Object> DeleteMultipleUsers(List<User> userList) {
+    public ResponseEntity<Object> DeleteMultipleUsers(List<User> userList) {
         try {
-            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            String date = formatter.format(new Date());
-            try{
-                if(userList.isEmpty()){
-                    return new ResponseEntity<>("The entered list is empty", HttpStatus.BAD_REQUEST);
-                }else {
-                    for (User user : userList
-                    ) {
-                        Optional<User> existingUser = userRepository.findById(user.getId());
-                        if (existingUser.isEmpty()) {
-                            return new ResponseEntity<>("There is no user against this id: " + user.getId(), HttpStatus.NOT_FOUND);
-                        } else {
-                            existingUser.get().setUpdatedDate(date);
-                            existingUser.get().setActive(false);
-                            userRepository.save(existingUser.get());
-                            return new ResponseEntity<>("Users are successfully deleted", HttpStatus.OK);
-                        }
+            if (userList.isEmpty()) {
+                return new ResponseEntity<>("The entered list is empty", HttpStatus.BAD_REQUEST);
+            } else {
+                for (User user : userList
+                ) {
+                    Optional<User> existingUser = userRepository.findById(user.getId());
+                    if (existingUser.isEmpty()) {
+                        return new ResponseEntity<>("There is no user against this id: " + user.getId(), HttpStatus.NOT_FOUND);
+                    } else {
+                        existingUser.get().setUpdatedDate(DateTime.getDateTime());
+                        existingUser.get().setActive(false);
+                        userRepository.save(existingUser.get());
+                        return new ResponseEntity<>("Users are successfully deleted", HttpStatus.OK);
                     }
                 }
-                return new ResponseEntity<>("Successfully added",HttpStatus.OK);
-            }catch (Exception exception){
-                return null;
             }
+            return new ResponseEntity<>("Successfully added", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }*/
+    }
 }

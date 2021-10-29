@@ -13,6 +13,12 @@ public class SmsNotification {
     private final String AUTH_TOKEN = "c37ba64b67eabaebf71da6890f485f6e";
     private final String FROM_NUMBER = "+17242515324";
 
+    /**
+     * Sending the sms notifcation to the specific mobile number
+     * @param toNumber
+     * @param userMessage
+     * @return
+     */
     public ResponseEntity<Object> Notification(String toNumber, String userMessage){
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message.creator(new PhoneNumber(toNumber), new PhoneNumber(FROM_NUMBER), userMessage)
