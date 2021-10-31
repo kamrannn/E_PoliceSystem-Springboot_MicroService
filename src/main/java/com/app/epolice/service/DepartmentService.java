@@ -25,7 +25,7 @@ public class DepartmentService {
         try {
             List<Department> departmentList = departmentRepository.findDepartmentsByActive(true);
             if (departmentList.isEmpty()) {
-                return new ResponseEntity<>("There are no police stations in the database", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("There are no departments in the database", HttpStatus.NOT_FOUND);
             } else {
                 return new ResponseEntity<>(departmentList, HttpStatus.OK);
             }
@@ -51,9 +51,9 @@ public class DepartmentService {
                     departmentRepository.save(department);
                 }
                 if(departmentList.size()==1){
-                    return new ResponseEntity<>("Police station is successfully added", HttpStatus.OK);
+                    return new ResponseEntity<>("Department is successfully added", HttpStatus.OK);
                 }else{
-                    return new ResponseEntity<>("Police stations are successfully added", HttpStatus.OK);
+                    return new ResponseEntity<>("Departments are successfully added", HttpStatus.OK);
                 }
             }
         } catch (Exception e) {
@@ -69,7 +69,7 @@ public class DepartmentService {
     public ResponseEntity<Object> deleteDepartment(List<Department> departmentList){
         try{
             if(departmentList.isEmpty()){
-                return new ResponseEntity<>("No police station is selected for the deletion",HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("No Department is selected for the deletion",HttpStatus.BAD_REQUEST);
             }else{
                 for (Department department:departmentList
                 ) {
@@ -78,9 +78,9 @@ public class DepartmentService {
                     departmentRepository.save(department);
                 }
                 if(departmentList.size()==1){
-                    return new ResponseEntity<>("Police station is successfully deleted",HttpStatus.OK);
+                    return new ResponseEntity<>("Department is successfully deleted",HttpStatus.OK);
                 }else{
-                    return new ResponseEntity<>("Police stations are successfully deleted",HttpStatus.OK);
+                    return new ResponseEntity<>("Departments are successfully deleted",HttpStatus.OK);
                 }
             }
         }catch (Exception e){
@@ -100,7 +100,7 @@ public class DepartmentService {
             }else{
                 department.setUpdatedDate(DateTime.getDateTime());
                 departmentRepository.save(department);
-                return new ResponseEntity<>("Police station is successfully updated.", HttpStatus.OK);
+                return new ResponseEntity<>("Department is successfully updated.", HttpStatus.OK);
             }
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);

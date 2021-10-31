@@ -52,9 +52,9 @@ public class CrimeReportService {
                     crimeReportRepository.save(crimeReport);
                 }
                 if(crimeReportList.size()==1){
-                    return new ResponseEntity<>("Police station is successfully added", HttpStatus.OK);
+                    return new ResponseEntity<>("Crime Report is successfully added", HttpStatus.OK);
                 }else{
-                    return new ResponseEntity<>("Police stations are successfully added", HttpStatus.OK);
+                    return new ResponseEntity<>("Crime Reports are successfully added", HttpStatus.OK);
                 }
             }
         } catch (Exception e) {
@@ -70,7 +70,7 @@ public class CrimeReportService {
     public ResponseEntity<Object> deleteCrimeReport(List<CrimeReport> crimeReportList){
         try{
             if(crimeReportList.isEmpty()){
-                return new ResponseEntity<>("No police station is selected for the deletion",HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("No Crime Report is selected for the deletion",HttpStatus.BAD_REQUEST);
             }else{
                 for (CrimeReport crimeReport:crimeReportList
                 ) {
@@ -79,9 +79,9 @@ public class CrimeReportService {
                     crimeReportRepository.save(crimeReport);
                 }
                 if(crimeReportList.size()==1){
-                    return new ResponseEntity<>("Police station is successfully deleted",HttpStatus.OK);
+                    return new ResponseEntity<>("Crime Report is successfully deleted",HttpStatus.OK);
                 }else{
-                    return new ResponseEntity<>("Police stations are successfully deleted",HttpStatus.OK);
+                    return new ResponseEntity<>("Crime Reports are successfully deleted",HttpStatus.OK);
                 }
             }
         }catch (Exception e){
@@ -101,7 +101,7 @@ public class CrimeReportService {
             }else{
                 crimeReport.setUpdatedDate(DateTime.getDateTime());
                 crimeReportRepository.save(crimeReport);
-                return new ResponseEntity<>("Police station is successfully updated.", HttpStatus.OK);
+                return new ResponseEntity<>("Crime Report is successfully updated.", HttpStatus.OK);
             }
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);

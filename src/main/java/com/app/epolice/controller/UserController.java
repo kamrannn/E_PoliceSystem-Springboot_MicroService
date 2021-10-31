@@ -8,7 +8,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     /**
      * Initializing the service constructor

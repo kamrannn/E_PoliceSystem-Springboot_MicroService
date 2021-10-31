@@ -10,6 +10,7 @@ import java.util.List;
 
 @EnableSwagger2
 @RestController
+@RequestMapping("/departments")
 public class DepartmentController {
     /**
      * Initializing the Objects
