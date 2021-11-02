@@ -1,16 +1,17 @@
 package com.app.epolice.service;
 
 import com.app.epolice.controller.UserController;
+import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.model.entity.user.User;
 import com.app.epolice.repository.UserRepository;
-import com.app.epolice.util.DateTime;
-import com.app.epolice.util.EmailNotification;
-import com.app.epolice.util.SmsNotification;
+import com.app.epolice.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,7 +23,7 @@ import java.util.Random;
 @Service
 public class UserService {
     private static final Logger LOG = LogManager.getLogger(UserController.class);
-    private Date expireDateTime = null;
+    private Date tokenExpireTime = null;
 
     /**
      * Initializing the Repositories
@@ -106,7 +107,7 @@ public class UserService {
                 int smsToken = rnd.nextInt(999999) + 100000;
                 smsNotification.Notification(user.getPhoneNo(), "Your verification code: " + smsToken);
                 user.setSmsToken(smsToken + "");
-                expireDateTime= DateTime.getExpireTime();
+                tokenExpireTime = DateTime.getExpireTime();
                 user.setActive(false); //the user is active in the start
                 user.setCreatedDate(DateTime.getDateTime());
                 userRepository.save(user);
@@ -194,9 +195,9 @@ public class UserService {
         try {
             Optional<User> user = userRepository.findUserByIdAndEmailTokenAndSmsToken(id,emailToken,smsToken);
             Date verificationTime = DateTime.getDateTime();
-            System.out.println(expireDateTime);
+            System.out.println(tokenExpireTime);
 
-            if(verificationTime.after(expireDateTime)){
+            if(verificationTime.after(tokenExpireTime)){
                 return new ResponseEntity<>("The token is expired", HttpStatus.BAD_REQUEST);
             }
             else{
@@ -261,10 +262,45 @@ public class UserService {
             int smsToken = rnd.nextInt(999999) + 100000;
             smsNotification.Notification(user.get().getPhoneNo(), "Your verification code: " + smsToken);
             user.get().setSmsToken(smsToken + "");
+            tokenExpireTime = DateTime.getExpireTime();
             userRepository.save(user.get());
             return new ResponseEntity<>("Tokens are successfully resent to your email and phone number", HttpStatus.OK);
         }catch (Exception e) {
             return new ResponseEntity<>("There is no user against this email", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /**
+     * This method is storing single crime report in the database
+     * @param crimeReport
+     * @return
+     */
+    public ResponseEntity<Object> createCrimeReport(long id,CrimeReport crimeReport, MultipartFile[] multipartFileList) {
+        try {
+            Optional<User> user = userRepository.findById(id);
+            if (user.isEmpty()) {
+                return new ResponseEntity<>("There is no user against this id", HttpStatus.BAD_REQUEST);
+            } else {
+                List<CrimeReport> crimeReports = user.get().getCrimeReports();
+
+                String reportUuid= UuidGenerator.getUuid();
+                for (MultipartFile file:multipartFileList
+                ) {
+                    String reportPictureName = StringUtils.cleanPath(file.getOriginalFilename());
+                    String uploadDir = "F:\\Development\\E-Police Project\\Images\\" +reportUuid ;
+                    FileUpload.saveFile(uploadDir,reportPictureName, file);
+                }
+                crimeReport.setUuid(reportUuid);
+                crimeReport.setCreatedDate(DateTime.getDateTime());
+                crimeReport.setActive(true);
+
+                crimeReports.add(crimeReport);
+
+                userRepository.save(user.get());
+                return new ResponseEntity<>("Crime Report is successfully added", HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

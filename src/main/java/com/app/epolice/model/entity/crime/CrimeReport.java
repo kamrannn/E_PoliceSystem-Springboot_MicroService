@@ -17,20 +17,18 @@ public class CrimeReport implements Serializable {
     private String city;
     private String possible_suspect;
     private String description;
-    @Column(nullable = false)
     private Date createdDate;
     private Date updatedDate;
     private String uuid;
     private boolean active;
 
-    @ManyToMany(targetEntity = CrimeType.class,fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToMany(targetEntity = CrimeType.class,fetch = FetchType.LAZY)
     private List<CrimeType> crimeTypes = new ArrayList<>();
 
     public CrimeReport() {
     }
 
-    public CrimeReport(String time, String address, String city, String possible_suspect, String description,
-                       Date createdDate, Date updatedDate, String uuid, boolean active, List<CrimeType> crimeTypes) {
+    public CrimeReport(String time, String address, String city, String possible_suspect, String description, Date createdDate, Date updatedDate, String uuid, boolean active, List<CrimeType> crimeTypes) {
         this.time = time;
         this.address = address;
         this.city = city;

@@ -11,7 +11,6 @@ public class CrimeType implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(nullable = false)
     private Date createdDate;
     private Date updatedDate;
     private boolean active;

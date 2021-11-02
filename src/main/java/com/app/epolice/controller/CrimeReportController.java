@@ -52,7 +52,7 @@ public class CrimeReportController {
      * @throws IOException
      */
     @PostMapping("/upload_singe_report")
-    public ResponseEntity<Object> uploadReport(CrimeReport report,@RequestParam("files") MultipartFile[] file) throws IOException {
+    public ResponseEntity<Object> uploadReport( CrimeReport report,@RequestParam("files") MultipartFile[] file) throws IOException {
         return crimeReportService.addSingleCrimeReport(report,file);
     }
 

@@ -1,5 +1,7 @@
 package com.app.epolice.model.entity.user;
 
+import com.app.epolice.model.entity.crime.CrimeReport;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,7 +27,6 @@ public class User implements Serializable {
     private String cnic;
     @Column(nullable = false)
     private String password;
-    @Column(nullable = false)
     private Date createdDate;
     private Date updatedDate;
     private boolean active;
@@ -34,6 +35,10 @@ public class User implements Serializable {
 
     @ManyToMany(targetEntity = Role.class,fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<Role> roles = new ArrayList<>();
+
+    @OneToMany(targetEntity = CrimeReport.class,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private List<CrimeReport> crimeReports = new ArrayList<>();
 
     public User() {
     }
@@ -175,5 +180,13 @@ public class User implements Serializable {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<CrimeReport> getCrimeReports() {
+        return crimeReports;
+    }
+
+    public void setCrimeReports(List<CrimeReport> crimeReports) {
+        this.crimeReports = crimeReports;
     }
 }

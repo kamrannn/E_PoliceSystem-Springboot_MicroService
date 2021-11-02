@@ -1,5 +1,6 @@
 package com.app.epolice.controller;
 
+import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.model.entity.user.User;
 import com.app.epolice.service.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -7,7 +8,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.io.IOException;
 
 @EnableSwagger2
 @RestController
@@ -165,5 +169,17 @@ public class UserController {
     @PostMapping("/resend-verification-token")
     public ResponseEntity<Object> resendVerificationToken(@RequestBody User user ){
         return userService.resendVerificationToken(user.getEmail());
+    }
+
+    /**
+     * Adding a single report with multiple pictures
+     * @param report
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    @PostMapping("/upload_singe_report")
+    public ResponseEntity<Object> uploadReport(@RequestHeader long id, CrimeReport report, @RequestParam("files") MultipartFile[] file) throws IOException {
+        return userService.createCrimeReport(id,report,file);
     }
 }
