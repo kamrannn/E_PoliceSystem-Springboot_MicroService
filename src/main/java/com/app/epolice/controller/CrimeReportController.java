@@ -3,6 +3,8 @@ package com.app.epolice.controller;
 import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.service.CrimeReportService;
 import com.app.epolice.util.FileUpload;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -11,12 +13,15 @@ import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 @EnableSwagger2
 @RestController
 @RequestMapping("/crime-reports")
 public class CrimeReportController {
+    private static final Logger LOG = LogManager.getLogger(UserController.class);
+
     /**
      * Initializing the objects
      */
@@ -88,5 +93,15 @@ public class CrimeReportController {
     @DeleteMapping("/delete")
     public ResponseEntity<Object> deleteCrimeReport(@RequestBody List<CrimeReport> crimeReportList){
         return crimeReportService.deleteCrimeReport(crimeReportList);
+    }
+
+    /**
+     * verifying the crimeReports
+     * @param crimeReport
+     * @return
+     */
+    @PostMapping("/verify")
+    public ResponseEntity<Object> verifyCrimeReport(@RequestHeader String status,@RequestBody CrimeReport crimeReport) throws ParseException {
+        return crimeReportService.verifyReport(status,crimeReport);
     }
 }

@@ -1,20 +1,27 @@
 package com.app.epolice.service;
 
+import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.repository.CrimeReportRepository;
 import com.app.epolice.util.DateTime;
 import com.app.epolice.util.FileUpload;
 import com.app.epolice.util.UuidGenerator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CrimeReportService {
+    private static final Logger LOG = LogManager.getLogger(UserController.class);
+
     /**
      * Initializing the objects
      */
@@ -22,6 +29,7 @@ public class CrimeReportService {
     public CrimeReportService(CrimeReportRepository crimeReportRepository) {
         this.crimeReportRepository = crimeReportRepository;
     }
+
     /**
      * Fetching all the crime reports from the database
      *
@@ -36,6 +44,7 @@ public class CrimeReportService {
                 return new ResponseEntity<>(crimeReportList, HttpStatus.OK);
             }
         } catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -63,6 +72,7 @@ public class CrimeReportService {
                 }
             }
         } catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -87,10 +97,12 @@ public class CrimeReportService {
                 crimeReport.setUuid(reportUuid);
                 crimeReport.setCreatedDate(DateTime.getDateTime());
                 crimeReport.setActive(true);
+                crimeReport.setStatus("Pending");
                 crimeReportRepository.save(crimeReport);
                 return new ResponseEntity<>("Crime Report is successfully added", HttpStatus.OK);
             }
         } catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -118,6 +130,7 @@ public class CrimeReportService {
                 }
             }
         }catch (Exception e){
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -141,5 +154,26 @@ public class CrimeReportService {
         }
     }
 
-
+    /**
+     * Approving the crime Report
+     * @param crimeReport
+     * @return
+     * @throws ParseException
+     */
+    public ResponseEntity<Object> verifyReport(String status,CrimeReport crimeReport) throws ParseException {
+        try{
+            Optional<CrimeReport> report = crimeReportRepository.findById(crimeReport.getId());
+            if(report.isPresent()){
+                crimeReport.setStatus(status);
+                crimeReport.setUpdatedDate(DateTime.getDateTime());
+                crimeReportRepository.save(crimeReport);
+                return new ResponseEntity<>("The crime report is "+status, HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>("There is no report against this crime Id", HttpStatus.NOT_FOUND);
+            }
+        }catch (Exception e){
+            LOG.info("Exception: "+ e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

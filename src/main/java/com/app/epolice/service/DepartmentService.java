@@ -1,8 +1,11 @@
 package com.app.epolice.service;
 
+import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.policestation.Department;
 import com.app.epolice.repository.DepartmentRepository;
 import com.app.epolice.util.DateTime;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,8 @@ import java.util.List;
 
 @Service
 public class DepartmentService {
+    private static final Logger LOG = LogManager.getLogger(UserController.class);
+
     DepartmentRepository departmentRepository;
     public DepartmentService(DepartmentRepository departmentRepository) {
         this.departmentRepository = departmentRepository;
@@ -30,6 +35,7 @@ public class DepartmentService {
                 return new ResponseEntity<>(departmentList, HttpStatus.OK);
             }
         } catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -57,6 +63,7 @@ public class DepartmentService {
                 }
             }
         } catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -84,6 +91,7 @@ public class DepartmentService {
                 }
             }
         }catch (Exception e){
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -103,6 +111,7 @@ public class DepartmentService {
                 return new ResponseEntity<>("Department is successfully updated.", HttpStatus.OK);
             }
         }catch (Exception e){
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

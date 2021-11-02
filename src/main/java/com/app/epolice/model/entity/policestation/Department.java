@@ -10,9 +10,8 @@ public class Department implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false,unique = true)
+    @Column(unique = true)
     private String name;
-    @Column(nullable = false)
     private Date createdDate;
     private Date updatedDate;
     private boolean active;

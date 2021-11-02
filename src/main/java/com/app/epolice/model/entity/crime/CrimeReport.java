@@ -20,6 +20,7 @@ public class CrimeReport implements Serializable {
     private Date createdDate;
     private Date updatedDate;
     private String uuid;
+    private String status;
     private boolean active;
 
     @ManyToMany(targetEntity = CrimeType.class,fetch = FetchType.LAZY)
@@ -28,7 +29,7 @@ public class CrimeReport implements Serializable {
     public CrimeReport() {
     }
 
-    public CrimeReport(String time, String address, String city, String possible_suspect, String description, Date createdDate, Date updatedDate, String uuid, boolean active, List<CrimeType> crimeTypes) {
+    public CrimeReport(String time, String address, String city, String possible_suspect, String description, Date createdDate, Date updatedDate, String uuid, String status, boolean active, List<CrimeType> crimeTypes) {
         this.time = time;
         this.address = address;
         this.city = city;
@@ -37,6 +38,7 @@ public class CrimeReport implements Serializable {
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.uuid = uuid;
+        this.status = status;
         this.active = active;
         this.crimeTypes = crimeTypes;
     }
@@ -119,6 +121,14 @@ public class CrimeReport implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<CrimeType> getCrimeTypes() {

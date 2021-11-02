@@ -1,8 +1,11 @@
 package com.app.epolice.service;
 
+import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.policestation.PoliceStation;
 import com.app.epolice.repository.PoliceStationRepository;
 import com.app.epolice.util.DateTime;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,8 @@ import java.util.List;
 
 @Service
 public class PoliceStationService {
+    private static final Logger LOG = LogManager.getLogger(UserController.class);
+
     /**
      * Initializing the objects
      */
@@ -38,6 +43,7 @@ public class PoliceStationService {
                 return new ResponseEntity<>(policeStationList, HttpStatus.OK);
             }
         } catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -65,6 +71,7 @@ public class PoliceStationService {
                 }
             }
         } catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -92,6 +99,7 @@ public class PoliceStationService {
                 }
             }
         }catch (Exception e){
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -111,6 +119,7 @@ public class PoliceStationService {
                 return new ResponseEntity<>("Police station is successfully updated.", HttpStatus.OK);
             }
         }catch (Exception e){
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

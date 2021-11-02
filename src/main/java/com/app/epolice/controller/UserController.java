@@ -178,8 +178,9 @@ public class UserController {
      * @return
      * @throws IOException
      */
-    @PostMapping("/upload_singe_report")
+    @PostMapping("/upload_single_report")
     public ResponseEntity<Object> uploadReport(@RequestHeader long id, CrimeReport report, @RequestParam("files") MultipartFile[] file) throws IOException {
         return userService.createCrimeReport(id,report,file);
     }
 }
+

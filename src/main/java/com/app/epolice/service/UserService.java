@@ -266,6 +266,7 @@ public class UserService {
             userRepository.save(user.get());
             return new ResponseEntity<>("Tokens are successfully resent to your email and phone number", HttpStatus.OK);
         }catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>("There is no user against this email", HttpStatus.NOT_FOUND);
         }
     }
@@ -282,7 +283,6 @@ public class UserService {
                 return new ResponseEntity<>("There is no user against this id", HttpStatus.BAD_REQUEST);
             } else {
                 List<CrimeReport> crimeReports = user.get().getCrimeReports();
-
                 String reportUuid= UuidGenerator.getUuid();
                 for (MultipartFile file:multipartFileList
                 ) {
@@ -292,6 +292,7 @@ public class UserService {
                 }
                 crimeReport.setUuid(reportUuid);
                 crimeReport.setCreatedDate(DateTime.getDateTime());
+                crimeReport.setStatus("Pending");
                 crimeReport.setActive(true);
 
                 crimeReports.add(crimeReport);
@@ -300,6 +301,7 @@ public class UserService {
                 return new ResponseEntity<>("Crime Report is successfully added", HttpStatus.OK);
             }
         } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

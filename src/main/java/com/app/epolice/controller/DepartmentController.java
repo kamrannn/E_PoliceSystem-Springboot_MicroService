@@ -2,6 +2,8 @@ package com.app.epolice.controller;
 
 import com.app.epolice.model.entity.policestation.Department;
 import com.app.epolice.service.DepartmentService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -12,6 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/departments")
 public class DepartmentController {
+    private static final Logger LOG = LogManager.getLogger(UserController.class);
+
     /**
      * Initializing the Objects
      */

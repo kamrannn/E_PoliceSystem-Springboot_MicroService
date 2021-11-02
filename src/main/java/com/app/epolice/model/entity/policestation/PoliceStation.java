@@ -2,7 +2,9 @@ package com.app.epolice.model.entity.policestation;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "t_police_station")
@@ -17,6 +19,9 @@ public class PoliceStation implements Serializable {
     private Date createdDate;
     private Date updatedDate;
     private boolean active;
+
+    @ManyToMany(targetEntity = Department.class,fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<Department> departmentList = new ArrayList<>();
 
     public PoliceStation() {
     }
@@ -84,5 +89,13 @@ public class PoliceStation implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<Department> getDepartmentList() {
+        return departmentList;
+    }
+
+    public void setDepartmentList(List<Department> departmentList) {
+        this.departmentList = departmentList;
     }
 }
