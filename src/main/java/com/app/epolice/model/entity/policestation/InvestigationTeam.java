@@ -1,4 +1,6 @@
 package com.app.epolice.model.entity.policestation;
 
-public class InvestigationTeam {
+import java.io.Serializable;
+
+public class InvestigationTeam implements Serializable {
 }

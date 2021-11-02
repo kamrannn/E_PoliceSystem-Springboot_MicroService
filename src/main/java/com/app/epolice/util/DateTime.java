@@ -8,6 +8,11 @@ import java.util.Date;
 
 public class DateTime {
 
+    /**
+     * This function is giving us date and time in a defined format
+     * @return
+     * @throws ParseException
+     */
     public static Date getDateTime() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Calendar cal = Calendar.getInstance();
@@ -16,10 +21,15 @@ public class DateTime {
         return currentTime;
     }
 
+    /**
+     * This method is adding 10 minutes in the current time which we are using to setup expire time of a token
+     * @return
+     * @throws ParseException
+     */
     public static Date getExpireTime() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MINUTE, 1);
+        cal.add(Calendar.MINUTE, 10);
         String date = formatter.format(cal.getTime());
         Date expireTime = formatter.parse(date);
         return expireTime;

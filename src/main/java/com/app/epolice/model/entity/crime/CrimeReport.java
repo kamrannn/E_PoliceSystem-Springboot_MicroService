@@ -1,11 +1,12 @@
 package com.app.epolice.model.entity.crime;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "t_crime_report")
-public class CrimeReport {
+public class CrimeReport implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,6 +18,7 @@ public class CrimeReport {
     @Column(nullable = false)
     private Date createdDate;
     private Date updatedDate;
+    private String uuid;
     private boolean active;
 
     public CrimeReport() {
@@ -94,6 +96,14 @@ public class CrimeReport {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public boolean isActive() {

@@ -3,9 +3,14 @@ package com.app.epolice.service;
 import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.repository.CrimeReportRepository;
 import com.app.epolice.util.DateTime;
+import com.app.epolice.util.FileUpload;
+import com.app.epolice.util.UuidGenerator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @Service
@@ -40,7 +45,7 @@ public class CrimeReportService {
      * @param crimeReportList
      * @return
      */
-    public ResponseEntity<Object> addNewCrimeReports(List<CrimeReport> crimeReportList) {
+    public ResponseEntity<Object> addMultipleCrimeReports(List<CrimeReport> crimeReportList) {
         try {
             if (crimeReportList.isEmpty()) {
                 return new ResponseEntity<>("You are entering empty list", HttpStatus.BAD_REQUEST);
@@ -56,6 +61,34 @@ public class CrimeReportService {
                 }else{
                     return new ResponseEntity<>("Crime Reports are successfully added", HttpStatus.OK);
                 }
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * This method is storing single crime report in the database
+     * @param crimeReport
+     * @return
+     */
+    public ResponseEntity<Object> addSingleCrimeReport(CrimeReport crimeReport, MultipartFile[] multipartFileList) {
+        try {
+            if (null == crimeReport) {
+                return new ResponseEntity<>("You are entering report", HttpStatus.BAD_REQUEST);
+            } else {
+                String reportUuid= UuidGenerator.getUuid();
+                for (MultipartFile file:multipartFileList
+                     ) {
+                    String reportPictureName = StringUtils.cleanPath(file.getOriginalFilename());
+                    String uploadDir = "F:\\Development\\E-Police Project\\Images\\" +reportUuid ;
+                    FileUpload.saveFile(uploadDir,reportPictureName, file);
+                }
+                crimeReport.setUuid(reportUuid);
+                crimeReport.setCreatedDate(DateTime.getDateTime());
+                crimeReport.setActive(true);
+                crimeReportRepository.save(crimeReport);
+                return new ResponseEntity<>("Crime Report is successfully added", HttpStatus.OK);
             }
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

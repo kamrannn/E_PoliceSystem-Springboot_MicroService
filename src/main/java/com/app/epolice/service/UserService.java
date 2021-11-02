@@ -43,13 +43,32 @@ public class UserService {
     }
 
     /**
-     * This method is fetching all the users from the database
+     * This method is fetching all the active users from the database
      *
      * @return
      */
-    public ResponseEntity<Object> listAllUsers() {
+    public ResponseEntity<Object> listAllActiveUsers() {
         try {
             List<User> userList = userRepository.findAllByActive(true);
+            if (userList.isEmpty()) {
+                return new ResponseEntity<>("There are no users in the database", HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(userList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * This method is fetching all the InActive users from the database
+     *
+     * @return
+     */
+    public ResponseEntity<Object> listOfInActiveUsers() {
+        try {
+            List<User> userList = userRepository.findAllByActive(false);
             if (userList.isEmpty()) {
                 return new ResponseEntity<>("There are no users in the database", HttpStatus.NOT_FOUND);
             } else {
@@ -87,9 +106,7 @@ public class UserService {
                 int smsToken = rnd.nextInt(999999) + 100000;
                 smsNotification.Notification(user.getPhoneNo(), "Your verification code: " + smsToken);
                 user.setSmsToken(smsToken + "");
-
                 expireDateTime= DateTime.getExpireTime();
-
                 user.setActive(false); //the user is active in the start
                 user.setCreatedDate(DateTime.getDateTime());
                 userRepository.save(user);
@@ -231,10 +248,9 @@ public class UserService {
     /**
      * Resending verification token when user will ask for another token
      * @param email
-     * @param phoneNumber
      * @return
      */
-    public ResponseEntity<Object> resendVerificationToken(String email, String phoneNumber){
+    public ResponseEntity<Object> resendVerificationToken(String email){
         try{
             Optional<User> user = userRepository.findUserByEmail(email);
             Random rnd = new Random(); //Generating a random number
@@ -246,7 +262,7 @@ public class UserService {
             smsNotification.Notification(user.get().getPhoneNo(), "Your verification code: " + smsToken);
             user.get().setSmsToken(smsToken + "");
             userRepository.save(user.get());
-            return new ResponseEntity<>("Token is successfully resent to your email and phone number", HttpStatus.OK);
+            return new ResponseEntity<>("Tokens are successfully resent to your email and phone number", HttpStatus.OK);
         }catch (Exception e) {
             return new ResponseEntity<>("There is no user against this email", HttpStatus.NOT_FOUND);
         }

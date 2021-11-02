@@ -49,7 +49,7 @@ public class UserController {
     }
 
     /**
-     * This controller is listing the user
+     * This controller is listing the active users from the database
      *
      * @return
      */
@@ -57,7 +57,22 @@ public class UserController {
     public ResponseEntity<Object> listUsers(@RequestHeader("Authorization") String token) {
         if (authorization(token)) {
             LOG.info("Listing all the users");
-            return userService.listAllUsers();
+            return userService.listAllActiveUsers();
+        } else {
+            return unAuthorizeUser();
+        }
+    }
+
+    /**
+     * This controller is listing all inactive user from the database
+     *
+     * @return
+     */
+    @GetMapping("/list/inactive")
+    public ResponseEntity<Object> listOfInActiveUsers(@RequestHeader("Authorization") String token) {
+        if (authorization(token)) {
+            LOG.info("Listing all the users that are not active");
+            return userService.listOfInActiveUsers();
         } else {
             return unAuthorizeUser();
         }
@@ -149,6 +164,6 @@ public class UserController {
      */
     @PostMapping("/resend-verification-token")
     public ResponseEntity<Object> resendVerificationToken(@RequestBody User user ){
-        return userService.resendVerificationToken(user.getEmail(), user.getPhoneNo());
+        return userService.resendVerificationToken(user.getEmail());
     }
 }
