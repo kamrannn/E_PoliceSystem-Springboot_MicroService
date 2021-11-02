@@ -2,7 +2,9 @@ package com.app.epolice.model.entity.user;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "t_user")
@@ -30,10 +32,15 @@ public class User implements Serializable {
     private String smsToken;
     private String emailToken;
 
+    @ManyToMany(targetEntity = Role.class,fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<Role> roles = new ArrayList<>();
+
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String phoneNo, String dob, String gender, String cnic, String password, Date createdDate, Date updatedDate, boolean active) {
+    public User(String firstName, String lastName, String email, String phoneNo, String dob, String gender,
+                String cnic, String password, Date createdDate, Date updatedDate, boolean active,
+                String smsToken, String emailToken, List<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -45,6 +52,9 @@ public class User implements Serializable {
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.active = active;
+        this.smsToken = smsToken;
+        this.emailToken = emailToken;
+        this.roles = roles;
     }
 
     public long getId() {
@@ -157,5 +167,13 @@ public class User implements Serializable {
 
     public void setEmailToken(String emailToken) {
         this.emailToken = emailToken;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }
