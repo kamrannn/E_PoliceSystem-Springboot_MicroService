@@ -2,6 +2,7 @@ package com.app.epolice.model.entity.user;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "t_permission")
@@ -12,14 +13,14 @@ public class Permission implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
     @Column(nullable = false)
-    private String createdDate;
-    private String updatedDate;
+    private Date createdDate;
+    private Date updatedDate;
     private boolean active;
 
     public Permission() {
     }
 
-    public Permission(String name, String createdDate, String updatedDate, boolean active) {
+    public Permission(String name, Date createdDate, Date updatedDate, boolean active) {
         this.name = name;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
@@ -42,19 +43,19 @@ public class Permission implements Serializable {
         this.name = name;
     }
 
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
-    public String getUpdatedDate() {
+    public Date getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(String updatedDate) {
+    public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
     }
 

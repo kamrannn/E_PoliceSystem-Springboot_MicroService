@@ -1,10 +1,13 @@
 package com.app.epolice.service;
 
+import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.user.User;
 import com.app.epolice.repository.UserRepository;
 import com.app.epolice.util.DateTime;
 import com.app.epolice.util.EmailNotification;
 import com.app.epolice.util.SmsNotification;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,9 @@ import java.util.Random;
 
 @Service
 public class UserService {
+    private static final Logger LOG = LogManager.getLogger(UserController.class);
+    private Date expireDateTime = null;
+
     /**
      * Initializing the Repositories
      */
@@ -50,6 +56,7 @@ public class UserService {
                 return new ResponseEntity<>(userList, HttpStatus.OK);
             }
         } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -62,8 +69,6 @@ public class UserService {
      */
     public ResponseEntity<Object> addUser(User user) {
         try {
-/*            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            String date = formatter.format(new Date());*/
             Optional<User> existingUser = userRepository.findUserByEmail(user.getEmail());
             if (existingUser.isPresent()) {
                 if (existingUser.get().isActive()) {
@@ -83,12 +88,15 @@ public class UserService {
                 smsNotification.Notification(user.getPhoneNo(), "Your verification code: " + smsToken);
                 user.setSmsToken(smsToken + "");
 
+                expireDateTime= DateTime.getExpireTime();
+
                 user.setActive(false); //the user is active in the start
                 user.setCreatedDate(DateTime.getDateTime());
                 userRepository.save(user);
                 return new ResponseEntity<>("User is successfully added", HttpStatus.OK);
             }
         } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -101,12 +109,13 @@ public class UserService {
      */
     public ResponseEntity<Object> updateUser(User user) {
         try {
-            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            String date = formatter.format(new Date());
-            user.setUpdatedDate(date);
+/*            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String date = formatter.format(new Date());*/
+            user.setUpdatedDate(DateTime.getDateTime());
             userRepository.save(user);
             return new ResponseEntity<>("User has been successfully Updated", HttpStatus.OK);
         } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
             return new ResponseEntity<>("User is not Updated", HttpStatus.BAD_REQUEST);
         }
     }
@@ -125,12 +134,13 @@ public class UserService {
             if (user.isEmpty()) {
                 return new ResponseEntity<>("There is no user against this id", HttpStatus.NOT_FOUND);
             } else {
-                user.get().setUpdatedDate(date);
+                user.get().setUpdatedDate(DateTime.getDateTime());
                 user.get().setActive(false);
                 userRepository.save(user.get());
                 return new ResponseEntity<>("User is successfully deleted", HttpStatus.OK);
             }
         } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
             return new ResponseEntity<>("This user doesn't exist in the database", HttpStatus.BAD_REQUEST);
         }
     }
@@ -151,6 +161,7 @@ public class UserService {
                 return new ResponseEntity<>("You are entering wrong credentials", HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -165,14 +176,23 @@ public class UserService {
     public ResponseEntity<Object> AccountVerification(long id, String emailToken, String smsToken) {
         try {
             Optional<User> user = userRepository.findUserByIdAndEmailTokenAndSmsToken(id,emailToken,smsToken);
-            if (user.isPresent()) {
-                user.get().setActive(true);
-                userRepository.save(user.get());
-                return new ResponseEntity<>("User account has been verified, now you can login", HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>("Your are entering wrong values for tokens", HttpStatus.BAD_REQUEST);
+            Date verificationTime = DateTime.getDateTime();
+            System.out.println(expireDateTime);
+
+            if(verificationTime.after(expireDateTime)){
+                return new ResponseEntity<>("The token is expired", HttpStatus.BAD_REQUEST);
+            }
+            else{
+                if (user.isPresent()) {
+                    user.get().setActive(true);
+                    userRepository.save(user.get());
+                    return new ResponseEntity<>("User account has been verified, now you can login", HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>("Your are entering wrong values for tokens", HttpStatus.BAD_REQUEST);
+                }
             }
         } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -203,7 +223,32 @@ public class UserService {
             }
             return new ResponseEntity<>("Successfully added", HttpStatus.OK);
         } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Resending verification token when user will ask for another token
+     * @param email
+     * @param phoneNumber
+     * @return
+     */
+    public ResponseEntity<Object> resendVerificationToken(String email, String phoneNumber){
+        try{
+            Optional<User> user = userRepository.findUserByEmail(email);
+            Random rnd = new Random(); //Generating a random number
+            int emailToken = rnd.nextInt(999999) + 100000; //Generating a random number of 6 digits
+            emailNotification.sendMail(user.get().getEmail(), "Your verification code is: " + emailToken);
+            user.get().setEmailToken(emailToken+"");
+
+            int smsToken = rnd.nextInt(999999) + 100000;
+            smsNotification.Notification(user.get().getPhoneNo(), "Your verification code: " + smsToken);
+            user.get().setSmsToken(smsToken + "");
+            userRepository.save(user.get());
+            return new ResponseEntity<>("Token is successfully resent to your email and phone number", HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity<>("There is no user against this email", HttpStatus.NOT_FOUND);
         }
     }
 }

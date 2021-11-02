@@ -1,6 +1,7 @@
 package com.app.epolice.model.entity.crime;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "t_crime_report")
@@ -13,14 +14,15 @@ public class CrimeReport {
     private String city;
     private String possible_suspect;
     private String description;
-    private String createdDate;
-    private String updatedDate;
+    @Column(nullable = false)
+    private Date createdDate;
+    private Date updatedDate;
     private boolean active;
 
     public CrimeReport() {
     }
 
-    public CrimeReport(String time, String address, String city, String possible_suspect, String createdDate, String updatedDate, boolean active) {
+    public CrimeReport(String time, String address, String city, String possible_suspect, Date createdDate, Date updatedDate, boolean active) {
         this.time = time;
         this.address = address;
         this.city = city;
@@ -70,12 +72,20 @@ public class CrimeReport {
         this.possible_suspect = possible_suspect;
     }
 
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
     }
 
     public String getDescription() {
@@ -84,14 +94,6 @@ public class CrimeReport {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(String updatedDate) {
-        this.updatedDate = updatedDate;
     }
 
     public boolean isActive() {

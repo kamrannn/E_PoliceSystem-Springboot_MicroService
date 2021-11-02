@@ -2,6 +2,7 @@ package com.app.epolice.model.entity.policestation;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "t_police_department")
@@ -11,14 +12,15 @@ public class Department implements Serializable {
     private long id;
     @Column(nullable = false,unique = true)
     private String name;
-    private String createdDate;
-    private String updatedDate;
+    @Column(nullable = false)
+    private Date createdDate;
+    private Date updatedDate;
     private boolean active;
 
     public Department() {
     }
 
-    public Department(String name, String createdDate, String updatedDate, boolean active) {
+    public Department(String name, Date createdDate, Date updatedDate, boolean active) {
         this.name = name;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
@@ -41,19 +43,19 @@ public class Department implements Serializable {
         this.name = name;
     }
 
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
-    public String getUpdatedDate() {
+    public Date getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(String updatedDate) {
+    public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
     }
 

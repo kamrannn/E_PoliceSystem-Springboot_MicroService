@@ -2,6 +2,7 @@ package com.app.epolice.model.entity.user;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "t_user")
@@ -23,8 +24,8 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    private String createdDate;
-    private String updatedDate;
+    private Date createdDate;
+    private Date updatedDate;
     private boolean active;
     private String smsToken;
     private String emailToken;
@@ -32,7 +33,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String phoneNo, String dob, String gender, String cnic, String password, String createdDate, String updatedDate, boolean active) {
+    public User(String firstName, String lastName, String email, String phoneNo, String dob, String gender, String cnic, String password, Date createdDate, Date updatedDate, boolean active) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -118,19 +119,19 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
-    public String getUpdatedDate() {
+    public Date getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(String updatedDate) {
+    public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
     }
 
