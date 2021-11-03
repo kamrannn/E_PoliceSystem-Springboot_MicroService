@@ -1,7 +1,13 @@
 spring:
   application:
-    name: e-police
+    name: e-police-system
+server:
+  port: 9080
 eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 20
   client:
     serviceUrl:
-      defaultZone: http://localhost:9000/eureka
+      defaultZone: http://192.168.10.11:8761/eureka
