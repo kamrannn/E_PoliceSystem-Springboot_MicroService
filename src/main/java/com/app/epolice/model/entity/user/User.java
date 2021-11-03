@@ -1,6 +1,7 @@
 package com.app.epolice.model.entity.user;
 
 import com.app.epolice.model.entity.crime.CrimeReport;
+import com.app.epolice.model.entity.policestation.Department;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -39,6 +40,9 @@ public class User implements Serializable {
     @OneToMany(targetEntity = CrimeReport.class,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<CrimeReport> crimeReports = new ArrayList<>();
+
+//    @ManyToOne(targetEntity = Department.class,fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+//    private List<Department> departmentList = new ArrayList<>();
 
     public User() {
     }

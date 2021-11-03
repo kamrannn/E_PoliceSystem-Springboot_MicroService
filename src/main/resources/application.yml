@@ -1,9 +1,7 @@
-#spring:
-#  application:
-#    name: e-police-system
-#server:
-#  port: 8085
-#eureka:
-#  client:
-#    serviceUrl:
-#      defaultZone: http://192.168.10.11:9010/eureka
+spring:
+  application:
+    name: e-police
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka
