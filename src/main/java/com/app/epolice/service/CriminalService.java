@@ -3,6 +3,7 @@ package com.app.epolice.service;
 import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.crime.Criminal;
 import com.app.epolice.repository.CriminalRepository;
+import com.app.epolice.service.feignclients.FeignEBankService;
 import com.app.epolice.util.DateTime;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,9 +18,11 @@ import java.util.Optional;
 public class CriminalService {
     private static final Logger LOG = LogManager.getLogger(UserController.class);
 
+    FeignEBankService feignEBankService;
     CriminalRepository criminalRepository;
-    public CriminalService(CriminalRepository criminalRepository) {
+    public CriminalService(CriminalRepository criminalRepository,FeignEBankService feignEBankService) {
         this.criminalRepository = criminalRepository;
+        this.feignEBankService=feignEBankService;
     }
 
     /**
@@ -117,6 +120,11 @@ public class CriminalService {
         }
     }
 
+    /**
+     * finding the criminal by its cnic
+     * @param cnic
+     * @return ResponseEntity
+     */
     public ResponseEntity<Object> findCriminalByCnic(String cnic){
         try {
             Optional<Criminal> criminal = criminalRepository.findByCnic(cnic);
@@ -128,5 +136,27 @@ public class CriminalService {
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * finding the criminal by its cnic, returning boolean
+     * @param cnic
+     * @return boolean
+     */
+    public boolean verifyPersonCriminalRecord(String cnic) {
+        Optional<Criminal> criminal = criminalRepository.findByCnic(cnic);
+        if (criminal.isPresent()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Checking whether feign client is working or not
+     * @return
+     */
+    public String checkFeignCurrencyMethod(){
+        return feignEBankService.checkCurrency();
     }
 }

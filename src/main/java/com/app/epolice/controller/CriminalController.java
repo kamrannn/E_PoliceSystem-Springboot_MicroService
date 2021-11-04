@@ -66,7 +66,25 @@ public class CriminalController {
      * @return
      */
     @GetMapping("/find-by-cnic")
-    public ResponseEntity<Object> deleteCriminal(@RequestHeader String cnic){
+    public ResponseEntity<Object> findCriminalByCnic(@RequestHeader String cnic){
         return criminalService.findCriminalByCnic(cnic);
+    }
+    /**
+     * find criminals by their cnic having return type boolean
+     * @param cnic
+     * @return
+     */
+    @GetMapping("/check-criminal-record")
+    public boolean verifyPersonCriminalRecord(@RequestHeader String cnic){
+        return criminalService.verifyPersonCriminalRecord(cnic);
+    }
+
+    /**
+     * Checking whether feign client is working or not
+     * @return
+     */
+    @GetMapping("/check-currency-record")
+    public String checkFeignCurrencyMethod(){
+        return criminalService.checkFeignCurrencyMethod();
     }
 }
