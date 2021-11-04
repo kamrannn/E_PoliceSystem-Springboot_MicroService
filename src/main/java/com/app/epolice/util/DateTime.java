@@ -26,7 +26,7 @@ public class DateTime {
      * @return
      * @throws ParseException
      */
-    public static Date getSqlDate() {
+    public static java.sql.Date getSqlDate() {
         java.util.Date utilDate = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         System.out.println("utilDate:" + utilDate);
