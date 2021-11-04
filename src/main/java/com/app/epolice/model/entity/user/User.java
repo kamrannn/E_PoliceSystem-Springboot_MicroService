@@ -41,15 +41,15 @@ public class User implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<CrimeReport> crimeReports = new ArrayList<>();
 
-//    @ManyToOne(targetEntity = Department.class,fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-//    private List<Department> departmentList = new ArrayList<>();
+    @ManyToOne(targetEntity = Department.class,fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private Department department;
 
     public User() {
     }
 
     public User(String firstName, String lastName, String email, String phoneNo, String dob, String gender,
                 String cnic, String password, Date createdDate, Date updatedDate, boolean active,
-                String smsToken, String emailToken, List<Role> roles) {
+                String smsToken, String emailToken, List<Role> roles,Department department) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -64,6 +64,7 @@ public class User implements Serializable {
         this.smsToken = smsToken;
         this.emailToken = emailToken;
         this.roles = roles;
+        this.department= department;
     }
 
     public long getId() {
@@ -192,5 +193,13 @@ public class User implements Serializable {
 
     public void setCrimeReports(List<CrimeReport> crimeReports) {
         this.crimeReports = crimeReports;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }
