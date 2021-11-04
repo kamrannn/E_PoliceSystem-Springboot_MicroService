@@ -97,11 +97,11 @@ public class CrimeReportController {
 
     /**
      * verifying the crimeReports
-     * @param crimeReport
+     * @param crimeReportId
      * @return
      */
     @PostMapping("/verify")
-    public ResponseEntity<Object> verifyCrimeReport(@RequestHeader String status,@RequestBody CrimeReport crimeReport) throws ParseException {
-        return crimeReportService.verifyReport(status,crimeReport);
+    public ResponseEntity<Object> verifyCrimeReport(@RequestHeader String status,@RequestHeader long crimeReportId) throws ParseException {
+        return crimeReportService.verifyReport(status,crimeReportId);
     }
 }

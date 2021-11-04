@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SmsNotification {
     private final String ACCOUNT_SID ="AC899fa2ea88ed71b93e716ffb0135a969";
-    private final String AUTH_TOKEN = "54bb8ce597d51775ed952d6734b587d8";
+    private final String AUTH_TOKEN = "04501559d36eeb87fece5635433f787f";
     private final String FROM_NUMBER = "+17242515324";
 
     /**

@@ -34,14 +34,23 @@ public class User implements Serializable {
     private String smsToken;
     private String emailToken;
 
+    /**
+     * One user can have multiple roles, and one role can have multiple users
+     */
     @ManyToMany(targetEntity = Role.class,fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<Role> roles = new ArrayList<>();
 
+    /**
+     * One user can have multiple reports
+     */
     @OneToMany(targetEntity = CrimeReport.class,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<CrimeReport> crimeReports = new ArrayList<>();
 
-    @ManyToOne(targetEntity = Department.class,fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    /**
+     * One department will have multiple users while one user will be limited to 1 department
+     */
+    @ManyToOne(targetEntity = Department.class,fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Department department;
 
     public User() {

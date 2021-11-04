@@ -156,17 +156,17 @@ public class CrimeReportService {
 
     /**
      * Approving the crime Report
-     * @param crimeReport
+     * @param crimeReportId
      * @return
      * @throws ParseException
      */
-    public ResponseEntity<Object> verifyReport(String status,CrimeReport crimeReport) throws ParseException {
+    public ResponseEntity<Object> verifyReport(String status,long crimeReportId) {
         try{
-            Optional<CrimeReport> report = crimeReportRepository.findById(crimeReport.getId());
+            Optional<CrimeReport> report = crimeReportRepository.findById(crimeReportId);
             if(report.isPresent()){
-                crimeReport.setStatus(status);
-                crimeReport.setUpdatedDate(DateTime.getDateTime());
-                crimeReportRepository.save(crimeReport);
+                report.get().setStatus(status);
+                report.get().setUpdatedDate(DateTime.getDateTime());
+                crimeReportRepository.save( report.get());
                 return new ResponseEntity<>("The crime report is "+status, HttpStatus.OK);
             }else{
                 return new ResponseEntity<>("There is no report against this crime Id", HttpStatus.NOT_FOUND);

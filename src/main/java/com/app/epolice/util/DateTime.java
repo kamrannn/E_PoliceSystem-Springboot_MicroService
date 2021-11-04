@@ -22,6 +22,19 @@ public class DateTime {
     }
 
     /**
+     * Fetch only sql date
+     * @return
+     * @throws ParseException
+     */
+    public static Date getSqlDate() {
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        System.out.println("utilDate:" + utilDate);
+        System.out.println("sqlDate:" + sqlDate);
+        return sqlDate;
+    }
+
+    /**
      * This method is adding 10 minutes in the current time which we are using to setup expire time of a token
      * @return
      * @throws ParseException

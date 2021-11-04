@@ -1,41 +1,51 @@
-package com.app.epolice.model.entity.policestation;
+package com.app.epolice.model.entity.crime;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "t_police_station")
-public class PoliceStation implements Serializable {
+@Table(name = "t_criminal")
+public class Criminal implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
+    private String cnic;
+    private String age;
     private String city;
     private String address;
-    @Column(nullable = false)
+    private String crimeStatus;
     private Date createdDate;
     private Date updatedDate;
     private boolean active;
 
+    @ManyToMany(targetEntity = CrimeReport.class,fetch = FetchType.LAZY)
+    private List<CrimeReport> crimeReports = new ArrayList<>();
 
-    public PoliceStation() {
+    public Criminal() {
     }
 
-    public PoliceStation(String name, String city, String address, Date createdDate, Date updatedDate, boolean active) {
+    public Criminal(String name, String cnic, String age, String city, String address, String crimeStatus, Date createdDate, Date updatedDate, boolean active, List<CrimeReport> crimeReports) {
         this.name = name;
+        this.cnic = cnic;
+        this.age = age;
         this.city = city;
         this.address = address;
+        this.crimeStatus = crimeStatus;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.active = active;
+        this.crimeReports = crimeReports;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -45,6 +55,22 @@ public class PoliceStation implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCnic() {
+        return cnic;
+    }
+
+    public void setCnic(String cnic) {
+        this.cnic = cnic;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 
     public String getCity() {
@@ -61,6 +87,14 @@ public class PoliceStation implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getCrimeStatus() {
+        return crimeStatus;
+    }
+
+    public void setCrimeStatus(String status) {
+        this.crimeStatus = status;
     }
 
     public Date getCreatedDate() {
@@ -87,11 +121,11 @@ public class PoliceStation implements Serializable {
         this.active = active;
     }
 
-/*    public List<Department> getDepartmentList() {
-        return departmentList;
+    public List<CrimeReport> getCrimeReports() {
+        return crimeReports;
     }
 
-    public void setDepartmentList(List<Department> departmentList) {
-        this.departmentList = departmentList;
-    }*/
+    public void setCrimeReports(List<CrimeReport> crimeReports) {
+        this.crimeReports = crimeReports;
+    }
 }
