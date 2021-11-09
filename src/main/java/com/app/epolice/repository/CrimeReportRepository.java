@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface CrimeReportRepository extends JpaRepository<CrimeReport, Long> {
     List<CrimeReport> findAllByActive(boolean active);
+    List<CrimeReport> findAllById(long id);
 }

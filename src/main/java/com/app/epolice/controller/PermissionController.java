@@ -4,6 +4,7 @@ import com.app.epolice.model.entity.user.Permission;
 import com.app.epolice.service.PermissionService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -14,7 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/permissions")
 public class PermissionController {
-    private static final Logger LOG = LogManager.getLogger(UserController.class);
+    private static final Logger LOG = LogManager.getLogger(PermissionController.class);
+    private static final String token = "40dc498b-e837-4fa9-8e53-c1d51e01af15";
 
     PermissionService permissionService;
 
@@ -23,41 +25,88 @@ public class PermissionController {
     }
 
     /**
+     * Authorizing the token
+     *
+     * @param token
+     * @return
+     * @Author "Kamran"
+     */
+    public boolean authorization(String token) {
+        LOG.info("Authorizing the user ");
+        return PermissionController.token.equals(token);
+    }
+
+    /**
+     * if the user is un-authorized
+     *
+     * @return
+     * @Author "Kamran"
+     */
+    public ResponseEntity<Object> unAuthorizeUser() {
+        LOG.info("Unauthorized user is trying to get access");
+        return new ResponseEntity<>("Kindly do the authorization first", HttpStatus.UNAUTHORIZED);
+    }
+
+    /**
      * Showing all the permissions
+     *
      * @return
      */
     @GetMapping("/list")
-    public ResponseEntity<Object> listOfPermissions(){
-        return permissionService.listAllPermissions();
+    public ResponseEntity<Object> listOfPermissions(@RequestHeader("Authorization") String token) {
+        if (authorization(token)) {
+            LOG.info("Listing all the permissions");
+            return permissionService.listAllPermissions();
+        } else {
+            return unAuthorizeUser();
+        }
     }
 
     /**
      * Adding the permissions
+     *
      * @param permissions
      * @return
      */
     @PostMapping("/add")
-    public ResponseEntity<Object> addPermission(@RequestBody List<Permission> permissions){
-        return permissionService.addNewPermissions(permissions);
+    public ResponseEntity<Object> addPermission(@RequestHeader("Authorization") String token, @RequestBody List<Permission> permissions) {
+        if (authorization(token)) {
+            LOG.info("adding all the permissions");
+            return permissionService.addNewPermissions(permissions);
+        } else {
+            return unAuthorizeUser();
+        }
     }
 
     /**
      * Updating the permissions
+     *
      * @param permission
      * @return
      */
     @PutMapping("/update")
-    public ResponseEntity<Object> updatePermission(@RequestBody Permission permission){
-        return permissionService.updatePermission(permission);
+    public ResponseEntity<Object> updatePermission(@RequestHeader("Authorization") String token, @RequestBody Permission permission) {
+        if (authorization(token)) {
+            LOG.info("updating the permissions");
+            return permissionService.updatePermission(permission);
+        } else {
+            return unAuthorizeUser();
+        }
     }
 
     /**
      * deleting the permissions
+     *
      * @param permissionList
      * @return
      */
     @DeleteMapping("/delete")
-    public ResponseEntity<Object> deletePermission(@RequestBody List<Permission> permissionList){
-        return permissionService.deletePermission(permissionList);
+    public ResponseEntity<Object> deletePermission(@RequestHeader("Authorization") String token, @RequestBody List<Permission> permissionList) {
+        if (authorization(token)) {
+            LOG.info("updating the permissions");
+            return permissionService.deletePermission(permissionList);
+        } else {
+            return unAuthorizeUser();
+        }
     }
 }

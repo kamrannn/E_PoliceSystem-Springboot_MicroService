@@ -89,9 +89,13 @@ public class UserController {
      * @return
      */
     @PostMapping("/signup")
-    public ResponseEntity<Object> addUser(@RequestBody User user) {
-        LOG.info("Adding the user");
-        return userService.addUser(user);
+    public ResponseEntity<Object> addUser(@RequestHeader("Authorization") String token,@RequestBody User user) {
+        if (authorization(token)) {
+            LOG.info("Adding the user");
+            return userService.addUser(user);
+        } else {
+            return unAuthorizeUser();
+        }
     }
 
     /**
@@ -167,8 +171,13 @@ public class UserController {
      * @return
      */
     @PostMapping("/resend-verification-token")
-    public ResponseEntity<Object> resendVerificationToken(@RequestBody User user ){
-        return userService.resendVerificationToken(user.getEmail());
+    public ResponseEntity<Object> resendVerificationToken(@RequestHeader("Authorization") String token,@RequestBody User user ){
+        if (authorization(token)) {
+            LOG.info("Resending the verification tokens");
+            return userService.resendVerificationToken(user.getEmail());
+        } else {
+            return unAuthorizeUser();
+        }
     }
 
     /**
@@ -179,8 +188,13 @@ public class UserController {
      * @throws IOException
      */
     @PostMapping("/upload_single_report")
-    public ResponseEntity<Object> uploadReport(@RequestHeader long id, CrimeReport report, @RequestParam("files") MultipartFile[] file) throws IOException {
-        return userService.createCrimeReport(id,report,file);
+    public ResponseEntity<Object> uploadReport(@RequestHeader("Authorization") String token,@RequestHeader long id, CrimeReport report, @RequestParam("files") MultipartFile[] file) throws IOException {
+        if (authorization(token)) {
+            LOG.info("Uploading the single crime report having images attached");
+            return userService.createCrimeReport(id,report,file);
+        } else {
+            return unAuthorizeUser();
+        }
     }
 }
 

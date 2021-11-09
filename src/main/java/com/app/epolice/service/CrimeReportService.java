@@ -2,7 +2,9 @@ package com.app.epolice.service;
 
 import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.crime.CrimeReport;
+import com.app.epolice.model.entity.policestation.PoliceStation;
 import com.app.epolice.repository.CrimeReportRepository;
+import com.app.epolice.repository.PoliceStationRepository;
 import com.app.epolice.util.DateTime;
 import com.app.epolice.util.FileUpload;
 import com.app.epolice.util.UuidGenerator;
@@ -15,6 +17,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,11 +26,13 @@ public class CrimeReportService {
     private static final Logger LOG = LogManager.getLogger(UserController.class);
 
     /**
-     * Initializing the objects
+     * Initializing the repositories
      */
     CrimeReportRepository crimeReportRepository;
-    public CrimeReportService(CrimeReportRepository crimeReportRepository) {
+    PoliceStationRepository policeStationRepository;
+    public CrimeReportService(CrimeReportRepository crimeReportRepository, PoliceStationRepository policeStationRepository) {
         this.crimeReportRepository = crimeReportRepository;
+        this.policeStationRepository = policeStationRepository;
     }
 
     /**
@@ -160,14 +165,23 @@ public class CrimeReportService {
      * @return
      * @throws ParseException
      */
-    public ResponseEntity<Object> verifyReport(String status,long crimeReportId) {
+    public ResponseEntity<Object> verifyReport(String status,long crimeReportId,long policeStationId) {
+        List<CrimeReport> crimeReportList = new ArrayList<>();
         try{
             Optional<CrimeReport> report = crimeReportRepository.findById(crimeReportId);
+            crimeReportList.add(report.get());
             if(report.isPresent()){
-                report.get().setStatus(status);
-                report.get().setUpdatedDate(DateTime.getDateTime());
-                crimeReportRepository.save( report.get());
-                return new ResponseEntity<>("The crime report is "+status, HttpStatus.OK);
+                Optional<PoliceStation> policeStation = policeStationRepository.findById(policeStationId);
+                if(policeStation.isPresent()){
+                    report.get().setStatus(status);
+                    report.get().setUpdatedDate(DateTime.getDateTime());
+                    policeStation.get().setCrimeReports(crimeReportList);
+                    policeStationRepository.save(policeStation.get());
+                    crimeReportRepository.save(report.get());
+                    return new ResponseEntity<>("The crime report is "+status, HttpStatus.OK);
+                }else{
+                    return new ResponseEntity<>("There is no police station against this police id ", HttpStatus.BAD_REQUEST);
+                }
             }else{
                 return new ResponseEntity<>("There is no report against this crime Id", HttpStatus.NOT_FOUND);
             }
