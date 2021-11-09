@@ -1,8 +1,7 @@
 package com.app.epolice.model.entity.policestation;
 
 import com.app.epolice.model.entity.crime.CrimeReport;
-import com.app.epolice.model.entity.crime.CrimeType;
-
+import com.app.epolice.model.entity.user.User;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,17 +29,15 @@ public class PoliceStation implements Serializable {
     @JoinColumn(name = "police_station_id", referencedColumnName = "id")
     private List<CrimeReport> crimeReports = new ArrayList<>();
 
+/*    *//**
+     * One user can have multiple reports
+     *//*
+    @OneToMany(targetEntity = User.class,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "police_id", referencedColumnName = "id")
+    private List<User> users = new ArrayList<>();*/
+
 
     public PoliceStation() {
-    }
-
-    public PoliceStation(String name, String city, String address, Date createdDate, Date updatedDate, boolean active) {
-        this.name = name;
-        this.city = city;
-        this.address = address;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-        this.active = active;
     }
 
     public long getId() {
@@ -99,11 +96,12 @@ public class PoliceStation implements Serializable {
         this.active = active;
     }
 
-/*    public List<Department> getDepartmentList() {
-        return departmentList;
+    public List<CrimeReport> getCrimeReports() {
+        return crimeReports;
     }
 
-    public void setDepartmentList(List<Department> departmentList) {
-        this.departmentList = departmentList;
-    }*/
+    public void setCrimeReports(List<CrimeReport> crimeReports) {
+        this.crimeReports = crimeReports;
+    }
+
 }

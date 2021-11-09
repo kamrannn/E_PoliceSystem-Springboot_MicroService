@@ -1,5 +1,8 @@
 package com.app.epolice.model.entity.crime;
 
+import com.app.epolice.model.entity.policestation.Department;
+import com.app.epolice.model.entity.policestation.PoliceStation;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class CrimeReport implements Serializable {
 
     @ManyToMany(targetEntity = CrimeType.class,fetch = FetchType.LAZY)
     private List<CrimeType> crimeTypes = new ArrayList<>();
+
 
     public CrimeReport() {
     }
@@ -138,4 +142,5 @@ public class CrimeReport implements Serializable {
     public void setCrimeTypes(List<CrimeType> crimeTypes) {
         this.crimeTypes = crimeTypes;
     }
+
 }
