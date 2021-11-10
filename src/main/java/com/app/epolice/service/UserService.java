@@ -50,7 +50,7 @@ public class UserService {
      */
     public ResponseEntity<Object> listAllActiveUsers() {
         try {
-            List<User> userList = userRepository.findAllByActive(true);
+            List<User> userList = userRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (userList.isEmpty()) {
                 return new ResponseEntity<>("There are no users in the database", HttpStatus.NOT_FOUND);
             } else {

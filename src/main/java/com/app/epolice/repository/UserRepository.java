@@ -2,8 +2,8 @@ package com.app.epolice.repository;
 
 import com.app.epolice.model.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -46,4 +46,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return the optional
      */
     Optional<User> findUserByIdAndEmailTokenAndSmsToken(long id ,String emailToken, String smsToken);
+
+    /**
+     * Find all by active true order by created date desc list.
+     *
+     * @return the list
+     */
+    List<User> findAllByActiveTrueOrderByCreatedDateDesc();
 }

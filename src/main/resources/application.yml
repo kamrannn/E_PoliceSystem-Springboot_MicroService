@@ -10,4 +10,4 @@ eureka:
     lease-expiration-duration-in-seconds: 20
   client:
     serviceUrl:
-      defaultZone: http://192.168.100.65:9000/eureka
+      defaultZone: http://192.168.10.9:9000/eureka

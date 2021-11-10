@@ -2,12 +2,24 @@ package com.app.epolice.controller;
 
 import com.app.epolice.model.entity.user.Permission;
 import com.app.epolice.service.PermissionService;
+import com.app.epolice.util.ExceptionHandling;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.executable.ValidateOnExecution;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,6 +86,22 @@ public class PermissionController {
     }
 
     /**
+     * Showing all the permissions
+     *
+     * @param token the token
+     * @return response entity
+     */
+    @GetMapping("/sorted-list")
+    public ResponseEntity<Object> sortedListOfPermissions(@RequestHeader("Authorization") String token) {
+        if (authorization(token)) {
+            LOG.info("Listing all the permissions");
+            return permissionService.sortedListOfPermissions();
+        } else {
+            return unAuthorizeUser();
+        }
+    }
+
+    /**
      * Adding the permissions
      *
      * @param token       the token
@@ -81,7 +109,7 @@ public class PermissionController {
      * @return response entity
      */
     @PostMapping("/add")
-    public ResponseEntity<Object> addPermission(@RequestHeader("Authorization") String token, @RequestBody List<Permission> permissions) {
+    public ResponseEntity<Object> addPermission(@RequestHeader("Authorization") String token, @Valid @RequestBody List<Permission> permissions, Errors errors) {
         if (authorization(token)) {
             LOG.info("adding all the permissions");
             return permissionService.addNewPermissions(permissions);
@@ -122,5 +150,11 @@ public class PermissionController {
         } else {
             return unAuthorizeUser();
         }
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        return ExceptionHandling.handleMethodArgumentNotValid(ex);
     }
 }

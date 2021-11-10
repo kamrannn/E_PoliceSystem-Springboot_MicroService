@@ -223,14 +223,9 @@ public class UserController {
         }
     }
 
-    /**
-     * Handle validation exceptions response entity.
-     *
-     * @param ex the ex
-     * @return the response entity
-     */
+  // handle input exceptions
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({MethodArgumentNotValidException.class, HttpMessageNotReadableException.class, IllegalStateException.class, InvalidFormatException.class, DataIntegrityViolationException.class})
+    @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
         return ExceptionHandling.handleMethodArgumentNotValid(ex);
     }

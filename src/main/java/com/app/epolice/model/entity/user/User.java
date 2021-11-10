@@ -5,6 +5,7 @@ import com.app.epolice.model.entity.policestation.Department;
 import com.app.epolice.model.entity.policestation.PoliceStation;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class User implements Serializable {
     @NotBlank(message = "Email is mandatory")
     private String email;
     @Column(unique = true)
+    @Size(min=11, max=14)
     private String phoneNo;
     @NotBlank(message = "Date of birth is mandatory")
     private String dob;
@@ -34,6 +36,7 @@ public class User implements Serializable {
     private String gender;
     @Column(unique = true)
     @NotBlank(message = "Cnic is mandatory")
+    @Size(min=13, max=15)
     private String cnic;
     @Column(nullable = false)
     @NotBlank(message = "Password is mandatory")

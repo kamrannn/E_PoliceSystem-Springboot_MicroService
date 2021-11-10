@@ -1,6 +1,7 @@
 package com.app.epolice.model.entity.user;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,9 +14,9 @@ public class Permission implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
+    @Size(min=1, message= "Kindly enter the name")
     private String name;
-    @Column(nullable = false)
     private Date createdDate;
     private Date updatedDate;
     private boolean active;
@@ -34,7 +35,7 @@ public class Permission implements Serializable {
      * @param updatedDate the updated date
      * @param active      the active
      */
-    public Permission(String name, Date createdDate, Date updatedDate, boolean active) {
+    public Permission(String name, Date createdDate, Date updatedDate,boolean active) {
         this.name = name;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
