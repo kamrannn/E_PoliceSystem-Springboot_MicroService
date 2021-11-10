@@ -2,6 +2,7 @@ package com.app.epolice.service;
 
 import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.user.Role;
+import com.app.epolice.model.entity.user.User;
 import com.app.epolice.repository.RoleRepository;
 import com.app.epolice.util.DateTime;
 import org.apache.logging.log4j.LogManager;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @Service
@@ -27,7 +29,7 @@ public class RoleService {
      */
     public ResponseEntity<Object> listAllRoles() {
         try {
-            List<Role> roleList = roleRepository.findAllByActive(true);
+            List<Role> roleList = roleRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (roleList.isEmpty()) {
                 return new ResponseEntity<>("There are no roles in the database", HttpStatus.NOT_FOUND);
             } else {
@@ -112,6 +114,25 @@ public class RoleService {
         }catch (Exception e){
             LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * This method is fetching all the roles for a specific date
+     *
+     * @return
+     */
+    public ResponseEntity<Object> findRolesByDate(java.sql.Date date) {
+        try {
+            List<Role> roleList = roleRepository.findAllRolesByDate(date);
+            if (roleList.isEmpty()) {
+                return new ResponseEntity<>("There are no roles in the database", HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(roleList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

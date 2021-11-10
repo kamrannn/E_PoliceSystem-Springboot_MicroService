@@ -18,4 +18,11 @@ public interface InvestigationTeamRepository extends JpaRepository<Investigation
      * @return the list
      */
     List<InvestigationTeam> findAllByActive(boolean active);
+
+    /**
+     * Find all by active true order by created date desc list.
+     *
+     * @return the list
+     */
+    List<InvestigationTeam> findAllByActiveTrueOrderByCreatedDateDesc();
 }

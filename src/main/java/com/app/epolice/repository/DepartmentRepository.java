@@ -18,4 +18,10 @@ public interface DepartmentRepository extends JpaRepository<Department,Long> {
      * @return the list
      */
     List<Department> findDepartmentsByActive(boolean active);
+    /**
+     * Find all by active true order by created date desc list.
+     *
+     * @return the list
+     */
+    List<Department> findAllByActiveTrueOrderByCreatedDateDesc();
 }

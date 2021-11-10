@@ -31,7 +31,7 @@ public class CrimeTypeService {
      */
     public ResponseEntity<Object> listAllCrimeTypes() {
         try {
-            List<CrimeType> crimeTypeList = crimeTypeRepository.findAllByActive(true);
+            List<CrimeType> crimeTypeList = crimeTypeRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (crimeTypeList.isEmpty()) {
                 return new ResponseEntity<>("There are no crime types in the database", HttpStatus.NOT_FOUND);
             } else {

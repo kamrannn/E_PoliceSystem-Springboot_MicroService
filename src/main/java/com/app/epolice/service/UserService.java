@@ -305,4 +305,23 @@ public class UserService {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * This method is fetching all the active users from the database
+     *
+     * @return
+     */
+    public ResponseEntity<Object> findUsersByDate(java.sql.Date date) {
+        try {
+            List<User> userList = userRepository.findAllUsersByDate(date);
+            if (userList.isEmpty()) {
+                return new ResponseEntity<>("There are no users in the database", HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(userList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -32,7 +32,7 @@ public class CriminalService {
      */
     public ResponseEntity<Object> listAllCriminals() {
         try {
-            List<Criminal> criminalList =criminalRepository.findAllByActive(true);
+            List<Criminal> criminalList =criminalRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (criminalList.isEmpty()) {
                 return new ResponseEntity<>("There are no criminals in the database", HttpStatus.NOT_FOUND);
             } else {

@@ -28,7 +28,7 @@ public class DepartmentService {
      */
     public ResponseEntity<Object> listAllDepartments() {
         try {
-            List<Department> departmentList = departmentRepository.findDepartmentsByActive(true);
+            List<Department> departmentList = departmentRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (departmentList.isEmpty()) {
                 return new ResponseEntity<>("There are no departments in the database", HttpStatus.NOT_FOUND);
             } else {

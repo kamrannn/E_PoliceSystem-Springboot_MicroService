@@ -29,7 +29,7 @@ public class InvestigationTeamService {
      */
     public ResponseEntity<Object> listAllInvestigationTeams() {
         try {
-            List<InvestigationTeam> investigationTeamList = investigationTeamRepository.findAllByActive(true);
+            List<InvestigationTeam> investigationTeamList = investigationTeamRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (investigationTeamList.isEmpty()) {
                 return new ResponseEntity<>("There are no Investigation teams in the database", HttpStatus.NOT_FOUND);
             } else {

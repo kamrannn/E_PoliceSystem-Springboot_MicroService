@@ -99,6 +99,22 @@ public class UserController {
     }
 
     /**
+     * This controller is listing the active users from the database
+     *
+     * @param token the token
+     * @return response entity
+     */
+    @GetMapping("/by-date")
+    public ResponseEntity<Object> findUsersByDate(@RequestHeader("Authorization") String token, @RequestParam java.sql.Date date) {
+        if (authorization(token)) {
+            LOG.info("Listing all the users by date");
+            return userService.findUsersByDate(date);
+        } else {
+            return unAuthorizeUser();
+        }
+    }
+
+    /**
      * This controller is adding the user
      *
      * @param token the token
@@ -223,7 +239,11 @@ public class UserController {
         }
     }
 
-  // handle input exceptions
+    /**
+     * handle input exceptions
+     * @param ex
+     * @return
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {

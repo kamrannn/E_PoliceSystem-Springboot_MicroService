@@ -18,4 +18,10 @@ public interface CrimeTypeRepository extends JpaRepository<CrimeType,Long> {
      * @return the list
      */
     List<CrimeType> findAllByActive(boolean active);
+    /**
+     * Find all by active true order by created date desc list.
+     *
+     * @return the list
+     */
+    List<CrimeType> findAllByActiveTrueOrderByCreatedDateDesc();
 }

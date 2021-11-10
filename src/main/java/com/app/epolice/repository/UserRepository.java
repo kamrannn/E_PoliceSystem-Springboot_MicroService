@@ -4,6 +4,8 @@ import com.app.epolice.model.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,4 +55,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return the list
      */
     List<User> findAllByActiveTrueOrderByCreatedDateDesc();
+
+    @Query(value = "SELECT * FROM t_user where created_date like CONCAT(:date,'%')", nativeQuery = true)
+    List<User> findAllUsersByDate(Date date);
 }

@@ -26,4 +26,11 @@ public interface CrimeReportRepository extends JpaRepository<CrimeReport, Long> 
      * @return the list
      */
     List<CrimeReport> findAllById(long id);
+
+    /**
+     * Find all by active true order by created date desc list.
+     *
+     * @return the list
+     */
+    List<CrimeReport> findAllByActiveTrueOrderByCreatedDateDesc();
 }

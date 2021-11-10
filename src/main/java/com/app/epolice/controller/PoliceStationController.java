@@ -38,7 +38,7 @@ public class PoliceStationController {
      * Authorizing the token
      *
      * @param token the token
-     * @return boolean
+     * @return boolean boolean
      * @Author "Kamran"
      */
     public boolean authorization(String token) {
@@ -119,6 +119,23 @@ public class PoliceStationController {
         if (authorization(token)) {
             LOG.info("deleting the police stations");
             return policeStationService.deletePoliceStation(policeStationList);
+        } else {
+            return unAuthorizeUser();
+        }
+    }
+
+    /**
+     * Find police stations by date response entity.
+     *
+     * @param token the token
+     * @param date  the date
+     * @return the response entity
+     */
+    @GetMapping("/by-date")
+    public ResponseEntity<Object> findPoliceStationsByDate(@RequestHeader("Authorization") String token, @RequestParam java.sql.Date date) {
+        if (authorization(token)) {
+            LOG.info("Listing all the users by date");
+            return policeStationService.findPoliceStationsByDate(date);
         } else {
             return unAuthorizeUser();
         }

@@ -26,4 +26,11 @@ public interface CriminalRepository extends JpaRepository<Criminal, Long> {
      * @return the optional
      */
     Optional<Criminal> findByCnic(String cnic);
+
+    /**
+     * Find all by active true order by created date desc list.
+     *
+     * @return the list
+     */
+    List<Criminal> findAllByActiveTrueOrderByCreatedDateDesc();
 }

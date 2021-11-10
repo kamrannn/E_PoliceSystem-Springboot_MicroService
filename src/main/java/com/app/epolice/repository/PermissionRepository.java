@@ -1,5 +1,6 @@
 package com.app.epolice.repository;
 
+import com.app.epolice.model.entity.policestation.PoliceStation;
 import com.app.epolice.model.entity.user.Permission;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,5 +28,14 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
      * @return the list
      */
     List<Permission> findAllByActiveTrueOrderByCreatedDateDesc();
+
+    /**
+     * Find all police stations by date list.
+     *
+     * @param date the date
+     * @return the list
+     */
+    @Query(value = "SELECT * FROM t_permission where created_date like CONCAT(:date,'%')", nativeQuery = true)
+    List<Permission> findAllPermissionsByDate(Date date);
 
 }

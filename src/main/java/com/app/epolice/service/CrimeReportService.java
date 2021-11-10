@@ -42,7 +42,7 @@ public class CrimeReportService {
      */
     public ResponseEntity<Object> listAllCrimeReports() {
         try {
-            List<CrimeReport> crimeReportList = crimeReportRepository.findAllByActive(true);
+            List<CrimeReport> crimeReportList = crimeReportRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (crimeReportList.isEmpty()) {
                 return new ResponseEntity<>("There are no crime reports in the database", HttpStatus.NOT_FOUND);
             } else {
