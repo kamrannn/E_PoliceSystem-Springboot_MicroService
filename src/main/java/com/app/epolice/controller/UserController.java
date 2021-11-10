@@ -3,13 +3,20 @@ package com.app.epolice.controller;
 import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.model.entity.user.User;
 import com.app.epolice.service.UserService;
+import com.app.epolice.util.ExceptionHandling;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import javax.validation.Valid;
 import java.io.IOException;
 
 /**
@@ -41,7 +48,7 @@ public class UserController {
      *
      * @param token the token
      * @return boolean
-     * @Author "Kamran"
+     * @author "Kamran"
      */
     public boolean authorization(String token) {
         LOG.info("Authorizing the user ");
@@ -52,7 +59,7 @@ public class UserController {
      * if the user is un-authorized
      *
      * @return response entity
-     * @Author "Kamran"
+     * @author "Kamran"
      */
     public ResponseEntity<Object> unAuthorizeUser() {
         LOG.info("Unauthorized user is trying to get access");
@@ -99,7 +106,7 @@ public class UserController {
      * @return response entity
      */
     @PostMapping("/signup")
-    public ResponseEntity<Object> addUser(@RequestHeader("Authorization") String token,@RequestBody User user) {
+    public ResponseEntity<Object> addUser(@RequestHeader("Authorization") String token,@Valid @RequestBody User user) {
         if (authorization(token)) {
             LOG.info("Adding the user");
             return userService.addUser(user);
@@ -207,13 +214,25 @@ public class UserController {
      * @throws IOException the io exception
      */
     @PostMapping("/upload_single_report")
-    public ResponseEntity<Object> uploadReport(@RequestHeader("Authorization") String token,@RequestHeader long id, CrimeReport report, @RequestParam("files") MultipartFile[] file) throws IOException {
+    public ResponseEntity<Object> uploadReport(@RequestHeader("Authorization") String token,@RequestHeader long id, CrimeReport report, @RequestParam("files") MultipartFile[] file) {
         if (authorization(token)) {
             LOG.info("Uploading the single crime report having images attached");
             return userService.createCrimeReport(id,report,file);
         } else {
             return unAuthorizeUser();
         }
+    }
+
+    /**
+     * Handle validation exceptions response entity.
+     *
+     * @param ex the ex
+     * @return the response entity
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({MethodArgumentNotValidException.class, HttpMessageNotReadableException.class, IllegalStateException.class, InvalidFormatException.class, DataIntegrityViolationException.class})
+    public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        return ExceptionHandling.handleMethodArgumentNotValid(ex);
     }
 }
 

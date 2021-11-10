@@ -4,6 +4,7 @@ import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.model.entity.policestation.Department;
 import com.app.epolice.model.entity.policestation.PoliceStation;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,18 +19,24 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false)
+    @NotBlank(message = "First Name is mandatory")
     private String firstName;
+    @NotBlank(message = "Last Name is mandatory")
     private String lastName;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
+    @NotBlank(message = "Email is mandatory")
     private String email;
     @Column(unique = true)
     private String phoneNo;
+    @NotBlank(message = "Date of birth is mandatory")
     private String dob;
+    @NotBlank(message = "Gender is mandatory")
     private String gender;
     @Column(unique = true)
+    @NotBlank(message = "Cnic is mandatory")
     private String cnic;
     @Column(nullable = false)
+    @NotBlank(message = "Password is mandatory")
     private String password;
     private Date createdDate;
     private Date updatedDate;
