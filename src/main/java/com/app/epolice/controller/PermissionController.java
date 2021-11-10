@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 import java.util.List;
 
+/**
+ * The type Permission controller.
+ */
 @EnableSwagger2
 @RestController
 @RequestMapping("/permissions")
@@ -18,8 +20,16 @@ public class PermissionController {
     private static final Logger LOG = LogManager.getLogger(PermissionController.class);
     private static final String token = "40dc498b-e837-4fa9-8e53-c1d51e01af15";
 
+    /**
+     * The Permission service.
+     */
     PermissionService permissionService;
 
+    /**
+     * Instantiates a new Permission controller.
+     *
+     * @param permissionService the permission service
+     */
     public PermissionController(PermissionService permissionService) {
         this.permissionService = permissionService;
     }
@@ -27,8 +37,8 @@ public class PermissionController {
     /**
      * Authorizing the token
      *
-     * @param token
-     * @return
+     * @param token the token
+     * @return boolean
      * @Author "Kamran"
      */
     public boolean authorization(String token) {
@@ -39,7 +49,7 @@ public class PermissionController {
     /**
      * if the user is un-authorized
      *
-     * @return
+     * @return response entity
      * @Author "Kamran"
      */
     public ResponseEntity<Object> unAuthorizeUser() {
@@ -50,7 +60,8 @@ public class PermissionController {
     /**
      * Showing all the permissions
      *
-     * @return
+     * @param token the token
+     * @return response entity
      */
     @GetMapping("/list")
     public ResponseEntity<Object> listOfPermissions(@RequestHeader("Authorization") String token) {
@@ -65,8 +76,9 @@ public class PermissionController {
     /**
      * Adding the permissions
      *
-     * @param permissions
-     * @return
+     * @param token       the token
+     * @param permissions the permissions
+     * @return response entity
      */
     @PostMapping("/add")
     public ResponseEntity<Object> addPermission(@RequestHeader("Authorization") String token, @RequestBody List<Permission> permissions) {
@@ -81,8 +93,9 @@ public class PermissionController {
     /**
      * Updating the permissions
      *
-     * @param permission
-     * @return
+     * @param token      the token
+     * @param permission the permission
+     * @return response entity
      */
     @PutMapping("/update")
     public ResponseEntity<Object> updatePermission(@RequestHeader("Authorization") String token, @RequestBody Permission permission) {
@@ -97,8 +110,9 @@ public class PermissionController {
     /**
      * deleting the permissions
      *
-     * @param permissionList
-     * @return
+     * @param token          the token
+     * @param permissionList the permission list
+     * @return response entity
      */
     @DeleteMapping("/delete")
     public ResponseEntity<Object> deletePermission(@RequestHeader("Authorization") String token, @RequestBody List<Permission> permissionList) {

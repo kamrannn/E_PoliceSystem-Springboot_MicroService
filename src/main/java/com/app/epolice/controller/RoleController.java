@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.List;
 
+/**
+ * The type Role controller.
+ */
 @EnableSwagger2
 @RestController
 @RequestMapping("/roles")
@@ -17,7 +20,16 @@ public class RoleController {
     private static final Logger LOG = LogManager.getLogger(RoleController.class);
     private static final String token = "40dc498b-e837-4fa9-8e53-c1d51e01af15";
 
+    /**
+     * The Role service.
+     */
     RoleService roleService;
+
+    /**
+     * Instantiates a new Role controller.
+     *
+     * @param roleService the role service
+     */
     public RoleController(RoleService roleService) {
         this.roleService = roleService;
     }
@@ -25,8 +37,8 @@ public class RoleController {
     /**
      * Authorizing the token
      *
-     * @param token
-     * @return
+     * @param token the token
+     * @return boolean
      * @Author "Kamran"
      */
     public boolean authorization(String token) {
@@ -37,7 +49,7 @@ public class RoleController {
     /**
      * if the user is un-authorized
      *
-     * @return
+     * @return response entity
      * @Author "Kamran"
      */
     public ResponseEntity<Object> unAuthorizeUser() {
@@ -47,7 +59,9 @@ public class RoleController {
 
     /**
      * Showing all the roles
-     * @return
+     *
+     * @param token the token
+     * @return response entity
      */
     @GetMapping("/list")
     public ResponseEntity<Object> listOfRoles(@RequestHeader("Authorization") String token){
@@ -61,8 +75,10 @@ public class RoleController {
 
     /**
      * Adding the roles
-     * @param roles
-     * @return
+     *
+     * @param token the token
+     * @param roles the roles
+     * @return response entity
      */
     @PostMapping("/add")
     public ResponseEntity<Object> addRole(@RequestHeader("Authorization") String token, @RequestBody List<Role> roles){
@@ -76,8 +92,10 @@ public class RoleController {
 
     /**
      * Updating the roles
-     * @param role
-     * @return
+     *
+     * @param token the token
+     * @param role  the role
+     * @return response entity
      */
     @PutMapping("/update")
     public ResponseEntity<Object> updateRole(@RequestHeader("Authorization") String token, @RequestBody Role role){
@@ -91,8 +109,10 @@ public class RoleController {
 
     /**
      * deleting the roles
-     * @param roleList
-     * @return
+     *
+     * @param token    the token
+     * @param roleList the role list
+     * @return response entity
      */
     @DeleteMapping("/delete")
     public ResponseEntity<Object> deleteRole(@RequestHeader("Authorization") String token, @RequestBody List<Role> roleList){

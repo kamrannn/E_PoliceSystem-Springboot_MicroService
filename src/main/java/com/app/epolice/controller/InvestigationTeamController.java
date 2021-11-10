@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 import java.util.List;
 
+/**
+ * The type Investigation team controller.
+ */
 @EnableSwagger2
 @RestController
 @RequestMapping("/investigation-team")
@@ -18,7 +20,16 @@ public class InvestigationTeamController {
     private static final Logger LOG = LogManager.getLogger(InvestigationTeamController.class);
     private static final String token = "40dc498b-e837-4fa9-8e53-c1d51e01af15";
 
+    /**
+     * The Investigation team service.
+     */
     InvestigationTeamService investigationTeamService;
+
+    /**
+     * Instantiates a new Investigation team controller.
+     *
+     * @param investigationTeamService the investigation team service
+     */
     public InvestigationTeamController(InvestigationTeamService investigationTeamService) {
         this.investigationTeamService = investigationTeamService;
     }
@@ -26,8 +37,8 @@ public class InvestigationTeamController {
     /**
      * Authorizing the token
      *
-     * @param token
-     * @return
+     * @param token the token
+     * @return boolean
      * @Author "Kamran"
      */
     public boolean authorization(String token) {
@@ -38,7 +49,7 @@ public class InvestigationTeamController {
     /**
      * if the user is un-authorized
      *
-     * @return
+     * @return response entity
      * @Author "Kamran"
      */
     public ResponseEntity<Object> unAuthorizeUser() {
@@ -48,7 +59,9 @@ public class InvestigationTeamController {
 
     /**
      * Showing all the investigationTeams
-     * @return
+     *
+     * @param token the token
+     * @return response entity
      */
     @GetMapping("/list")
     public ResponseEntity<Object> listOfInvestigationTeams(@RequestHeader("Authorization") String token){
@@ -62,8 +75,10 @@ public class InvestigationTeamController {
 
     /**
      * Adding the investigationTeams
-     * @param investigationTeam
-     * @return
+     *
+     * @param token             the token
+     * @param investigationTeam the investigation team
+     * @return response entity
      */
     @PostMapping("/add")
     public ResponseEntity<Object> addInvestigationTeam(@RequestHeader("Authorization") String token, @RequestBody List<InvestigationTeam> investigationTeam){
@@ -77,8 +92,10 @@ public class InvestigationTeamController {
 
     /**
      * Updating the investigationTeams
-     * @param investigationTeam
-     * @return
+     *
+     * @param token             the token
+     * @param investigationTeam the investigation team
+     * @return response entity
      */
     @PutMapping("/update")
     public ResponseEntity<Object> updateInvestigationTeam(@RequestHeader("Authorization") String token, @RequestBody InvestigationTeam investigationTeam){
@@ -92,8 +109,10 @@ public class InvestigationTeamController {
 
     /**
      * deleting the investigationTeams
-     * @param investigationTeamList
-     * @return
+     *
+     * @param token                 the token
+     * @param investigationTeamList the investigation team list
+     * @return response entity
      */
     @DeleteMapping("/delete")
     public ResponseEntity<Object> deleteInvestigationTeam(@RequestHeader("Authorization") String token, @RequestBody List<InvestigationTeam> investigationTeamList){

@@ -1,17 +1,23 @@
 package com.app.epolice.util;
 
+import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * The type Date time.
+ */
+@Service
 public class DateTime {
 
     /**
      * This function is giving us date and time in a defined format
-     * @return
-     * @throws ParseException
+     *
+     * @return date time
+     * @throws ParseException the parse exception
      */
     public static Date getDateTime() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -23,7 +29,8 @@ public class DateTime {
 
     /**
      * Fetch only sql date
-     * @return
+     *
+     * @return sql date
      * @throws ParseException
      */
     public static java.sql.Date getSqlDate() {
@@ -36,8 +43,9 @@ public class DateTime {
 
     /**
      * This method is adding 10 minutes in the current time which we are using to setup expire time of a token
-     * @return
-     * @throws ParseException
+     *
+     * @return expire time
+     * @throws ParseException the parse exception
      */
     public static Date getExpireTime() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");

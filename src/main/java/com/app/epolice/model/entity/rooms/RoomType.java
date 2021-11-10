@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * The type Room type.
+ */
 @Entity
 @Table(name = "t_room_type")
 public class RoomType implements Serializable {
@@ -17,9 +20,20 @@ public class RoomType implements Serializable {
     private Date createdDate;
     private Date updatedDate;
 
+    /**
+     * Instantiates a new Room type.
+     */
     public RoomType() {
     }
 
+    /**
+     * Instantiates a new Room type.
+     *
+     * @param type        the type
+     * @param description the description
+     * @param createdDate the created date
+     * @param updatedDate the updated date
+     */
     public RoomType(String type, String description, Date createdDate, Date updatedDate) {
         this.type = type;
         this.description = description;
@@ -27,42 +41,92 @@ public class RoomType implements Serializable {
         this.updatedDate = updatedDate;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Sets type.
+     *
+     * @param type the type
+     */
     public void setType(String type) {
         this.type = type;
     }
 
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets description.
+     *
+     * @param description the description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Gets created date.
+     *
+     * @return the created date
+     */
     public Date getCreatedDate() {
         return createdDate;
     }
 
+    /**
+     * Sets created date.
+     *
+     * @param createdDate the created date
+     */
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
+    /**
+     * Gets updated date.
+     *
+     * @return the updated date
+     */
     public Date getUpdatedDate() {
         return updatedDate;
     }
 
+    /**
+     * Sets updated date.
+     *
+     * @param updatedDate the updated date
+     */
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
     }

@@ -6,7 +6,16 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * The interface Department repository.
+ */
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department,Long> {
+    /**
+     * Find departments by active list.
+     *
+     * @param active the active
+     * @return the list
+     */
     List<Department> findDepartmentsByActive(boolean active);
 }

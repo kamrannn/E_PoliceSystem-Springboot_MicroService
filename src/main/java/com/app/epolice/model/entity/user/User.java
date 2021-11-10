@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The type User.
+ */
 @Entity
 @Table(name = "t_user")
 public class User implements Serializable {
@@ -59,9 +62,31 @@ public class User implements Serializable {
     @ManyToOne(targetEntity = PoliceStation.class,fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private PoliceStation policeStation;
 
+    /**
+     * Instantiates a new User.
+     */
     public User() {
     }
 
+    /**
+     * Instantiates a new User.
+     *
+     * @param firstName   the first name
+     * @param lastName    the last name
+     * @param email       the email
+     * @param phoneNo     the phone no
+     * @param dob         the dob
+     * @param gender      the gender
+     * @param cnic        the cnic
+     * @param password    the password
+     * @param createdDate the created date
+     * @param updatedDate the updated date
+     * @param active      the active
+     * @param smsToken    the sms token
+     * @param emailToken  the email token
+     * @param roles       the roles
+     * @param department  the department
+     */
     public User(String firstName, String lastName, String email, String phoneNo, String dob, String gender,
                 String cnic, String password, Date createdDate, Date updatedDate, boolean active,
                 String smsToken, String emailToken, List<Role> roles,Department department) {
@@ -82,146 +107,326 @@ public class User implements Serializable {
         this.department= department;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     * Gets first name.
+     *
+     * @return the first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Sets first name.
+     *
+     * @param firstName the first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Gets last name.
+     *
+     * @return the last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Sets last name.
+     *
+     * @param lastName the last name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * Gets email.
+     *
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Sets email.
+     *
+     * @param email the email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Gets phone no.
+     *
+     * @return the phone no
+     */
     public String getPhoneNo() {
         return phoneNo;
     }
 
+    /**
+     * Sets phone no.
+     *
+     * @param phoneNo the phone no
+     */
     public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
     }
 
+    /**
+     * Gets dob.
+     *
+     * @return the dob
+     */
     public String getDob() {
         return dob;
     }
 
+    /**
+     * Sets dob.
+     *
+     * @param dob the dob
+     */
     public void setDob(String dob) {
         this.dob = dob;
     }
 
+    /**
+     * Gets gender.
+     *
+     * @return the gender
+     */
     public String getGender() {
         return gender;
     }
 
+    /**
+     * Sets gender.
+     *
+     * @param gender the gender
+     */
     public void setGender(String gender) {
         this.gender = gender;
     }
 
+    /**
+     * Gets cnic.
+     *
+     * @return the cnic
+     */
     public String getCnic() {
         return cnic;
     }
 
+    /**
+     * Sets cnic.
+     *
+     * @param cnic the cnic
+     */
     public void setCnic(String cnic) {
         this.cnic = cnic;
     }
 
+    /**
+     * Gets password.
+     *
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets password.
+     *
+     * @param password the password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Gets created date.
+     *
+     * @return the created date
+     */
     public Date getCreatedDate() {
         return createdDate;
     }
 
+    /**
+     * Sets created date.
+     *
+     * @param createdDate the created date
+     */
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
+    /**
+     * Gets updated date.
+     *
+     * @return the updated date
+     */
     public Date getUpdatedDate() {
         return updatedDate;
     }
 
+    /**
+     * Sets updated date.
+     *
+     * @param updatedDate the updated date
+     */
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
     }
 
+    /**
+     * Is active boolean.
+     *
+     * @return the boolean
+     */
     public boolean isActive() {
         return active;
     }
 
+    /**
+     * Sets active.
+     *
+     * @param active the active
+     */
     public void setActive(boolean active) {
         this.active = active;
     }
 
+    /**
+     * Gets sms token.
+     *
+     * @return the sms token
+     */
     public String getSmsToken() {
         return smsToken;
     }
 
+    /**
+     * Sets sms token.
+     *
+     * @param smsToken the sms token
+     */
     public void setSmsToken(String smsToken) {
         this.smsToken = smsToken;
     }
 
+    /**
+     * Gets email token.
+     *
+     * @return the email token
+     */
     public String getEmailToken() {
         return emailToken;
     }
 
+    /**
+     * Sets email token.
+     *
+     * @param emailToken the email token
+     */
     public void setEmailToken(String emailToken) {
         this.emailToken = emailToken;
     }
 
+    /**
+     * Gets roles.
+     *
+     * @return the roles
+     */
     public List<Role> getRoles() {
         return roles;
     }
 
+    /**
+     * Sets roles.
+     *
+     * @param roles the roles
+     */
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
+    /**
+     * Gets crime reports.
+     *
+     * @return the crime reports
+     */
     public List<CrimeReport> getCrimeReports() {
         return crimeReports;
     }
 
+    /**
+     * Sets crime reports.
+     *
+     * @param crimeReports the crime reports
+     */
     public void setCrimeReports(List<CrimeReport> crimeReports) {
         this.crimeReports = crimeReports;
     }
 
+    /**
+     * Gets department.
+     *
+     * @return the department
+     */
     public Department getDepartment() {
         return department;
     }
 
+    /**
+     * Sets department.
+     *
+     * @param department the department
+     */
     public void setDepartment(Department department) {
         this.department = department;
     }
 
+    /**
+     * Gets police station.
+     *
+     * @return the police station
+     */
     public PoliceStation getPoliceStation() {
         return policeStation;
     }
 
+    /**
+     * Sets police station.
+     *
+     * @param policeStation the police station
+     */
     public void setPoliceStation(PoliceStation policeStation) {
         this.policeStation = policeStation;
     }

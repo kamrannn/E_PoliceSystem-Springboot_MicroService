@@ -6,8 +6,24 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * The interface Crime report repository.
+ */
 @Repository
 public interface CrimeReportRepository extends JpaRepository<CrimeReport, Long> {
+    /**
+     * Find all by active list.
+     *
+     * @param active the active
+     * @return the list
+     */
     List<CrimeReport> findAllByActive(boolean active);
+
+    /**
+     * Find all by id list.
+     *
+     * @param id the id
+     * @return the list
+     */
     List<CrimeReport> findAllById(long id);
 }

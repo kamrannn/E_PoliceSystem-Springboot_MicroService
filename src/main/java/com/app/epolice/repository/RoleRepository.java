@@ -6,7 +6,16 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * The interface Role repository.
+ */
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
+    /**
+     * Find all by active list.
+     *
+     * @param active the active
+     * @return the list
+     */
     List<Role> findAllByActive(boolean active);
 }

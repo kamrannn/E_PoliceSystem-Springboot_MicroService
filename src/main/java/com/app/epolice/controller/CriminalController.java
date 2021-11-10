@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 import java.util.List;
 
+/**
+ * The type Criminal controller.
+ */
 @EnableSwagger2
 @RestController
 @RequestMapping("/criminal")
@@ -18,7 +20,16 @@ public class CriminalController {
     private static final Logger LOG = LogManager.getLogger(CriminalController.class);
     private static final String token = "40dc498b-e837-4fa9-8e53-c1d51e01af15";
 
+    /**
+     * The Criminal service.
+     */
     CriminalService criminalService;
+
+    /**
+     * Instantiates a new Criminal controller.
+     *
+     * @param criminalService the criminal service
+     */
     public CriminalController(CriminalService criminalService) {
         this.criminalService = criminalService;
     }
@@ -26,8 +37,8 @@ public class CriminalController {
     /**
      * Authorizing the token
      *
-     * @param token
-     * @return
+     * @param token the token
+     * @return boolean
      * @Author "Kamran"
      */
     public boolean authorization(String token) {
@@ -38,7 +49,7 @@ public class CriminalController {
     /**
      * if the user is un-authorized
      *
-     * @return
+     * @return response entity
      * @Author "Kamran"
      */
     public ResponseEntity<Object> unAuthorizeUser() {
@@ -48,7 +59,9 @@ public class CriminalController {
 
     /**
      * Showing all the criminals
-     * @return
+     *
+     * @param token the token
+     * @return response entity
      */
     @GetMapping("/list")
     public ResponseEntity<Object> listOfCriminals(@RequestHeader("Authorization") String token){
@@ -62,8 +75,10 @@ public class CriminalController {
 
     /**
      * Adding the criminals
-     * @param criminal
-     * @return
+     *
+     * @param token    the token
+     * @param criminal the criminal
+     * @return response entity
      */
     @PostMapping("/add")
     public ResponseEntity<Object> addCriminal(@RequestHeader("Authorization") String token, @RequestBody List<Criminal> criminal){
@@ -77,8 +92,10 @@ public class CriminalController {
 
     /**
      * Updating the criminals
-     * @param criminal
-     * @return
+     *
+     * @param token    the token
+     * @param criminal the criminal
+     * @return response entity
      */
     @PutMapping("/update")
     public ResponseEntity<Object> updateCriminal(@RequestHeader("Authorization") String token, @RequestBody Criminal criminal){
@@ -92,8 +109,10 @@ public class CriminalController {
 
     /**
      * deleting the criminals
-     * @param criminalList
-     * @return
+     *
+     * @param token        the token
+     * @param criminalList the criminal list
+     * @return response entity
      */
     @DeleteMapping("/delete")
     public ResponseEntity<Object> deleteCriminal(@RequestHeader("Authorization") String token, @RequestBody List<Criminal> criminalList){
@@ -107,8 +126,10 @@ public class CriminalController {
 
     /**
      * find criminals by their cnic
-     * @param cnic
-     * @return
+     *
+     * @param token the token
+     * @param cnic  the cnic
+     * @return response entity
      */
     @GetMapping("/find-by-cnic")
     public ResponseEntity<Object> findCriminalByCnic(@RequestHeader("Authorization") String token, @RequestHeader String cnic){
@@ -122,8 +143,10 @@ public class CriminalController {
 
     /**
      * find criminals by their cnic having return type boolean
-     * @param cnic
-     * @return
+     *
+     * @param token the token
+     * @param cnic  the cnic
+     * @return boolean
      */
     @GetMapping("/check-criminal-record")
     public boolean verifyPersonCriminalRecord(@RequestHeader("Authorization") String token, @RequestHeader String cnic){
@@ -132,7 +155,9 @@ public class CriminalController {
 
     /**
      * Checking whether feign client is working or not
-     * @return
+     *
+     * @param token the token
+     * @return string
      */
     @GetMapping("/check-currency-record")
     public String checkFeignCurrencyMethod(@RequestHeader("Authorization") String token){

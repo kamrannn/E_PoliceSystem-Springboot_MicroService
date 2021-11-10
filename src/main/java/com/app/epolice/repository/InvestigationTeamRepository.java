@@ -6,7 +6,16 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * The interface Investigation team repository.
+ */
 @Repository
 public interface InvestigationTeamRepository extends JpaRepository<InvestigationTeam, Long> {
+    /**
+     * Find all by active list.
+     *
+     * @param active the active
+     * @return the list
+     */
     List<InvestigationTeam> findAllByActive(boolean active);
 }

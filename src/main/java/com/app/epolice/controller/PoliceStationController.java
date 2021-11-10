@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 import java.util.List;
 
+/**
+ * The type Police station controller.
+ */
 @EnableSwagger2
 @RestController
 @RequestMapping("/police-stations")
@@ -22,6 +24,12 @@ public class PoliceStationController {
      * Initializing the objects
      */
     PoliceStationService policeStationService;
+
+    /**
+     * Instantiates a new Police station controller.
+     *
+     * @param policeStationService the police station service
+     */
     public PoliceStationController(PoliceStationService policeStationService) {
         this.policeStationService = policeStationService;
     }
@@ -29,8 +37,8 @@ public class PoliceStationController {
     /**
      * Authorizing the token
      *
-     * @param token
-     * @return
+     * @param token the token
+     * @return boolean
      * @Author "Kamran"
      */
     public boolean authorization(String token) {
@@ -41,7 +49,7 @@ public class PoliceStationController {
     /**
      * if the user is un-authorized
      *
-     * @return
+     * @return response entity
      * @Author "Kamran"
      */
     public ResponseEntity<Object> unAuthorizeUser() {
@@ -51,7 +59,9 @@ public class PoliceStationController {
 
     /**
      * Showing all the police stations
-     * @return
+     *
+     * @param token the token
+     * @return response entity
      */
     @GetMapping("/list")
     public ResponseEntity<Object> listOfPoliceStations(@RequestHeader("Authorization") String token){
@@ -65,9 +75,10 @@ public class PoliceStationController {
 
     /**
      * Adding the police stations
-     * @param token
-     * @param policeStation
-     * @return
+     *
+     * @param token         the token
+     * @param policeStation the police station
+     * @return response entity
      */
     @PostMapping("/add")
     public ResponseEntity<Object> addPoliceStation(@RequestHeader("Authorization") String token, @RequestBody List<PoliceStation> policeStation){
@@ -81,9 +92,10 @@ public class PoliceStationController {
 
     /**
      * Updating the police stations
-     * @param token
-     * @param policeStation
-     * @return
+     *
+     * @param token         the token
+     * @param policeStation the police station
+     * @return response entity
      */
     @PutMapping("/update")
     public ResponseEntity<Object> updatePoliceStation(@RequestHeader("Authorization") String token, @RequestBody PoliceStation policeStation){
@@ -97,8 +109,10 @@ public class PoliceStationController {
 
     /**
      * deleting the police station
-     * @param policeStationList
-     * @return
+     *
+     * @param token             the token
+     * @param policeStationList the police station list
+     * @return response entity
      */
     @DeleteMapping("/delete")
     public ResponseEntity<Object> deletePoliceStation(@RequestHeader("Authorization") String token, @RequestBody List<PoliceStation> policeStationList){

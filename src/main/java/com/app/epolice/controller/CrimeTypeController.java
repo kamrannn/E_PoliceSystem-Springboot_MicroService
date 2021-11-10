@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 import java.util.List;
 
+/**
+ * The type Crime type controller.
+ */
 @EnableSwagger2
 @RestController
 @RequestMapping("/crime-type")
@@ -22,6 +24,12 @@ public class CrimeTypeController {
      * Initializing the crime type service object
      */
     CrimeTypeService crimeTypeService;
+
+    /**
+     * Instantiates a new Crime type controller.
+     *
+     * @param crimeTypeService the crime type service
+     */
     public CrimeTypeController(CrimeTypeService crimeTypeService) {
         this.crimeTypeService = crimeTypeService;
     }
@@ -29,8 +37,8 @@ public class CrimeTypeController {
     /**
      * Authorizing the token
      *
-     * @param token
-     * @return
+     * @param token the token
+     * @return boolean
      * @Author "Kamran"
      */
     public boolean authorization(String token) {
@@ -41,7 +49,7 @@ public class CrimeTypeController {
     /**
      * if the user is un-authorized
      *
-     * @return
+     * @return response entity
      * @Author "Kamran"
      */
     public ResponseEntity<Object> unAuthorizeUser() {
@@ -51,7 +59,9 @@ public class CrimeTypeController {
 
     /**
      * Showing all the crimeTypes
-     * @return
+     *
+     * @param token the token
+     * @return response entity
      */
     @GetMapping("/list")
     public ResponseEntity<Object> listOfCrimeTypes(@RequestHeader("Authorization") String token){
@@ -65,8 +75,10 @@ public class CrimeTypeController {
 
     /**
      * Adding the crimeTypes
-     * @param crimeType
-     * @return
+     *
+     * @param token     the token
+     * @param crimeType the crime type
+     * @return response entity
      */
     @PostMapping("/add")
     public ResponseEntity<Object> addCrimeType(@RequestHeader("Authorization") String token, @RequestBody List<CrimeType> crimeType){
@@ -80,8 +92,10 @@ public class CrimeTypeController {
 
     /**
      * Updating the crimeTypes
-     * @param crimeType
-     * @return
+     *
+     * @param token     the token
+     * @param crimeType the crime type
+     * @return response entity
      */
     @PutMapping("/update")
     public ResponseEntity<Object> updateCrimeType(@RequestHeader("Authorization") String token, @RequestBody CrimeType crimeType){
@@ -95,8 +109,10 @@ public class CrimeTypeController {
 
     /**
      * deleting the crimeTypes
-     * @param crimeTypeList
-     * @return
+     *
+     * @param token         the token
+     * @param crimeTypeList the crime type list
+     * @return response entity
      */
     @DeleteMapping("/delete")
     public ResponseEntity<Object> deleteCrimeType(@RequestHeader("Authorization") String token, @RequestBody List<CrimeType> crimeTypeList){
