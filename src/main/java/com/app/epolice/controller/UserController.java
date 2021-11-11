@@ -234,6 +234,15 @@ public class UserController {
         }
     }
 
+    @GetMapping("/view-roles")
+    public ResponseEntity<Object> viewRolesOfSpecificUser(@RequestHeader Long userId){
+        return userService.specificUserRoles(userId);
+    }
+    @GetMapping("/view-department")
+    public ResponseEntity<Object> viewSpecificUserDepartment(@RequestHeader Long userId){
+        return userService.specificUserDepartment(userId);
+    }
+
     /**
      * handle input exceptions
      * @param ex exception will be thrown

@@ -13,10 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+
+import java.util.*;
 
 /**
  * The type User service.
@@ -342,18 +340,29 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<Object> userRolesAndPermissions(Long userId){
+    public ResponseEntity<Object> specificUserRoles(Long userId){
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()){
             UserDto userDto = new UserDto();
-            userDto.setFirstName(user.get().getFirstName());
-            userDto.setLastName(user.get().getLastName());
-            userDto.setEmail(user.get().getEmail());
-            userDto.setPhoneNo(user.get().getPhoneNo());
-            userDto.setDob(user.get().getDob());
-            userDto.setGender(user.get().getGender());
-            userDto.setCnic(user.get().getCnic());
-            return new ResponseEntity<>(userDto,HttpStatus.OK);
+            for (Object role:user.get().getRoles()
+                 ) {
+                userDto.setUsersData(Collections.singleton(role));
+            }
+            return new ResponseEntity<>(userDto.getUsersData(),HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("No user found against this user id", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public ResponseEntity<Object> specificUserDepartment(Long userId){
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isPresent()){
+            UserDto userDto = new UserDto();
+            for (Object role:user.get().getCrimeReports()
+            ) {
+                userDto.setUsersData(Collections.singleton(role));
+            }
+            return new ResponseEntity<>(userDto.getUsersData(),HttpStatus.OK);
         }else{
             return new ResponseEntity<>("No user found against this user id", HttpStatus.NOT_FOUND);
         }
