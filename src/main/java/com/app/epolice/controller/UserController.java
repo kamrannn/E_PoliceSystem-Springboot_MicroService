@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
-import java.io.IOException;
 
 /**
  * The type User controller.
@@ -224,7 +223,6 @@ public class UserController {
      * @param report the report
      * @param file   the file
      * @return response entity
-     * @throws IOException the io exception
      */
     @PostMapping("/upload_single_report")
     public ResponseEntity<Object> uploadReport(@RequestHeader("Authorization") String token,@RequestHeader long id, CrimeReport report, @RequestParam("files") MultipartFile[] file) {
@@ -238,8 +236,8 @@ public class UserController {
 
     /**
      * handle input exceptions
-     * @param ex
-     * @return
+     * @param ex exception will be thrown
+     * @return it will handle the validation for method not valid
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({MethodArgumentNotValidException.class})

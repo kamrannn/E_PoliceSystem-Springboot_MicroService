@@ -2,7 +2,6 @@ package com.app.epolice.service;
 
 import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.crime.Criminal;
-import com.app.epolice.model.entity.policestation.Department;
 import com.app.epolice.repository.CriminalRepository;
 import com.app.epolice.service.feignclients.FeignEBankService;
 import com.app.epolice.util.DateTime;
@@ -167,11 +166,7 @@ public class CriminalService {
      */
     public boolean verifyPersonCriminalRecord(String cnic) {
         Optional<Criminal> criminal = criminalRepository.findByCnic(cnic);
-        if (criminal.isPresent()) {
-            return true;
-        } else {
-            return false;
-        }
+        return criminal.isPresent();
     }
 
     /**
@@ -197,7 +192,7 @@ public class CriminalService {
     /**
      * Checking whether feign client is working or not
      *
-     * @return string
+     * @return string string
      */
     public String checkFeignCurrencyMethod(){
         return feignEBankService.checkCurrency();

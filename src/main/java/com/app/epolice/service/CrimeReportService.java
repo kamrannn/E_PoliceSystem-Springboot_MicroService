@@ -15,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -184,7 +182,6 @@ public class CrimeReportService {
      * @param crimeReportId   the crime report id
      * @param policeStationId the police station id
      * @return response entity
-     * @throws ParseException
      */
     public ResponseEntity<Object> verifyReport(String status,long crimeReportId,long policeStationId) {
         List<CrimeReport> crimeReportList = new ArrayList<>();

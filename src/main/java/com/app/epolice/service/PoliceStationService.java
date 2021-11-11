@@ -2,7 +2,6 @@ package com.app.epolice.service;
 
 import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.policestation.PoliceStation;
-import com.app.epolice.model.entity.user.Role;
 import com.app.epolice.repository.PoliceStationRepository;
 import com.app.epolice.util.DateTime;
 import org.apache.logging.log4j.LogManager;

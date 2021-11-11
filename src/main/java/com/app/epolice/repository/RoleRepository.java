@@ -1,7 +1,6 @@
 package com.app.epolice.repository;
 
 import com.app.epolice.model.entity.user.Role;
-import com.app.epolice.model.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

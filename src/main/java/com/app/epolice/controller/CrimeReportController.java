@@ -12,10 +12,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The type Crime report controller.
@@ -46,7 +45,7 @@ public class CrimeReportController {
      *
      * @param token the token
      * @return boolean
-     * @Author "Kamran"
+     * @author "Kamran"
      */
     public boolean authorization(String token) {
         LOG.info("Authorizing the user ");
@@ -57,7 +56,7 @@ public class CrimeReportController {
      * if the user is un-authorized
      *
      * @return response entity
-     * @Author "Kamran"
+     * @author "Kamran"
      */
     public ResponseEntity<Object> unAuthorizeUser() {
         LOG.info("Unauthorized user is trying to get access");
@@ -104,10 +103,9 @@ public class CrimeReportController {
      * @param report the report
      * @param file   the file
      * @return response entity
-     * @throws IOException the io exception
      */
     @PostMapping("/upload_singe_report")
-    public ResponseEntity<Object> uploadReport(@RequestHeader("Authorization") String token, CrimeReport report,@RequestParam("files") MultipartFile[] file) throws IOException {
+    public ResponseEntity<Object> uploadReport(@RequestHeader("Authorization") String token, CrimeReport report,@RequestParam("files") MultipartFile[] file) {
         if (authorization(token)) {
             LOG.info("adding single crime report");
             return crimeReportService.addSingleCrimeReport(report,file);
@@ -119,14 +117,13 @@ public class CrimeReportController {
     /**
      * Upload a file controller (Testing)
      *
-     * @param token the token
      * @param file  the file
      * @return string
      * @throws IOException the io exception
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String uploadFile(@RequestHeader("Authorization") String token, @RequestParam("file") MultipartFile file) throws IOException {
-        String reportPictureName = StringUtils.cleanPath(file.getOriginalFilename());
+    public String uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+        String reportPictureName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         String uploadDir = "F:\\Development\\E-Police Project\\Images\\" + 1;
         FileUpload.saveFile(uploadDir,reportPictureName, file);
         return null;
@@ -174,10 +171,9 @@ public class CrimeReportController {
      * @param crimeReportId   the crime report id
      * @param policeStationId the police station id
      * @return response entity
-     * @throws ParseException the parse exception
      */
     @PostMapping("/verify")
-    public ResponseEntity<Object> verifyCrimeReport(@RequestHeader("Authorization") String token, @RequestHeader String status,@RequestHeader long crimeReportId,@RequestHeader long policeStationId) throws ParseException {
+    public ResponseEntity<Object> verifyCrimeReport(@RequestHeader("Authorization") String token, @RequestHeader String status,@RequestHeader long crimeReportId,@RequestHeader long policeStationId){
         if (authorization(token)) {
             LOG.info("verifying and assigning crime reports to a specific police station");
             return crimeReportService.verifyReport(status,crimeReportId,policeStationId);

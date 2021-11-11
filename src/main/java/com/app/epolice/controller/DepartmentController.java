@@ -39,7 +39,7 @@ public class DepartmentController {
      *
      * @param token the token
      * @return boolean boolean
-     * @Author "Kamran"
+     * @author "Kamran"
      */
     public boolean authorization(String token) {
         LOG.info("Authorizing the user ");
@@ -50,7 +50,7 @@ public class DepartmentController {
      * if the user is un-authorized
      *
      * @return response entity
-     * @Author "Kamran"
+     * @author "Kamran"
      */
     public ResponseEntity<Object> unAuthorizeUser() {
         LOG.info("Unauthorized user is trying to get access");
@@ -82,7 +82,12 @@ public class DepartmentController {
      */
     @PostMapping("/add")
     public ResponseEntity<Object> addDepartment(@RequestHeader("Authorization") String token, @RequestBody List<Department> department){
-        return departmentService.addNewDepartments(department);
+        if (authorization(token)) {
+            LOG.info("adding the departments");
+            return departmentService.addNewDepartments(department);
+        } else {
+            return unAuthorizeUser();
+        }
     }
 
     /**
@@ -94,7 +99,12 @@ public class DepartmentController {
      */
     @PutMapping("/update")
     public ResponseEntity<Object> updateDepartment(@RequestHeader("Authorization") String token, @RequestBody Department department){
-        return departmentService.updateDepartment(department);
+        if (authorization(token)) {
+            LOG.info("updating the departments");
+            return departmentService.updateDepartment(department);
+        } else {
+            return unAuthorizeUser();
+        }
     }
 
     /**
@@ -106,7 +116,13 @@ public class DepartmentController {
      */
     @DeleteMapping("/delete")
     public ResponseEntity<Object> deleteDepartment(@RequestHeader("Authorization") String token, @RequestBody List<Department> departmentList){
-        return departmentService.deleteDepartment(departmentList);
+        if (authorization(token)) {
+            LOG.info("deleting the departments");
+            return departmentService.deleteDepartment(departmentList);
+        } else {
+            return unAuthorizeUser();
+        }
+
     }
 
     /**

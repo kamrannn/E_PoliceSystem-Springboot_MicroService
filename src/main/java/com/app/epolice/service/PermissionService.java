@@ -1,26 +1,33 @@
 package com.app.epolice.service;
 
 import com.app.epolice.controller.UserController;
-import com.app.epolice.model.entity.policestation.PoliceStation;
 import com.app.epolice.model.entity.user.Permission;
 import com.app.epolice.repository.PermissionRepository;
 import com.app.epolice.util.DateTime;
-import com.app.epolice.util.ExceptionHandling;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
-
-import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * The type Permission service.
+ */
 @Service
 public class PermissionService {
     private static final Logger LOG = LogManager.getLogger(UserController.class);
 
+    /**
+     * The Permission repository.
+     */
     PermissionRepository permissionRepository;
+
+    /**
+     * Instantiates a new Permission service.
+     *
+     * @param permissionRepository the permission repository
+     */
     public PermissionService(PermissionRepository permissionRepository) {
         this.permissionRepository = permissionRepository;
     }
@@ -28,7 +35,7 @@ public class PermissionService {
     /**
      * Fetching all the permissions from the database
      *
-     * @return
+     * @return response entity
      */
     public ResponseEntity<Object> listAllPermissions() {
         try {
@@ -47,7 +54,7 @@ public class PermissionService {
     /**
      * Fetching all the permissions from the database
      *
-     * @return
+     * @return response entity
      */
     public ResponseEntity<Object> sortedListOfPermissions() {
         try {
@@ -65,8 +72,9 @@ public class PermissionService {
 
     /**
      * This method is storing the list of permissions in the database
-     * @param permissionList
-     * @return
+     *
+     * @param permissionList the permission list
+     * @return response entity
      */
     public ResponseEntity<Object> addNewPermissions(List<Permission> permissionList) {
         try {
@@ -97,8 +105,9 @@ public class PermissionService {
 
     /**
      * This service is deleting the Permissions from the database
-     * @param permissionList
-     * @return
+     *
+     * @param permissionList the permission list
+     * @return response entity
      */
     public ResponseEntity<Object> deletePermission(List<Permission> permissionList){
         try{
@@ -125,8 +134,9 @@ public class PermissionService {
 
     /**
      * This service is updating the permission in the database.
-     * @param permission
-     * @return
+     *
+     * @param permission the permission
+     * @return response entity
      */
     public ResponseEntity<Object> updatePermission(Permission permission){
         try{

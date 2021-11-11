@@ -7,19 +7,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.executable.ValidateOnExecution;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,7 +42,7 @@ public class PermissionController {
      *
      * @param token the token
      * @return boolean
-     * @Author "Kamran"
+     * @author "Kamran"
      */
     public boolean authorization(String token) {
         LOG.info("Authorizing the user ");
@@ -62,7 +53,7 @@ public class PermissionController {
      * if the user is un-authorized
      *
      * @return response entity
-     * @Author "Kamran"
+     * @author "Kamran"
      */
     public ResponseEntity<Object> unAuthorizeUser() {
         LOG.info("Unauthorized user is trying to get access");
@@ -109,7 +100,7 @@ public class PermissionController {
      * @return response entity
      */
     @PostMapping("/add")
-    public ResponseEntity<Object> addPermission(@RequestHeader("Authorization") String token, @Valid @RequestBody List<Permission> permissions, Errors errors) {
+    public ResponseEntity<Object> addPermission(@RequestHeader("Authorization") String token, @Valid @RequestBody List<Permission> permissions) {
         if (authorization(token)) {
             LOG.info("adding all the permissions");
             return permissionService.addNewPermissions(permissions);

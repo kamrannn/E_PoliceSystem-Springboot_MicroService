@@ -2,7 +2,6 @@ package com.app.epolice.service;
 
 import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.crime.CrimeType;
-import com.app.epolice.model.entity.crime.Criminal;
 import com.app.epolice.repository.CrimeTypeRepository;
 import com.app.epolice.util.DateTime;
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * The type Crime type service.
+ */
 @Service
 public class CrimeTypeService {
     private static final Logger LOG = LogManager.getLogger(UserController.class);
@@ -21,6 +23,12 @@ public class CrimeTypeService {
      * Initializing the crimeType Repository
      */
     CrimeTypeRepository crimeTypeRepository;
+
+    /**
+     * Instantiates a new Crime type service.
+     *
+     * @param crimeTypeRepository the crime type repository
+     */
     public CrimeTypeService(CrimeTypeRepository crimeTypeRepository) {
         this.crimeTypeRepository = crimeTypeRepository;
     }
@@ -28,7 +36,7 @@ public class CrimeTypeService {
     /**
      * Fetching all the crime types from the database
      *
-     * @return
+     * @return response entity
      */
     public ResponseEntity<Object> listAllCrimeTypes() {
         try {
@@ -46,8 +54,9 @@ public class CrimeTypeService {
 
     /**
      * This method is storing the list of crime types in the database
-     * @param crimeTypeList
-     * @return
+     *
+     * @param crimeTypeList the crime type list
+     * @return response entity
      */
     public ResponseEntity<Object> addNewCrimeTypes(List<CrimeType> crimeTypeList) {
         try {
@@ -74,8 +83,9 @@ public class CrimeTypeService {
 
     /**
      * This service is deleting the CrimeTypes from the database
-     * @param crimeTypeList
-     * @return
+     *
+     * @param crimeTypeList the crime type list
+     * @return response entity
      */
     public ResponseEntity<Object> deleteCrimeType(List<CrimeType> crimeTypeList){
         try{
@@ -102,8 +112,9 @@ public class CrimeTypeService {
 
     /**
      * This service is updating the crime types in the database.
-     * @param crimeType
-     * @return
+     *
+     * @param crimeType the crime type
+     * @return response entity
      */
     public ResponseEntity<Object> updateCrimeType(CrimeType crimeType){
         try{

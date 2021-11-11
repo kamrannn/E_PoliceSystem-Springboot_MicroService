@@ -39,7 +39,7 @@ public class PoliceStationController {
      *
      * @param token the token
      * @return boolean boolean
-     * @Author "Kamran"
+     * @author "Kamran"
      */
     public boolean authorization(String token) {
         LOG.info("Authorizing the user ");
@@ -50,7 +50,7 @@ public class PoliceStationController {
      * if the user is un-authorized
      *
      * @return response entity
-     * @Author "Kamran"
+     * @author "Kamran"
      */
     public ResponseEntity<Object> unAuthorizeUser() {
         LOG.info("Unauthorized user is trying to get access");

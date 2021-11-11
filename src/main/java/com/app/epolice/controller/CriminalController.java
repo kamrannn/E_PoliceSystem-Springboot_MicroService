@@ -39,7 +39,7 @@ public class CriminalController {
      *
      * @param token the token
      * @return boolean
-     * @Author "Kamran"
+     * @author "Kamran"
      */
     public boolean authorization(String token) {
         LOG.info("Authorizing the user ");
@@ -50,7 +50,7 @@ public class CriminalController {
      * if the user is un-authorized
      *
      * @return response entity
-     * @Author "Kamran"
+     * @author "Kamran"
      */
     public ResponseEntity<Object> unAuthorizeUser() {
         LOG.info("Unauthorized user is trying to get access");
@@ -144,12 +144,11 @@ public class CriminalController {
     /**
      * find criminals by their cnic having return type boolean
      *
-     * @param token the token
      * @param cnic  the cnic
      * @return boolean
      */
     @GetMapping("/check-criminal-record")
-    public boolean verifyPersonCriminalRecord(@RequestHeader("Authorization") String token, @RequestHeader String cnic){
+    public boolean verifyPersonCriminalRecord(@RequestHeader String cnic){
         return criminalService.verifyPersonCriminalRecord(cnic);
     }
 
@@ -173,11 +172,10 @@ public class CriminalController {
     /**
      * Checking whether feign client is working or not
      *
-     * @param token the token
      * @return string
      */
     @GetMapping("/check-currency-record")
-    public String checkFeignCurrencyMethod(@RequestHeader("Authorization") String token){
+    public String checkFeignCurrencyMethod(){
         return criminalService.checkFeignCurrencyMethod();
     }
 }

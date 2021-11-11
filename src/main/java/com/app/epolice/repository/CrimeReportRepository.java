@@ -27,7 +27,7 @@ public interface CrimeReportRepository extends JpaRepository<CrimeReport, Long> 
      * @param id the id
      * @return the list
      */
-    List<CrimeReport> findAllById(long id);
+//    List<CrimeReport> findAllById(long id);
 
     /**
      * Find all by active true order by created date desc list.
@@ -36,6 +36,12 @@ public interface CrimeReportRepository extends JpaRepository<CrimeReport, Long> 
      */
     List<CrimeReport> findAllByActiveTrueOrderByCreatedDateDesc();
 
+    /**
+     * Find all crime reports by date list.
+     *
+     * @param date the date
+     * @return the list
+     */
     @Query(value = "SELECT * FROM t_crime_report where created_date like CONCAT(:date,'%')", nativeQuery = true)
     List<CrimeReport> findAllCrimeReportsByDate(Date date);
 }
