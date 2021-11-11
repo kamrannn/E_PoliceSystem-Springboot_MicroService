@@ -1,6 +1,7 @@
 package com.app.epolice.service;
 
 import com.app.epolice.controller.UserController;
+import com.app.epolice.model.dto.UserDto;
 import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.model.entity.user.User;
 import com.app.epolice.repository.UserRepository;
@@ -338,6 +339,23 @@ public class UserService {
         } catch (Exception e) {
             LOG.info("Exception"+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<Object> userRolesAndPermissions(Long userId){
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isPresent()){
+            UserDto userDto = new UserDto();
+            userDto.setFirstName(user.get().getFirstName());
+            userDto.setLastName(user.get().getLastName());
+            userDto.setEmail(user.get().getEmail());
+            userDto.setPhoneNo(user.get().getPhoneNo());
+            userDto.setDob(user.get().getDob());
+            userDto.setGender(user.get().getGender());
+            userDto.setCnic(user.get().getCnic());
+            return new ResponseEntity<>(userDto,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("No user found against this user id", HttpStatus.NOT_FOUND);
         }
     }
 }
