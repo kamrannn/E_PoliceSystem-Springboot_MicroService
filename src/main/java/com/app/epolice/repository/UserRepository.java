@@ -56,6 +56,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     List<User> findAllByActiveTrueOrderByCreatedDateDesc();
 
+    /**
+     * Find all users by date list.
+     *
+     * @param date the date
+     * @return the list
+     */
     @Query(value = "SELECT * FROM t_user where created_date like CONCAT(:date,'%')", nativeQuery = true)
     List<User> findAllUsersByDate(Date date);
 }

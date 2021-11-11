@@ -38,7 +38,7 @@ public class DepartmentController {
      * Authorizing the token
      *
      * @param token the token
-     * @return boolean
+     * @return boolean boolean
      * @Author "Kamran"
      */
     public boolean authorization(String token) {
@@ -107,5 +107,22 @@ public class DepartmentController {
     @DeleteMapping("/delete")
     public ResponseEntity<Object> deleteDepartment(@RequestHeader("Authorization") String token, @RequestBody List<Department> departmentList){
         return departmentService.deleteDepartment(departmentList);
+    }
+
+    /**
+     * Find all departments by date response entity.
+     *
+     * @param token the token
+     * @param date  the date
+     * @return the response entity
+     */
+    @GetMapping("/by-date")
+    public ResponseEntity<Object> findAllDepartmentsByDate(@RequestHeader("Authorization") String token, @RequestParam java.sql.Date date) {
+        if (authorization(token)) {
+            LOG.info("Listing all the departments by date");
+            return departmentService.findAllDepartmentsByDate(date);
+        } else {
+            return unAuthorizeUser();
+        }
     }
 }

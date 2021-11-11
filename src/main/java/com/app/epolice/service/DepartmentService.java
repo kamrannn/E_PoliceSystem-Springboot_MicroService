@@ -2,6 +2,7 @@ package com.app.epolice.service;
 
 import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.policestation.Department;
+import com.app.epolice.model.entity.policestation.InvestigationTeam;
 import com.app.epolice.repository.DepartmentRepository;
 import com.app.epolice.util.DateTime;
 import org.apache.logging.log4j.LogManager;
@@ -12,11 +13,23 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * The type Department service.
+ */
 @Service
 public class DepartmentService {
     private static final Logger LOG = LogManager.getLogger(UserController.class);
 
+    /**
+     * The Department repository.
+     */
     DepartmentRepository departmentRepository;
+
+    /**
+     * Instantiates a new Department service.
+     *
+     * @param departmentRepository the department repository
+     */
     public DepartmentService(DepartmentRepository departmentRepository) {
         this.departmentRepository = departmentRepository;
     }
@@ -24,7 +37,7 @@ public class DepartmentService {
     /**
      * Fetching all the police stations from the database
      *
-     * @return
+     * @return response entity
      */
     public ResponseEntity<Object> listAllDepartments() {
         try {
@@ -42,8 +55,9 @@ public class DepartmentService {
 
     /**
      * This method is storing the list of police stations in the database
-     * @param departmentList
-     * @return
+     *
+     * @param departmentList the department list
+     * @return response entity
      */
     public ResponseEntity<Object> addNewDepartments(List<Department> departmentList) {
         try {
@@ -70,8 +84,9 @@ public class DepartmentService {
 
     /**
      * This service is deleting the Departments from the database
-     * @param departmentList
-     * @return
+     *
+     * @param departmentList the department list
+     * @return response entity
      */
     public ResponseEntity<Object> deleteDepartment(List<Department> departmentList){
         try{
@@ -98,8 +113,9 @@ public class DepartmentService {
 
     /**
      * This service is updating the police station in the database.
-     * @param department
-     * @return
+     *
+     * @param department the department
+     * @return response entity
      */
     public ResponseEntity<Object> updateDepartment(Department department){
         try{
@@ -113,6 +129,26 @@ public class DepartmentService {
         }catch (Exception e){
             LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Find all departments by date response entity.
+     *
+     * @param date the date
+     * @return the response entity
+     */
+    public ResponseEntity<Object> findAllDepartmentsByDate(java.sql.Date date) {
+        try {
+            List<Department> departmentList = departmentRepository.findAllPoliceDepartmentsByDate(date);
+            if (departmentList.isEmpty()) {
+                return new ResponseEntity<>("There are no departments in the database", HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(departmentList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

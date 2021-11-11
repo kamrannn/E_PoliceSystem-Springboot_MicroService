@@ -76,7 +76,7 @@ public class RoleController {
     @GetMapping("/by-date")
     public ResponseEntity<Object> findRolesByDate(@RequestHeader("Authorization") String token, @RequestParam java.sql.Date date) {
         if (authorization(token)) {
-            LOG.info("Listing all the users by date");
+            LOG.info("Listing all the roles by date");
             return roleService.findRolesByDate(date);
         } else {
             return unAuthorizeUser();

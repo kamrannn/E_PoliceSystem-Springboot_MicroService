@@ -1,6 +1,7 @@
 package com.app.epolice.service;
 
 import com.app.epolice.controller.UserController;
+import com.app.epolice.model.entity.policestation.PoliceStation;
 import com.app.epolice.model.entity.user.Permission;
 import com.app.epolice.repository.PermissionRepository;
 import com.app.epolice.util.DateTime;
@@ -139,6 +140,26 @@ public class PermissionService {
         }catch (Exception e){
             LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Find police stations by date response entity.
+     *
+     * @param date the date
+     * @return the response entity
+     */
+    public ResponseEntity<Object> findAllPermissionsByDate(java.sql.Date date) {
+        try {
+            List<Permission> permissionList = permissionRepository.findAllPermissionsByDate(date);
+            if (permissionList.isEmpty()) {
+                return new ResponseEntity<>("There are no police stations in the database", HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(permissionList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

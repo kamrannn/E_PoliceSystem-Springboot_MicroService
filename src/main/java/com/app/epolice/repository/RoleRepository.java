@@ -21,6 +21,7 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
      * @return the list
      */
     List<Role> findAllByActive(boolean active);
+
     /**
      * Find all by active true order by created date desc list.
      *
@@ -28,6 +29,12 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
      */
     List<Role> findAllByActiveTrueOrderByCreatedDateDesc();
 
+    /**
+     * Find all roles by date list.
+     *
+     * @param date the date
+     * @return the list
+     */
     @Query(value = "SELECT * FROM t_role where created_date like CONCAT(:date,'%')", nativeQuery = true)
     List<Role> findAllRolesByDate(Date date);
 }

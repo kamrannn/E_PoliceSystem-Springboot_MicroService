@@ -134,7 +134,7 @@ public class PoliceStationController {
     @GetMapping("/by-date")
     public ResponseEntity<Object> findPoliceStationsByDate(@RequestHeader("Authorization") String token, @RequestParam java.sql.Date date) {
         if (authorization(token)) {
-            LOG.info("Listing all the users by date");
+            LOG.info("Listing all the police stations by date");
             return policeStationService.findPoliceStationsByDate(date);
         } else {
             return unAuthorizeUser();

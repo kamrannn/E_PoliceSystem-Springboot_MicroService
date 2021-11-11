@@ -154,6 +154,23 @@ public class CriminalController {
     }
 
     /**
+     * Find all criminals by date response entity.
+     *
+     * @param token the token
+     * @param date  the date
+     * @return the response entity
+     */
+    @GetMapping("/by-date")
+    public ResponseEntity<Object> findAllCriminalsByDate(@RequestHeader("Authorization") String token, @RequestParam java.sql.Date date) {
+        if (authorization(token)) {
+            LOG.info("Listing all the criminals by date");
+            return criminalService.findAllCriminalsByDate(date);
+        } else {
+            return unAuthorizeUser();
+        }
+    }
+
+    /**
      * Checking whether feign client is working or not
      *
      * @param token the token

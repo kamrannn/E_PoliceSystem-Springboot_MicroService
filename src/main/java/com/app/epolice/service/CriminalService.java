@@ -2,6 +2,7 @@ package com.app.epolice.service;
 
 import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.crime.Criminal;
+import com.app.epolice.model.entity.policestation.Department;
 import com.app.epolice.repository.CriminalRepository;
 import com.app.epolice.service.feignclients.FeignEBankService;
 import com.app.epolice.util.DateTime;
@@ -14,12 +15,28 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Criminal service.
+ */
 @Service
 public class CriminalService {
     private static final Logger LOG = LogManager.getLogger(UserController.class);
 
+    /**
+     * The Feign e bank service.
+     */
     FeignEBankService feignEBankService;
+    /**
+     * The Criminal repository.
+     */
     CriminalRepository criminalRepository;
+
+    /**
+     * Instantiates a new Criminal service.
+     *
+     * @param criminalRepository the criminal repository
+     * @param feignEBankService  the feign e bank service
+     */
     public CriminalService(CriminalRepository criminalRepository,FeignEBankService feignEBankService) {
         this.criminalRepository = criminalRepository;
         this.feignEBankService=feignEBankService;
@@ -28,7 +45,7 @@ public class CriminalService {
     /**
      * Fetching all the criminals from the database
      *
-     * @return
+     * @return response entity
      */
     public ResponseEntity<Object> listAllCriminals() {
         try {
@@ -46,8 +63,9 @@ public class CriminalService {
 
     /**
      * This method is storing the list of criminals in the database
-     * @param criminalList
-     * @return
+     *
+     * @param criminalList the criminal list
+     * @return response entity
      */
     public ResponseEntity<Object> addNewCriminals(List<Criminal> criminalList) {
         try {
@@ -74,8 +92,9 @@ public class CriminalService {
 
     /**
      * This service is deleting the Criminals from the database
-     * @param criminalList
-     * @return
+     *
+     * @param criminalList the criminal list
+     * @return response entity
      */
     public ResponseEntity<Object> deleteCriminal(List<Criminal> criminalList){
         try{
@@ -102,8 +121,9 @@ public class CriminalService {
 
     /**
      * This service is updating the criminals in the database.
-     * @param criminal
-     * @return
+     *
+     * @param criminal the criminal
+     * @return response entity
      */
     public ResponseEntity<Object> updateCriminal(Criminal criminal){
         try{
@@ -122,8 +142,9 @@ public class CriminalService {
 
     /**
      * finding the criminal by its cnic
-     * @param cnic
-     * @return ResponseEntity
+     *
+     * @param cnic the cnic
+     * @return ResponseEntity response entity
      */
     public ResponseEntity<Object> findCriminalByCnic(String cnic){
         try {
@@ -140,8 +161,9 @@ public class CriminalService {
 
     /**
      * finding the criminal by its cnic, returning boolean
-     * @param cnic
-     * @return boolean
+     *
+     * @param cnic the cnic
+     * @return boolean boolean
      */
     public boolean verifyPersonCriminalRecord(String cnic) {
         Optional<Criminal> criminal = criminalRepository.findByCnic(cnic);
@@ -153,8 +175,29 @@ public class CriminalService {
     }
 
     /**
+     * Find all criminals by date response entity.
+     *
+     * @param date the date
+     * @return the response entity
+     */
+    public ResponseEntity<Object> findAllCriminalsByDate(java.sql.Date date) {
+        try {
+            List<Criminal> criminalList = criminalRepository.findAllCriminalsByDate(date);
+            if (criminalList.isEmpty()) {
+                return new ResponseEntity<>("There are no criminals in the database", HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(criminalList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * Checking whether feign client is working or not
-     * @return
+     *
+     * @return string
      */
     public String checkFeignCurrencyMethod(){
         return feignEBankService.checkCurrency();

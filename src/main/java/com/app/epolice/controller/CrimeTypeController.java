@@ -123,4 +123,21 @@ public class CrimeTypeController {
             return unAuthorizeUser();
         }
     }
+
+    /**
+     * Find all crime types by date response entity.
+     *
+     * @param token the token
+     * @param date  the date
+     * @return the response entity
+     */
+    @GetMapping("/by-date")
+    public ResponseEntity<Object> findAllCrimeTypesByDate(@RequestHeader("Authorization") String token, @RequestParam java.sql.Date date) {
+        if (authorization(token)) {
+            LOG.info("Listing all the crime types by date");
+            return crimeTypeService.findAllCrimeTypesByDate(date);
+        } else {
+            return unAuthorizeUser();
+        }
+    }
 }

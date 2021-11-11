@@ -2,8 +2,10 @@ package com.app.epolice.repository;
 
 import com.app.epolice.model.entity.policestation.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -24,4 +26,13 @@ public interface DepartmentRepository extends JpaRepository<Department,Long> {
      * @return the list
      */
     List<Department> findAllByActiveTrueOrderByCreatedDateDesc();
+
+    /**
+     * Find all police departments by date list.
+     *
+     * @param date the date
+     * @return the list
+     */
+    @Query(value = "SELECT * FROM t_police_department where created_date like CONCAT(:date,'%')", nativeQuery = true)
+    List<Department> findAllPoliceDepartmentsByDate(Date date);
 }

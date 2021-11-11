@@ -2,8 +2,10 @@ package com.app.epolice.repository;
 
 import com.app.epolice.model.entity.crime.CrimeReport;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -33,4 +35,7 @@ public interface CrimeReportRepository extends JpaRepository<CrimeReport, Long> 
      * @return the list
      */
     List<CrimeReport> findAllByActiveTrueOrderByCreatedDateDesc();
+
+    @Query(value = "SELECT * FROM t_crime_report where created_date like CONCAT(:date,'%')", nativeQuery = true)
+    List<CrimeReport> findAllCrimeReportsByDate(Date date);
 }

@@ -185,4 +185,21 @@ public class CrimeReportController {
             return unAuthorizeUser();
         }
     }
+
+    /**
+     * Find all crime reports by date response entity.
+     *
+     * @param token the token
+     * @param date  the date
+     * @return the response entity
+     */
+    @GetMapping("/by-date")
+    public ResponseEntity<Object> findAllCrimeReportsByDate(@RequestHeader("Authorization") String token, @RequestParam java.sql.Date date) {
+        if (authorization(token)) {
+            LOG.info("Listing all the crime reports by date");
+            return crimeReportService.findAllCrimeReportsByDate(date);
+        } else {
+            return unAuthorizeUser();
+        }
+    }
 }

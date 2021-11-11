@@ -2,6 +2,7 @@ package com.app.epolice.service;
 
 import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.policestation.InvestigationTeam;
+import com.app.epolice.model.entity.user.Permission;
 import com.app.epolice.repository.InvestigationTeamRepository;
 import com.app.epolice.util.DateTime;
 import org.apache.logging.log4j.LogManager;
@@ -12,12 +13,23 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * The type Investigation team service.
+ */
 @Service
 public class InvestigationTeamService {
     private static final Logger LOG = LogManager.getLogger(UserController.class);
 
+    /**
+     * The Investigation team repository.
+     */
     InvestigationTeamRepository investigationTeamRepository;
 
+    /**
+     * Instantiates a new Investigation team service.
+     *
+     * @param investigationTeamRepository the investigation team repository
+     */
     public InvestigationTeamService(InvestigationTeamRepository investigationTeamRepository) {
         this.investigationTeamRepository = investigationTeamRepository;
     }
@@ -25,7 +37,7 @@ public class InvestigationTeamService {
     /**
      * Fetching all the Investigation teams from the database
      *
-     * @return
+     * @return response entity
      */
     public ResponseEntity<Object> listAllInvestigationTeams() {
         try {
@@ -43,8 +55,9 @@ public class InvestigationTeamService {
 
     /**
      * This method is storing the list of Investigation teams in the database
-     * @param investigationTeamList
-     * @return
+     *
+     * @param investigationTeamList the investigation team list
+     * @return response entity
      */
     public ResponseEntity<Object> addNewInvestigationTeams(List<InvestigationTeam> investigationTeamList) {
         try {
@@ -72,8 +85,9 @@ public class InvestigationTeamService {
 
     /**
      * This service is deleting the InvestigationTeams from the database
-     * @param investigationTeamList
-     * @return
+     *
+     * @param investigationTeamList the investigation team list
+     * @return response entity
      */
     public ResponseEntity<Object> deleteInvestigationTeam(List<InvestigationTeam> investigationTeamList){
         try{
@@ -100,8 +114,9 @@ public class InvestigationTeamService {
 
     /**
      * This service is updating the investigation team in the database.
-     * @param investigationTeam
-     * @return
+     *
+     * @param investigationTeam the investigation team
+     * @return response entity
      */
     public ResponseEntity<Object> updateInvestigationTeam(InvestigationTeam investigationTeam){
         try{
@@ -115,6 +130,26 @@ public class InvestigationTeamService {
         }catch (Exception e){
             LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Find all investigation teams by date response entity.
+     *
+     * @param date the date
+     * @return the response entity
+     */
+    public ResponseEntity<Object> findAllInvestigationTeamsByDate(java.sql.Date date) {
+        try {
+            List<InvestigationTeam> investigationTeamList = investigationTeamRepository.findAllInvestigationTeamsByDate(date);
+            if (investigationTeamList.isEmpty()) {
+                return new ResponseEntity<>("There are no investigation teams in the database", HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(investigationTeamList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

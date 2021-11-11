@@ -2,6 +2,7 @@ package com.app.epolice.service;
 
 import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.crime.CrimeType;
+import com.app.epolice.model.entity.crime.Criminal;
 import com.app.epolice.repository.CrimeTypeRepository;
 import com.app.epolice.util.DateTime;
 import org.apache.logging.log4j.LogManager;
@@ -116,6 +117,26 @@ public class CrimeTypeService {
         }catch (Exception e){
             LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Find all crime types by date response entity.
+     *
+     * @param date the date
+     * @return the response entity
+     */
+    public ResponseEntity<Object> findAllCrimeTypesByDate(java.sql.Date date) {
+        try {
+            List<CrimeType> crimeTypeList = crimeTypeRepository.findAllCrimeTypesByDate(date);
+            if (crimeTypeList.isEmpty()) {
+                return new ResponseEntity<>("There are no crime types in the database", HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(crimeTypeList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

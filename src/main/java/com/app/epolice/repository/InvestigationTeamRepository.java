@@ -1,9 +1,12 @@
 package com.app.epolice.repository;
 
 import com.app.epolice.model.entity.policestation.InvestigationTeam;
+import com.app.epolice.model.entity.user.Permission;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -25,4 +28,13 @@ public interface InvestigationTeamRepository extends JpaRepository<Investigation
      * @return the list
      */
     List<InvestigationTeam> findAllByActiveTrueOrderByCreatedDateDesc();
+
+    /**
+     * Find all investigation teams by date list.
+     *
+     * @param date the date
+     * @return the list
+     */
+    @Query(value = "SELECT * FROM t_investigation_team where created_date like CONCAT(:date,'%')", nativeQuery = true)
+    List<InvestigationTeam> findAllInvestigationTeamsByDate(Date date);
 }

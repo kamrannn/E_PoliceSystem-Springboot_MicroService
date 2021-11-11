@@ -30,12 +30,11 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
     List<Permission> findAllByActiveTrueOrderByCreatedDateDesc();
 
     /**
-     * Find all police stations by date list.
+     * Find all permissions by date list.
      *
      * @param date the date
      * @return the list
      */
     @Query(value = "SELECT * FROM t_permission where created_date like CONCAT(:date,'%')", nativeQuery = true)
     List<Permission> findAllPermissionsByDate(Date date);
-
 }

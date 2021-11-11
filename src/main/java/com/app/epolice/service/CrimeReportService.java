@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Crime report service.
+ */
 @Service
 public class CrimeReportService {
     private static final Logger LOG = LogManager.getLogger(UserController.class);
@@ -29,7 +32,17 @@ public class CrimeReportService {
      * Initializing the repositories
      */
     CrimeReportRepository crimeReportRepository;
+    /**
+     * The Police station repository.
+     */
     PoliceStationRepository policeStationRepository;
+
+    /**
+     * Instantiates a new Crime report service.
+     *
+     * @param crimeReportRepository   the crime report repository
+     * @param policeStationRepository the police station repository
+     */
     public CrimeReportService(CrimeReportRepository crimeReportRepository, PoliceStationRepository policeStationRepository) {
         this.crimeReportRepository = crimeReportRepository;
         this.policeStationRepository = policeStationRepository;
@@ -38,7 +51,7 @@ public class CrimeReportService {
     /**
      * Fetching all the crime reports from the database
      *
-     * @return
+     * @return response entity
      */
     public ResponseEntity<Object> listAllCrimeReports() {
         try {
@@ -56,8 +69,9 @@ public class CrimeReportService {
 
     /**
      * This method is storing the list of crime reports in the database
-     * @param crimeReportList
-     * @return
+     *
+     * @param crimeReportList the crime report list
+     * @return response entity
      */
     public ResponseEntity<Object> addMultipleCrimeReports(List<CrimeReport> crimeReportList) {
         try {
@@ -84,8 +98,10 @@ public class CrimeReportService {
 
     /**
      * This method is storing single crime report in the database
-     * @param crimeReport
-     * @return
+     *
+     * @param crimeReport       the crime report
+     * @param multipartFileList the multipart file list
+     * @return response entity
      */
     public ResponseEntity<Object> addSingleCrimeReport(CrimeReport crimeReport, MultipartFile[] multipartFileList) {
         try {
@@ -114,8 +130,9 @@ public class CrimeReportService {
 
     /**
      * This service is deleting the CrimeReports from the database
-     * @param crimeReportList
-     * @return
+     *
+     * @param crimeReportList the crime report list
+     * @return response entity
      */
     public ResponseEntity<Object> deleteCrimeReport(List<CrimeReport> crimeReportList){
         try{
@@ -142,8 +159,9 @@ public class CrimeReportService {
 
     /**
      * This service is updating the crime reports in the database.
-     * @param crimeReport
-     * @return
+     *
+     * @param crimeReport the crime report
+     * @return response entity
      */
     public ResponseEntity<Object> updateCrimeReport(CrimeReport crimeReport){
         try{
@@ -161,8 +179,11 @@ public class CrimeReportService {
 
     /**
      * Approving the crime Report
-     * @param crimeReportId
-     * @return
+     *
+     * @param status          the status
+     * @param crimeReportId   the crime report id
+     * @param policeStationId the police station id
+     * @return response entity
      * @throws ParseException
      */
     public ResponseEntity<Object> verifyReport(String status,long crimeReportId,long policeStationId) {
@@ -187,6 +208,26 @@ public class CrimeReportService {
             }
         }catch (Exception e){
             LOG.info("Exception: "+ e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Find all crime reports by date response entity.
+     *
+     * @param date the date
+     * @return the response entity
+     */
+    public ResponseEntity<Object> findAllCrimeReportsByDate(java.sql.Date date) {
+        try {
+            List<CrimeReport> crimeReportList = crimeReportRepository.findAllCrimeReportsByDate(date);
+            if (crimeReportList.isEmpty()) {
+                return new ResponseEntity<>("There are no crime reports in the database", HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(crimeReportList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
