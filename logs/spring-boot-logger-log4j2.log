@@ -1,0 +1,66 @@
+2021-11-11 12:52:29,352 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
+2021-11-11 12:52:29,415 INFO o.s.b.StartupInfoLogger [restartedMain] Starting EPoliceApplication using Java 11.0.13 on LTI-TRAINING-05 with PID 16540 (F:\Development\E-Police Project\E-Police\target\classes started by kamranabbasi in F:\Development\E-Police Project\E-Police)
+2021-11-11 12:52:29,415 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2021-11-11 12:52:29,493 INFO o.s.b.l.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-11-11 12:52:29,493 INFO o.s.b.l.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-11-11 12:52:31,009 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-11-11 12:52:31,149 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 129 ms. Found 9 JPA repository interfaces.
+2021-11-11 12:52:31,542 INFO o.s.c.c.s.GenericScope [restartedMain] BeanFactory id=6a81d823-11d0-37d3-b0b2-a207478099eb
+2021-11-11 12:52:32,355 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2021-11-11 12:52:32,371 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2021-11-11 12:52:32,371 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2021-11-11 12:52:32,371 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.54]
+2021-11-11 12:52:32,652 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2021-11-11 12:52:32,652 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 3159 ms
+2021-11-11 12:52:32,839 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-11-11 12:52:32,902 INFO o.h.Version [restartedMain] HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-11-11 12:52:33,027 INFO o.h.a.c.r.j.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-11-11 12:52:33,152 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2021-11-11 12:52:33,578 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2021-11-11 12:52:33,610 INFO o.h.d.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-11-11 12:52:35,502 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-11-11 12:52:35,502 INFO o.s.o.j.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-11-11 12:52:36,221 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-11-11 12:52:36,283 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2021-11-11 12:52:36,393 WARN o.s.c.o.FeignClientFactoryBean [restartedMain] The provided URL is empty. Will try picking an instance via load-balancing.
+2021-11-11 12:52:37,908 INFO o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration [restartedMain] Eureka HTTP Client uses RestTemplate.
+2021-11-11 12:52:38,424 WARN o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger [restartedMain] Spring Cloud LoadBalancer is currently working with the default cache. You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2021-11-11 12:52:38,549 INFO o.s.c.n.e.InstanceInfoFactory [restartedMain] Setting initial instance status as: STARTING
+2021-11-11 12:52:38,596 INFO c.n.d.DiscoveryClient [restartedMain] Initializing Eureka in region us-east-1
+2021-11-11 12:52:38,596 INFO c.n.d.s.r.a.ConfigClusterResolver [restartedMain] Resolving eureka endpoints via configuration
+2021-11-11 12:52:38,627 INFO c.n.d.DiscoveryClient [restartedMain] Disable delta property : false
+2021-11-11 12:52:38,627 INFO c.n.d.DiscoveryClient [restartedMain] Single vip registry refresh property : null
+2021-11-11 12:52:38,627 INFO c.n.d.DiscoveryClient [restartedMain] Force full registry fetch : false
+2021-11-11 12:52:38,627 INFO c.n.d.DiscoveryClient [restartedMain] Application is null : false
+2021-11-11 12:52:38,627 INFO c.n.d.DiscoveryClient [restartedMain] Registered Applications size is zero : true
+2021-11-11 12:52:38,627 INFO c.n.d.DiscoveryClient [restartedMain] Application version is -1: true
+2021-11-11 12:52:38,627 INFO c.n.d.DiscoveryClient [restartedMain] Getting all instance registry info from the eureka server
+2021-11-11 12:52:39,018 INFO c.n.d.DiscoveryClient [restartedMain] The response status is 200
+2021-11-11 12:52:39,018 INFO c.n.d.DiscoveryClient [restartedMain] Starting heartbeat executor: renew interval is: 10
+2021-11-11 12:52:39,033 INFO c.n.d.InstanceInfoReplicator [restartedMain] InstanceInfoReplicator onDemand update allowed rate per min is 4
+2021-11-11 12:52:39,033 INFO c.n.d.DiscoveryClient [restartedMain] Discovery Client initialized at timestamp 1636617159033 with initial instances count: 2
+2021-11-11 12:52:39,033 INFO o.s.c.n.e.s.EurekaServiceRegistry [restartedMain] Registering application E-POLICE-SYSTEM with eureka with status UP
+2021-11-11 12:52:39,033 INFO c.n.d.DiscoveryClient$3 [restartedMain] Saw local status change event StatusChangeEvent [timestamp=1636617159033, current=UP, previous=STARTING]
+2021-11-11 12:52:39,049 INFO c.n.d.DiscoveryClient [DiscoveryClient-InstanceInfoReplicator-0] DiscoveryClient_E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system: registering service...
+2021-11-11 12:52:39,049 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2021-11-11 12:52:39,080 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2021-11-11 12:52:39,080 INFO o.s.c.n.e.s.EurekaAutoServiceRegistration [restartedMain] Updating port to 8080
+2021-11-11 12:52:39,174 INFO c.n.d.DiscoveryClient [DiscoveryClient-InstanceInfoReplicator-0] DiscoveryClient_E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system - registration status: 204
+2021-11-11 12:52:39,502 INFO s.d.s.w.p.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
+2021-11-11 12:52:39,518 INFO s.d.s.w.p.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
+2021-11-11 12:52:39,533 INFO s.d.s.w.s.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
+2021-11-11 12:52:40,209 INFO s.d.s.w.r.o.CachingOperationNameGenerator [restartedMain] Generating unique operation named: uploadReportUsingPOST_1
+2021-11-11 12:52:40,241 INFO o.s.b.StartupInfoLogger [restartedMain] Started EPoliceApplication in 12.365 seconds (JVM running for 15.723)
+2021-11-11 12:52:52,102 INFO o.a.j.l.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-11-11 12:52:52,103 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-11-11 12:52:52,105 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 2 ms
+2021-11-11 12:52:57,631 INFO c.a.e.c.UserController [http-nio-8080-exec-9] Authorizing the user 
+2021-11-11 12:52:57,631 INFO c.a.e.c.UserController [http-nio-8080-exec-9] Listing all the users
+2021-11-11 12:52:57,761 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-9] select user0_.id as id1_14_, user0_.active as active2_14_, user0_.cnic as cnic3_14_, user0_.created_date as created_4_14_, user0_.department_id as departm15_14_, user0_.dob as dob5_14_, user0_.email as email6_14_, user0_.email_token as email_to7_14_, user0_.first_name as first_na8_14_, user0_.gender as gender9_14_, user0_.last_name as last_na10_14_, user0_.password as passwor11_14_, user0_.phone_no as phone_n12_14_, user0_.police_station_id as police_16_14_, user0_.sms_token as sms_tok13_14_, user0_.updated_date as updated14_14_ from t_user user0_ where user0_.active=1 order by user0_.created_date desc
+2021-11-11 12:52:57,853 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-9] select department0_.id as id1_8_0_, department0_.active as active2_8_0_, department0_.created_date as created_3_8_0_, department0_.name as name4_8_0_, department0_.updated_date as updated_5_8_0_ from t_police_department department0_ where department0_.id=?
+2021-11-11 12:52:57,868 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-9] select policestat0_.id as id1_9_0_, policestat0_.active as active2_9_0_, policestat0_.address as address3_9_0_, policestat0_.city as city4_9_0_, policestat0_.created_date as created_5_9_0_, policestat0_.name as name6_9_0_, policestat0_.updated_date as updated_7_9_0_ from t_police_station policestat0_ where policestat0_.id=?
+2021-11-11 12:52:57,898 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-9] select roles0_.user_id as user_id1_15_0_, roles0_.roles_id as roles_id2_15_0_, role1_.id as id1_10_1_, role1_.active as active2_10_1_, role1_.created_date as created_3_10_1_, role1_.name as name4_10_1_, role1_.updated_date as updated_5_10_1_ from t_user_roles roles0_ inner join t_role role1_ on roles0_.roles_id=role1_.id where roles0_.user_id=?
+2021-11-11 12:52:57,908 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-9] select permission0_.role_id as role_id1_11_0_, permission0_.permissions_id as permissi2_11_0_, permission1_.id as id1_7_1_, permission1_.active as active2_7_1_, permission1_.created_date as created_3_7_1_, permission1_.name as name4_7_1_, permission1_.updated_date as updated_5_7_1_ from t_role_permissions permission0_ inner join t_permission permission1_ on permission0_.permissions_id=permission1_.id where permission0_.role_id=?
+2021-11-11 12:52:57,930 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-9] select crimerepor0_.user_id as user_id12_0_0_, crimerepor0_.id as id1_0_0_, crimerepor0_.id as id1_0_1_, crimerepor0_.active as active2_0_1_, crimerepor0_.address as address3_0_1_, crimerepor0_.city as city4_0_1_, crimerepor0_.created_date as created_5_0_1_, crimerepor0_.description as descript6_0_1_, crimerepor0_.possible_suspect as possible7_0_1_, crimerepor0_.status as status8_0_1_, crimerepor0_.time as time9_0_1_, crimerepor0_.updated_date as updated10_0_1_, crimerepor0_.uuid as uuid11_0_1_ from t_crime_report crimerepor0_ where crimerepor0_.user_id=?
+2021-11-11 12:52:57,965 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-9] select crimetypes0_.crime_report_id as crime_re1_1_0_, crimetypes0_.crime_types_id as crime_ty2_1_0_, crimetype1_.id as id1_2_1_, crimetype1_.active as active2_2_1_, crimetype1_.created_date as created_3_2_1_, crimetype1_.name as name4_2_1_, crimetype1_.updated_date as updated_5_2_1_ from t_crime_report_crime_types crimetypes0_ inner join t_crime_type crimetype1_ on crimetypes0_.crime_types_id=crimetype1_.id where crimetypes0_.crime_report_id=?
+2021-11-11 12:52:57,977 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-9] select crimerepor0_.police_station_id as police_13_0_0_, crimerepor0_.id as id1_0_0_, crimerepor0_.id as id1_0_1_, crimerepor0_.active as active2_0_1_, crimerepor0_.address as address3_0_1_, crimerepor0_.city as city4_0_1_, crimerepor0_.created_date as created_5_0_1_, crimerepor0_.description as descript6_0_1_, crimerepor0_.possible_suspect as possible7_0_1_, crimerepor0_.status as status8_0_1_, crimerepor0_.time as time9_0_1_, crimerepor0_.updated_date as updated10_0_1_, crimerepor0_.uuid as uuid11_0_1_ from t_crime_report crimerepor0_ where crimerepor0_.police_station_id=?
