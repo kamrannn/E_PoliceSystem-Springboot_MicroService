@@ -1,5 +1,6 @@
 package com.app.epolice.util;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,8 +43,8 @@ public class ExceptionHandling {
      * @param e the e
      * @return the response entity
      */
-    @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class, InvalidFormatException.class, HttpMessageNotReadableException.class, MissingRequestHeaderException.class, MissingPathVariableException.class, HttpRequestMethodNotSupportedException.class})
+    @ExceptionHandler({JsonMappingException.class, MethodArgumentNotValidException.class, ConstraintViolationException.class, InvalidFormatException.class, HttpMessageNotReadableException.class, MissingRequestHeaderException.class, MissingPathVariableException.class, HttpRequestMethodNotSupportedException.class})
     public ResponseEntity<Object> inputValidationException(Exception e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
     }
 }

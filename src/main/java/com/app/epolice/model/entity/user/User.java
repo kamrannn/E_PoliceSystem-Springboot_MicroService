@@ -4,7 +4,6 @@ import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.model.entity.policestation.Department;
 import com.app.epolice.model.entity.policestation.PoliceStation;
 import lombok.Data;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -32,7 +31,7 @@ public class User implements Serializable {
     private String email;
     @Column(unique = true)
     @NotBlank(message = "Phone number is mandatory")
-    @Size(min=11, max=14)
+    @Size(min=11, max=14, message = "Minimum size should be 11 and maximum size should be 14")
     private String phoneNo;
     @NotBlank(message = "Date of birth is mandatory")
     private String dob;
@@ -40,7 +39,7 @@ public class User implements Serializable {
     private String gender;
     @Column(unique = true)
     @NotBlank(message = "Cnic is mandatory")
-    @Size(min=13, max=15)
+    @Size(min=13, max=15, message = "Minimum size should be 13 and maximum size should be 15")
     private String cnic;
     @Column(nullable = false)
     @NotBlank(message = "Password is mandatory")

@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class SmsNotification {
     private final String ACCOUNT_SID ="AC899fa2ea88ed71b93e716ffb0135a969";
-    private final String AUTH_TOKEN = "577d7c61fc45e922fa63cdacb4b198ed";
+    private final String AUTH_TOKEN = "c57e822998741ec54983f59f73621f24";
     private final String FROM_NUMBER = "+17242515324";
 
     /**
-     * Sending the sms notifcation to the specific mobile number
+     * Sending the sms notification to the specific mobile number
      *
      * @param toNumber    the to number
      * @param userMessage the user message

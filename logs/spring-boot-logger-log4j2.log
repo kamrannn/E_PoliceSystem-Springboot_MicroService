@@ -1,59 +1,53 @@
-2021-11-11 16:40:50,936 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
-2021-11-11 16:40:51,030 INFO o.s.b.StartupInfoLogger [restartedMain] Starting EPoliceApplication using Java 11.0.13 on LTI-TRAINING-05 with PID 4500 (F:\Development\E-Police Project\E-Police\target\classes started by kamranabbasi in F:\Development\E-Police Project\E-Police)
-2021-11-11 16:40:51,030 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
-2021-11-11 16:40:51,124 INFO o.s.b.l.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2021-11-11 16:40:51,124 INFO o.s.b.l.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2021-11-11 16:40:53,186 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2021-11-11 16:40:53,342 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 137 ms. Found 9 JPA repository interfaces.
-2021-11-11 16:40:53,733 INFO o.s.c.c.s.GenericScope [restartedMain] BeanFactory id=6a81d823-11d0-37d3-b0b2-a207478099eb
-2021-11-11 16:40:54,561 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
-2021-11-11 16:40:54,577 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
-2021-11-11 16:40:54,577 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting service [Tomcat]
-2021-11-11 16:40:54,577 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.54]
-2021-11-11 16:40:54,843 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
-2021-11-11 16:40:54,843 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 3719 ms
-2021-11-11 16:40:55,030 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
-2021-11-11 16:40:55,108 INFO o.h.Version [restartedMain] HHH000412: Hibernate ORM core version 5.4.32.Final
-2021-11-11 16:40:55,264 INFO o.h.a.c.r.j.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2021-11-11 16:40:55,389 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Starting...
-2021-11-11 16:40:55,858 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
-2021-11-11 16:40:55,874 INFO o.h.d.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2021-11-11 16:40:57,389 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-11-11 16:40:57,405 INFO o.s.o.j.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-11-11 16:40:58,311 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-11-11 16:40:58,389 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
-2021-11-11 16:40:58,546 WARN o.s.c.o.FeignClientFactoryBean [restartedMain] The provided URL is empty. Will try picking an instance via load-balancing.
-2021-11-11 16:41:00,139 INFO o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration [restartedMain] Eureka HTTP Client uses RestTemplate.
-2021-11-11 16:41:00,732 WARN o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger [restartedMain] Spring Cloud LoadBalancer is currently working with the default cache. You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2021-11-11 16:41:00,888 INFO o.s.c.n.e.InstanceInfoFactory [restartedMain] Setting initial instance status as: STARTING
-2021-11-11 16:41:00,966 INFO c.n.d.DiscoveryClient [restartedMain] Initializing Eureka in region us-east-1
-2021-11-11 16:41:00,982 INFO c.n.d.s.r.a.ConfigClusterResolver [restartedMain] Resolving eureka endpoints via configuration
-2021-11-11 16:41:01,044 INFO c.n.d.DiscoveryClient [restartedMain] Disable delta property : false
-2021-11-11 16:41:01,044 INFO c.n.d.DiscoveryClient [restartedMain] Single vip registry refresh property : null
-2021-11-11 16:41:01,044 INFO c.n.d.DiscoveryClient [restartedMain] Force full registry fetch : false
-2021-11-11 16:41:01,044 INFO c.n.d.DiscoveryClient [restartedMain] Application is null : false
-2021-11-11 16:41:01,044 INFO c.n.d.DiscoveryClient [restartedMain] Registered Applications size is zero : true
-2021-11-11 16:41:01,044 INFO c.n.d.DiscoveryClient [restartedMain] Application version is -1: true
-2021-11-11 16:41:01,044 INFO c.n.d.DiscoveryClient [restartedMain] Getting all instance registry info from the eureka server
-2021-11-11 16:41:01,528 INFO c.n.d.DiscoveryClient [restartedMain] The response status is 200
-2021-11-11 16:41:01,528 INFO c.n.d.DiscoveryClient [restartedMain] Starting heartbeat executor: renew interval is: 10
-2021-11-11 16:41:01,544 INFO c.n.d.InstanceInfoReplicator [restartedMain] InstanceInfoReplicator onDemand update allowed rate per min is 4
-2021-11-11 16:41:01,544 INFO c.n.d.DiscoveryClient [restartedMain] Discovery Client initialized at timestamp 1636630861544 with initial instances count: 2
-2021-11-11 16:41:01,560 INFO o.s.c.n.e.s.EurekaServiceRegistry [restartedMain] Registering application E-POLICE-SYSTEM with eureka with status UP
-2021-11-11 16:41:01,560 INFO c.n.d.DiscoveryClient$3 [restartedMain] Saw local status change event StatusChangeEvent [timestamp=1636630861560, current=UP, previous=STARTING]
-2021-11-11 16:41:01,560 INFO c.n.d.DiscoveryClient [DiscoveryClient-InstanceInfoReplicator-0] DiscoveryClient_E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system: registering service...
-2021-11-11 16:41:01,560 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
-2021-11-11 16:41:01,607 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
-2021-11-11 16:41:01,607 INFO o.s.c.n.e.s.EurekaAutoServiceRegistration [restartedMain] Updating port to 8080
-2021-11-11 16:41:01,638 INFO c.n.d.DiscoveryClient [DiscoveryClient-InstanceInfoReplicator-0] DiscoveryClient_E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system - registration status: 204
-2021-11-11 16:41:02,075 INFO s.d.s.w.p.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
-2021-11-11 16:41:02,091 INFO s.d.s.w.p.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
-2021-11-11 16:41:02,107 INFO s.d.s.w.s.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
-2021-11-11 16:41:02,888 INFO s.d.s.w.r.o.CachingOperationNameGenerator [restartedMain] Generating unique operation named: uploadReportUsingPOST_1
-2021-11-11 16:41:02,950 INFO o.s.b.StartupInfoLogger [restartedMain] Started EPoliceApplication in 13.163 seconds (JVM running for 16.672)
-2021-11-11 16:41:28,343 INFO o.a.j.l.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-11-11 16:41:28,344 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
-2021-11-11 16:41:28,348 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 4 ms
-2021-11-11 16:41:28,586 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-1] Resolved [javax.validation.ConstraintViolationException: addPermission.permissions[0].name: Kindly enter the name]
-2021-11-11 16:46:01,071 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-11 16:51:01,079 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+2021-11-11 18:49:33,111 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
+2021-11-11 18:49:33,174 INFO o.s.b.StartupInfoLogger [restartedMain] Starting EPoliceApplication using Java 11.0.13 on LTI-TRAINING-05 with PID 10612 (F:\Development\E-Police Project\E-Police\target\classes started by kamranabbasi in F:\Development\E-Police Project\E-Police)
+2021-11-11 18:49:33,174 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2021-11-11 18:49:33,252 INFO o.s.b.l.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-11-11 18:49:33,252 INFO o.s.b.l.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-11-11 18:49:34,846 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-11-11 18:49:34,986 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 135 ms. Found 9 JPA repository interfaces.
+2021-11-11 18:49:35,393 INFO o.s.c.c.s.GenericScope [restartedMain] BeanFactory id=6a81d823-11d0-37d3-b0b2-a207478099eb
+2021-11-11 18:49:36,236 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2021-11-11 18:49:36,236 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2021-11-11 18:49:36,236 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2021-11-11 18:49:36,252 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.54]
+2021-11-11 18:49:36,502 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2021-11-11 18:49:36,502 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 3219 ms
+2021-11-11 18:49:36,752 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-11-11 18:49:36,815 INFO o.h.Version [restartedMain] HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-11-11 18:49:36,955 INFO o.h.a.c.r.j.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-11-11 18:49:37,096 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2021-11-11 18:49:37,486 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2021-11-11 18:49:37,518 INFO o.h.d.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-11-11 18:49:39,002 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-11-11 18:49:39,018 INFO o.s.o.j.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-11-11 18:49:39,877 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-11-11 18:49:39,971 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2021-11-11 18:49:40,065 WARN o.s.c.o.FeignClientFactoryBean [restartedMain] The provided URL is empty. Will try picking an instance via load-balancing.
+2021-11-11 18:49:41,893 INFO o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration [restartedMain] Eureka HTTP Client uses RestTemplate.
+2021-11-11 18:49:42,471 WARN o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger [restartedMain] Spring Cloud LoadBalancer is currently working with the default cache. You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2021-11-11 18:49:42,580 INFO o.s.c.n.e.InstanceInfoFactory [restartedMain] Setting initial instance status as: STARTING
+2021-11-11 18:49:42,627 INFO c.n.d.DiscoveryClient [restartedMain] Initializing Eureka in region us-east-1
+2021-11-11 18:49:42,643 INFO c.n.d.s.r.a.ConfigClusterResolver [restartedMain] Resolving eureka endpoints via configuration
+2021-11-11 18:49:42,674 INFO c.n.d.DiscoveryClient [restartedMain] Disable delta property : false
+2021-11-11 18:49:42,674 INFO c.n.d.DiscoveryClient [restartedMain] Single vip registry refresh property : null
+2021-11-11 18:49:42,674 INFO c.n.d.DiscoveryClient [restartedMain] Force full registry fetch : false
+2021-11-11 18:49:42,674 INFO c.n.d.DiscoveryClient [restartedMain] Application is null : false
+2021-11-11 18:49:42,674 INFO c.n.d.DiscoveryClient [restartedMain] Registered Applications size is zero : true
+2021-11-11 18:49:42,674 INFO c.n.d.DiscoveryClient [restartedMain] Application version is -1: true
+2021-11-11 18:49:42,674 INFO c.n.d.DiscoveryClient [restartedMain] Getting all instance registry info from the eureka server
+2021-11-11 18:49:43,080 INFO c.n.d.DiscoveryClient [restartedMain] The response status is 200
+2021-11-11 18:49:43,080 INFO c.n.d.DiscoveryClient [restartedMain] Starting heartbeat executor: renew interval is: 10
+2021-11-11 18:49:43,080 INFO c.n.d.InstanceInfoReplicator [restartedMain] InstanceInfoReplicator onDemand update allowed rate per min is 4
+2021-11-11 18:49:43,096 INFO c.n.d.DiscoveryClient [restartedMain] Discovery Client initialized at timestamp 1636638583096 with initial instances count: 2
+2021-11-11 18:49:43,096 INFO o.s.c.n.e.s.EurekaServiceRegistry [restartedMain] Registering application E-POLICE-SYSTEM with eureka with status UP
+2021-11-11 18:49:43,096 INFO c.n.d.DiscoveryClient$3 [restartedMain] Saw local status change event StatusChangeEvent [timestamp=1636638583096, current=UP, previous=STARTING]
+2021-11-11 18:49:43,111 INFO c.n.d.DiscoveryClient [DiscoveryClient-InstanceInfoReplicator-0] DiscoveryClient_E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system: registering service...
+2021-11-11 18:49:43,111 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2021-11-11 18:49:43,143 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2021-11-11 18:49:43,143 INFO o.s.c.n.e.s.EurekaAutoServiceRegistration [restartedMain] Updating port to 8080
+2021-11-11 18:49:43,174 INFO c.n.d.DiscoveryClient [DiscoveryClient-InstanceInfoReplicator-0] DiscoveryClient_E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system - registration status: 204
+2021-11-11 18:49:43,565 INFO s.d.s.w.p.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
+2021-11-11 18:49:43,580 INFO s.d.s.w.p.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
+2021-11-11 18:49:43,596 INFO s.d.s.w.s.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
+2021-11-11 18:49:44,221 INFO s.d.s.w.r.o.CachingOperationNameGenerator [restartedMain] Generating unique operation named: uploadReportUsingPOST_1
+2021-11-11 18:49:44,252 INFO o.s.b.StartupInfoLogger [restartedMain] Started EPoliceApplication in 12.394 seconds (JVM running for 15.897)
