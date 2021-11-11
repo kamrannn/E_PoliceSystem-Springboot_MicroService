@@ -9,9 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +24,7 @@ import java.util.Objects;
  */
 @EnableSwagger2
 @RestController
+@Validated
 @RequestMapping("/crime-reports")
 public class CrimeReportController {
     private static final Logger LOG = LogManager.getLogger(CrimeReportController.class);
@@ -105,7 +109,7 @@ public class CrimeReportController {
      * @return response entity
      */
     @PostMapping("/upload_singe_report")
-    public ResponseEntity<Object> uploadReport(@RequestHeader("Authorization") String token, CrimeReport report,@RequestParam("files") MultipartFile[] file) {
+    public ResponseEntity<Object> uploadReport(@RequestHeader("Authorization") String token, @Valid CrimeReport report, @RequestParam("files") MultipartFile[] file) {
         if (authorization(token)) {
             LOG.info("adding single crime report");
             return crimeReportService.addSingleCrimeReport(report,file);

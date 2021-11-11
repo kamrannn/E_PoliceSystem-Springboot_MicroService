@@ -6,8 +6,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -15,6 +18,7 @@ import java.util.List;
  */
 @EnableSwagger2
 @RestController
+@Validated
 @RequestMapping("/investigation-team")
 public class InvestigationTeamController {
     private static final Logger LOG = LogManager.getLogger(InvestigationTeamController.class);
@@ -81,7 +85,7 @@ public class InvestigationTeamController {
      * @return response entity
      */
     @PostMapping("/add")
-    public ResponseEntity<Object> addInvestigationTeam(@RequestHeader("Authorization") String token, @RequestBody List<InvestigationTeam> investigationTeam){
+    public ResponseEntity<Object> addInvestigationTeam(@RequestHeader("Authorization") String token,@Valid @RequestBody List<InvestigationTeam> investigationTeam){
         if (authorization(token)) {
             LOG.info("Adding the investigation Teams");
             return investigationTeamService.addNewInvestigationTeams(investigationTeam);

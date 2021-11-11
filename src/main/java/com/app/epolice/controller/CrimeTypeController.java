@@ -6,8 +6,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -15,6 +18,7 @@ import java.util.List;
  */
 @EnableSwagger2
 @RestController
+@Validated
 @RequestMapping("/crime-type")
 public class CrimeTypeController {
     private static final Logger LOG = LogManager.getLogger(CrimeTypeController.class);
@@ -81,7 +85,7 @@ public class CrimeTypeController {
      * @return response entity
      */
     @PostMapping("/add")
-    public ResponseEntity<Object> addCrimeType(@RequestHeader("Authorization") String token, @RequestBody List<CrimeType> crimeType){
+    public ResponseEntity<Object> addCrimeType(@RequestHeader("Authorization") String token,@Valid @RequestBody List<CrimeType> crimeType){
         if (authorization(token)) {
             LOG.info("adding the crime types");
             return crimeTypeService.addNewCrimeTypes(crimeType);
