@@ -6,8 +6,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -15,6 +18,7 @@ import java.util.List;
  */
 @EnableSwagger2
 @RestController
+@Validated
 @RequestMapping("/roles")
 public class RoleController {
     private static final Logger LOG = LogManager.getLogger(RoleController.class);
@@ -91,7 +95,7 @@ public class RoleController {
      * @return response entity
      */
     @PostMapping("/add")
-    public ResponseEntity<Object> addRole(@RequestHeader("Authorization") String token, @RequestBody List<Role> roles){
+    public ResponseEntity<Object> addRole(@RequestHeader("Authorization") String token,@Valid @RequestBody List<Role> roles){
         if (authorization(token)) {
             LOG.info("Adding new roles");
             return roleService.addNewRoles(roles);

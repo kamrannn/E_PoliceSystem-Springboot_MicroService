@@ -2,12 +2,11 @@ package com.app.epolice.controller;
 
 import com.app.epolice.model.entity.user.Permission;
 import com.app.epolice.service.PermissionService;
-import com.app.epolice.util.ExceptionHandling;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import javax.validation.Valid;
@@ -18,6 +17,7 @@ import java.util.List;
  */
 @EnableSwagger2
 @RestController
+@Validated
 @RequestMapping("/permissions")
 public class PermissionController {
     private static final Logger LOG = LogManager.getLogger(PermissionController.class);
@@ -158,11 +158,5 @@ public class PermissionController {
         } else {
             return unAuthorizeUser();
         }
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        return ExceptionHandling.handleMethodArgumentNotValid(ex);
     }
 }

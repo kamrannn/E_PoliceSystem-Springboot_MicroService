@@ -83,13 +83,13 @@ public class PermissionService {
             } else {
                 for (Permission permission:permissionList
                 ) {
-                    if(permission.getName().trim().isEmpty()){
-                        return new ResponseEntity<>("You are entering an empty name in the list",HttpStatus.BAD_REQUEST);
-                    }else{
+//                    if(permission.getName().trim().isEmpty()){
+//                        return new ResponseEntity<>("You are entering an empty name in the list",HttpStatus.BAD_REQUEST);
+//                    }else{
                         permission.setCreatedDate(DateTime.getDateTime());
                         permission.setActive(true);
                         permissionRepository.save(permission);
-                    }
+//                    }
                 }
                 if(permissionList.size()==1){
                     return new ResponseEntity<>("Permission is successfully added", HttpStatus.OK);
