@@ -1,16 +1,24 @@
 package com.app.epolice.service;
 
+import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.policestation.PoliceStation;
 import com.app.epolice.repository.PoliceStationRepository;
 import com.app.epolice.util.DateTime;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * The type Police station service.
+ */
 @Service
 public class PoliceStationService {
+    private static final Logger LOG = LogManager.getLogger(UserController.class);
+
     /**
      * Initializing the objects
      */
@@ -18,7 +26,8 @@ public class PoliceStationService {
 
     /**
      * Parameterized constructors
-     * @param policeStationRepository
+     *
+     * @param policeStationRepository the police station repository
      */
     public PoliceStationService(PoliceStationRepository policeStationRepository) {
         this.policeStationRepository = policeStationRepository;
@@ -27,25 +36,27 @@ public class PoliceStationService {
     /**
      * Fetching all the police stations from the database
      *
-     * @return
+     * @return response entity
      */
     public ResponseEntity<Object> listAllPoliceStations() {
         try {
-            List<PoliceStation> policeStationList = policeStationRepository.findPoliceStationsByActive(true);
+            List<PoliceStation> policeStationList = policeStationRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (policeStationList.isEmpty()) {
                 return new ResponseEntity<>("There are no police stations in the database", HttpStatus.NOT_FOUND);
             } else {
                 return new ResponseEntity<>(policeStationList, HttpStatus.OK);
             }
         } catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     /**
      * This method is storing the list of police stations in the database
-     * @param policeStationList
-     * @return
+     *
+     * @param policeStationList the police station list
+     * @return response entity
      */
     public ResponseEntity<Object> addNewPoliceStations(List<PoliceStation> policeStationList) {
         try {
@@ -65,14 +76,16 @@ public class PoliceStationService {
                 }
             }
         } catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     /**
      * This service is deleting the PoliceStations from the database
-     * @param policeStationList
-     * @return
+     *
+     * @param policeStationList the police station list
+     * @return response entity
      */
     public ResponseEntity<Object> deletePoliceStation(List<PoliceStation> policeStationList){
         try{
@@ -92,14 +105,16 @@ public class PoliceStationService {
                 }
             }
         }catch (Exception e){
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     /**
      * This service is updating the police station in the database.
-     * @param policeStation
-     * @return
+     *
+     * @param policeStation the police station
+     * @return response entity
      */
     public ResponseEntity<Object> updatePoliceStation(PoliceStation policeStation){
         try{
@@ -111,7 +126,28 @@ public class PoliceStationService {
                 return new ResponseEntity<>("Police station is successfully updated.", HttpStatus.OK);
             }
         }catch (Exception e){
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Find police stations by date response entity.
+     *
+     * @param date the date
+     * @return the response entity
+     */
+    public ResponseEntity<Object> findPoliceStationsByDate(java.sql.Date date) {
+        try {
+            List<PoliceStation> policeStationList = policeStationRepository.findAllPoliceStationsByDate(date);
+            if (policeStationList.isEmpty()) {
+                return new ResponseEntity<>("There are no police stations in the database", HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(policeStationList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
