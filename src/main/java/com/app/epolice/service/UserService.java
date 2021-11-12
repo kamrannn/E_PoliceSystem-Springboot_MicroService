@@ -226,37 +226,6 @@ public class UserService {
     }
 
     /**
-     * Delete multiple users from db by using multiple users object
-     *
-     * @param userList the user list
-     * @return response entity
-     */
-/*    public ResponseEntity<Object> DeleteMultipleUsers(List<User> userList) {
-        try {
-            if (userList.isEmpty()) {
-                return new ResponseEntity<>("The entered list is empty", HttpStatus.BAD_REQUEST);
-            } else {
-                for (User user : userList
-                ) {
-                    Optional<User> existingUser = userRepository.findById(user.getId());
-                    if (existingUser.isEmpty()) {
-                        return new ResponseEntity<>("There is no user against this id: " + user.getId(), HttpStatus.NOT_FOUND);
-                    } else {
-                        existingUser.get().setUpdatedDate(DateTime.getDateTime());
-                        existingUser.get().setActive(false);
-                        userRepository.save(existingUser.get());
-                        return new ResponseEntity<>("Users are successfully deleted", HttpStatus.OK);
-                    }
-                }
-            }
-            return new ResponseEntity<>("Successfully added", HttpStatus.OK);
-        } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }*/
-
-    /**
      * Resending verification token when user will ask for another token
      *
      * @param email the email

@@ -8,8 +8,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomService {
@@ -107,9 +107,14 @@ public class RoomService {
             if(null==room){
                 return new ResponseEntity<>("Null object passed in the body",HttpStatus.BAD_REQUEST);
             }else{
-                room.setUpdatedDate(DateTime.getDateTime());
-                roomRepository.save(room);
-                return new ResponseEntity<>("Room is successfully updated.", HttpStatus.OK);
+                Optional<Room> optionalRoom = roomRepository.findById(room.getId());
+                if(optionalRoom.isPresent()){
+                    room.setUpdatedDate(DateTime.getDateTime());
+                    roomRepository.save(room);
+                    return new ResponseEntity<>("Room is successfully updated.", HttpStatus.OK);
+                }else{
+                    return new ResponseEntity<>("Room doesn't exists in the database.", HttpStatus.NOT_FOUND);
+                }
             }
         }catch (Exception e){
             LOG.info("Exception: "+ e.getMessage());

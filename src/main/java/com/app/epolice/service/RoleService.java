@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The type Role service.
@@ -119,9 +120,14 @@ public class RoleService {
             if(null==role){
                 return new ResponseEntity<>("Null object passed in the body",HttpStatus.BAD_REQUEST);
             }else{
-                role.setUpdatedDate(DateTime.getDateTime());
-                roleRepository.save(role);
-                return new ResponseEntity<>("Role is successfully updated.", HttpStatus.OK);
+                Optional<Role> roleOptional = roleRepository.findById(role.getId());
+                if(roleOptional.isPresent()){
+                    role.setUpdatedDate(DateTime.getDateTime());
+                    roleRepository.save(role);
+                    return new ResponseEntity<>("Role is successfully updated.", HttpStatus.OK);
+                }else{
+                    return new ResponseEntity<>("Role doesn't exists in the database.", HttpStatus.NOT_FOUND);
+                }
             }
         }catch (Exception e){
             LOG.info("Exception: "+ e.getMessage());

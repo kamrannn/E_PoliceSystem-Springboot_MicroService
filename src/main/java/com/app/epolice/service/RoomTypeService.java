@@ -1,6 +1,5 @@
 package com.app.epolice.service;
 
-import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.rooms.RoomType;
 import com.app.epolice.repository.RoomTypeRepository;
 import com.app.epolice.util.DateTime;
@@ -11,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomTypeService {
@@ -110,9 +110,14 @@ public class RoomTypeService {
             if(null==roomType){
                 return new ResponseEntity<>("Null object passed in the body",HttpStatus.BAD_REQUEST);
             }else{
-                roomType.setUpdatedDate(DateTime.getDateTime());
-                roomTypeRepository.save(roomType);
-                return new ResponseEntity<>("RoomType is successfully updated.", HttpStatus.OK);
+                Optional<RoomType> optionalRoomType = roomTypeRepository.findById(roomType.getId());
+                if(optionalRoomType.isPresent()){
+                    roomType.setUpdatedDate(DateTime.getDateTime());
+                    roomTypeRepository.save(roomType);
+                    return new ResponseEntity<>("RoomType is successfully updated.", HttpStatus.OK);
+                }else{
+                    return new ResponseEntity<>("RoomType doesn't exists in the database.", HttpStatus.NOT_FOUND);
+                }
             }
         }catch (Exception e){
             LOG.info("Exception: "+ e.getMessage());
