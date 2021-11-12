@@ -24,4 +24,5 @@ public class RoomType implements Serializable {
     @Column(nullable = false)
     private Date createdDate;
     private Date updatedDate;
+    private boolean active;
 }
