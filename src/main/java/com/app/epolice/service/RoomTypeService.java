@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 public class RoomTypeService {
-    private static final Logger LOG = LogManager.getLogger(UserController.class);
+    private static final Logger LOG = LogManager.getLogger(RoomTypeService.class);
 
     RoomTypeRepository roomTypeRepository;
 

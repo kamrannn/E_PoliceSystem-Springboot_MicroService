@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * The type Room type controller.
+ */
 @RestController
 @Validated
 @RequestMapping("/role-type")
@@ -20,6 +23,11 @@ public class RoomTypeController {
     private static final String token = "40dc498b-e837-4fa9-8e53-c1d51e01af15";
     RoomTypeService roomTypeService;
 
+    /**
+     * Instantiates a new Room type controller.
+     *
+     * @param roomTypeService the room type service
+     */
     public RoomTypeController(RoomTypeService roomTypeService) {
         this.roomTypeService = roomTypeService;
     }
@@ -28,7 +36,7 @@ public class RoomTypeController {
      * Authorizing the token
      *
      * @param token the token
-     * @return boolean
+     * @return boolean boolean
      * @author "Kamran"
      */
     public boolean authorization(String token) {
@@ -63,6 +71,13 @@ public class RoomTypeController {
         }
     }
 
+    /**
+     * Find room types by date response entity.
+     *
+     * @param token the token
+     * @param date  the date
+     * @return the response entity
+     */
     @GetMapping("/by-date")
     public ResponseEntity<Object> findRoomTypesByDate(@RequestHeader("Authorization") String token, @RequestParam java.sql.Date date) {
         if (authorization(token)) {
@@ -76,7 +91,7 @@ public class RoomTypeController {
     /**
      * Adding the roomTypes
      *
-     * @param token the token
+     * @param token     the token
      * @param roomTypes the roomTypes
      * @return response entity
      */
@@ -93,8 +108,8 @@ public class RoomTypeController {
     /**
      * Updating the roomTypes
      *
-     * @param token the token
-     * @param roomType  the roomType
+     * @param token    the token
+     * @param roomType the roomType
      * @return response entity
      */
     @PutMapping("/update")
@@ -110,7 +125,7 @@ public class RoomTypeController {
     /**
      * deleting the roomTypes
      *
-     * @param token    the token
+     * @param token        the token
      * @param roomTypeList the roomType list
      * @return response entity
      */
