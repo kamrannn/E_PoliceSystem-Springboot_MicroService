@@ -45,7 +45,7 @@ public class UserController {
      * Authorizing the token
      *
      * @param token the token
-     * @return boolean
+     * @return boolean boolean
      * @author "Kamran"
      */
     public boolean authorization(String token) {
@@ -100,6 +100,7 @@ public class UserController {
      * This controller is listing the active users from the database
      *
      * @param token the token
+     * @param date  the date
      * @return response entity
      */
     @GetMapping("/by-date")
@@ -236,13 +237,39 @@ public class UserController {
         }
     }
 
+    /**
+     * View roles of specific user response entity.
+     *
+     * @param token  the token
+     * @param userId the user id
+     * @return the response entity
+     */
     @GetMapping("/view-roles")
-    public ResponseEntity<Object> viewRolesOfSpecificUser(@RequestHeader Long userId){
-        return userService.specificUserRoles(userId);
+    public ResponseEntity<Object> viewRolesOfSpecificUser(@RequestHeader("Authorization") String token, @RequestHeader Long userId){
+        if (authorization(token)) {
+            LOG.info("checking the roles of a specific user having id: "+userId);
+            return userService.specificUserRoles(userId);
+        } else {
+            return unAuthorizeUser();
+        }
     }
+
+    /**
+     * View specific user department response entity.
+     *
+     * @param token  the token
+     * @param userId the user id
+     * @return the response entity
+     */
     @GetMapping("/view-department")
-    public ResponseEntity<Object> viewSpecificUserDepartment(@RequestHeader Long userId){
-        return userService.specificUserDepartment(userId);
+    public ResponseEntity<Object> viewSpecificUserDepartment(@RequestHeader("Authorization") String token, @RequestHeader Long userId){
+        if (authorization(token)) {
+            LOG.info("checking the department of a specific user having id: "+userId);
+            return userService.specificUserDepartment(userId);
+        } else {
+            return unAuthorizeUser();
+        }
+
     }
 }
 

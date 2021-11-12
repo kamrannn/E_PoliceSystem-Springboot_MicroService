@@ -134,11 +134,15 @@ public class UserService {
      */
     public ResponseEntity<Object> updateUser(User user) {
         try {
-/*            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            String date = formatter.format(new Date());*/
-            user.setUpdatedDate(DateTime.getDateTime());
-            userRepository.save(user);
-            return new ResponseEntity<>("User has been successfully Updated", HttpStatus.OK);
+            Optional<User> userOptional = userRepository.findById(user.getId());
+            if(userOptional.isPresent()){
+                user.setUpdatedDate(DateTime.getDateTime());
+                userRepository.save(user);
+                return new ResponseEntity<>("User has been successfully Updated", HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>("User doesn't exist in the database", HttpStatus.BAD_REQUEST);
+            }
+
         } catch (Exception e) {
             LOG.info("Exception"+ e.getMessage());
             return new ResponseEntity<>("User is not Updated", HttpStatus.BAD_REQUEST);
@@ -227,7 +231,7 @@ public class UserService {
      * @param userList the user list
      * @return response entity
      */
-    public ResponseEntity<Object> DeleteMultipleUsers(List<User> userList) {
+/*    public ResponseEntity<Object> DeleteMultipleUsers(List<User> userList) {
         try {
             if (userList.isEmpty()) {
                 return new ResponseEntity<>("The entered list is empty", HttpStatus.BAD_REQUEST);
@@ -250,7 +254,7 @@ public class UserService {
             LOG.info("Exception"+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
 
     /**
      * Resending verification token when user will ask for another token
@@ -340,6 +344,12 @@ public class UserService {
         }
     }
 
+    /**
+     * Specific user roles response entity.
+     *
+     * @param userId the user id
+     * @return the response entity
+     */
     public ResponseEntity<Object> specificUserRoles(Long userId){
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()){
@@ -354,6 +364,12 @@ public class UserService {
         }
     }
 
+    /**
+     * Specific user department response entity.
+     *
+     * @param userId the user id
+     * @return the response entity
+     */
     public ResponseEntity<Object> specificUserDepartment(Long userId){
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()){
