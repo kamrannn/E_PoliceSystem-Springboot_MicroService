@@ -9,8 +9,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+/**
+ * The type File upload.
+ */
 @Service
 public class FileUpload {
+    /**
+     * Save file.
+     *
+     * @param uploadDir     the upload dir
+     * @param fileName      the file name
+     * @param multipartFile the multipart file
+     * @throws IOException the io exception
+     */
     public static void saveFile(String uploadDir, String fileName,
                                 MultipartFile multipartFile) throws IOException {
         Path uploadPath = Paths.get(uploadDir);

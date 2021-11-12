@@ -5,6 +5,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Email notification.
+ */
 @Service
 public class EmailNotification {
 

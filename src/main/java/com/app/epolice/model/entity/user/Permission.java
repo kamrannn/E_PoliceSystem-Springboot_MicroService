@@ -1,69 +1,27 @@
 package com.app.epolice.model.entity.user;
 
+import lombok.Data;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * The type Permission.
+ */
+@Data
 @Entity
 @Table(name = "t_permission")
 public class Permission implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
+    @NotBlank(message = "Kindly enter the name")
     private String name;
-    @Column(nullable = false)
     private Date createdDate;
     private Date updatedDate;
     private boolean active;
-
-    public Permission() {
-    }
-
-    public Permission(String name, Date createdDate, Date updatedDate, boolean active) {
-        this.name = name;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-        this.active = active;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 }

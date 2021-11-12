@@ -1,31 +1,48 @@
 package com.app.epolice.model.entity.user;
 
 import com.app.epolice.model.entity.crime.CrimeReport;
-
+import com.app.epolice.model.entity.policestation.Department;
+import com.app.epolice.model.entity.policestation.PoliceStation;
+import lombok.Data;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The type User.
+ */
+@Data
 @Entity
 @Table(name = "t_user")
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false)
+    @NotBlank(message = "First Name is mandatory")
     private String firstName;
+    @NotBlank(message = "Last Name is mandatory")
     private String lastName;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
+    @NotBlank(message = "Email is mandatory")
     private String email;
     @Column(unique = true)
+    @NotBlank(message = "Phone number is mandatory")
+    @Size(min=11, max=14, message = "Minimum size should be 11 and maximum size should be 14")
     private String phoneNo;
+    @NotBlank(message = "Date of birth is mandatory")
     private String dob;
+    @NotBlank(message = "Gender is mandatory")
     private String gender;
     @Column(unique = true)
+    @NotBlank(message = "Cnic is mandatory")
+    @Size(min=13, max=15, message = "Minimum size should be 13 and maximum size should be 15")
     private String cnic;
     @Column(nullable = false)
+    @NotBlank(message = "Password is mandatory")
     private String password;
     private Date createdDate;
     private Date updatedDate;
@@ -33,160 +50,28 @@ public class User implements Serializable {
     private String smsToken;
     private String emailToken;
 
+    /**
+     * One user can have multiple roles, and one role can have multiple users
+     */
     @ManyToMany(targetEntity = Role.class,fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<Role> roles = new ArrayList<>();
 
+    /**
+     * One user can have multiple reports
+     */
     @OneToMany(targetEntity = CrimeReport.class,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<CrimeReport> crimeReports = new ArrayList<>();
 
-    public User() {
-    }
+    /**
+     * One department will have multiple users while one user will be limited to 1 department
+     */
+    @ManyToOne(targetEntity = Department.class,fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Department department;
 
-    public User(String firstName, String lastName, String email, String phoneNo, String dob, String gender,
-                String cnic, String password, Date createdDate, Date updatedDate, boolean active,
-                String smsToken, String emailToken, List<Role> roles) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNo = phoneNo;
-        this.dob = dob;
-        this.gender = gender;
-        this.cnic = cnic;
-        this.password = password;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-        this.active = active;
-        this.smsToken = smsToken;
-        this.emailToken = emailToken;
-        this.roles = roles;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNo() {
-        return phoneNo;
-    }
-
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    public String getDob() {
-        return dob;
-    }
-
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getCnic() {
-        return cnic;
-    }
-
-    public void setCnic(String cnic) {
-        this.cnic = cnic;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public String getSmsToken() {
-        return smsToken;
-    }
-
-    public void setSmsToken(String smsToken) {
-        this.smsToken = smsToken;
-    }
-
-    public String getEmailToken() {
-        return emailToken;
-    }
-
-    public void setEmailToken(String emailToken) {
-        this.emailToken = emailToken;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public List<CrimeReport> getCrimeReports() {
-        return crimeReports;
-    }
-
-    public void setCrimeReports(List<CrimeReport> crimeReports) {
-        this.crimeReports = crimeReports;
-    }
+    /**
+     * One Police station will have multiple users while one user will be limited to 1 police station
+     */
+    @ManyToOne(targetEntity = PoliceStation.class,fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private PoliceStation policeStation;
 }

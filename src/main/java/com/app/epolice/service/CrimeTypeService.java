@@ -1,18 +1,34 @@
 package com.app.epolice.service;
 
+import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.crime.CrimeType;
 import com.app.epolice.repository.CrimeTypeRepository;
 import com.app.epolice.util.DateTime;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * The type Crime type service.
+ */
 @Service
 public class CrimeTypeService {
+    private static final Logger LOG = LogManager.getLogger(UserController.class);
+
+    /**
+     * Initializing the crimeType Repository
+     */
     CrimeTypeRepository crimeTypeRepository;
 
+    /**
+     * Instantiates a new Crime type service.
+     *
+     * @param crimeTypeRepository the crime type repository
+     */
     public CrimeTypeService(CrimeTypeRepository crimeTypeRepository) {
         this.crimeTypeRepository = crimeTypeRepository;
     }
@@ -20,25 +36,27 @@ public class CrimeTypeService {
     /**
      * Fetching all the crime types from the database
      *
-     * @return
+     * @return response entity
      */
     public ResponseEntity<Object> listAllCrimeTypes() {
         try {
-            List<CrimeType> crimeTypeList = crimeTypeRepository.findAllByActive(true);
+            List<CrimeType> crimeTypeList = crimeTypeRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (crimeTypeList.isEmpty()) {
                 return new ResponseEntity<>("There are no crime types in the database", HttpStatus.NOT_FOUND);
             } else {
                 return new ResponseEntity<>(crimeTypeList, HttpStatus.OK);
             }
         } catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     /**
      * This method is storing the list of crime types in the database
-     * @param crimeTypeList
-     * @return
+     *
+     * @param crimeTypeList the crime type list
+     * @return response entity
      */
     public ResponseEntity<Object> addNewCrimeTypes(List<CrimeType> crimeTypeList) {
         try {
@@ -58,14 +76,16 @@ public class CrimeTypeService {
                 }
             }
         } catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     /**
      * This service is deleting the CrimeTypes from the database
-     * @param crimeTypeList
-     * @return
+     *
+     * @param crimeTypeList the crime type list
+     * @return response entity
      */
     public ResponseEntity<Object> deleteCrimeType(List<CrimeType> crimeTypeList){
         try{
@@ -85,14 +105,16 @@ public class CrimeTypeService {
                 }
             }
         }catch (Exception e){
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     /**
      * This service is updating the crime types in the database.
-     * @param crimeType
-     * @return
+     *
+     * @param crimeType the crime type
+     * @return response entity
      */
     public ResponseEntity<Object> updateCrimeType(CrimeType crimeType){
         try{
@@ -104,7 +126,28 @@ public class CrimeTypeService {
                 return new ResponseEntity<>("Crime Type is successfully updated.", HttpStatus.OK);
             }
         }catch (Exception e){
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Find all crime types by date response entity.
+     *
+     * @param date the date
+     * @return the response entity
+     */
+    public ResponseEntity<Object> findAllCrimeTypesByDate(java.sql.Date date) {
+        try {
+            List<CrimeType> crimeTypeList = crimeTypeRepository.findAllCrimeTypesByDate(date);
+            if (crimeTypeList.isEmpty()) {
+                return new ResponseEntity<>("There are no crime types in the database", HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(crimeTypeList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.app.epolice.service;
 
 import com.app.epolice.controller.UserController;
+import com.app.epolice.model.dto.UserDto;
 import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.model.entity.user.User;
 import com.app.epolice.repository.UserRepository;
@@ -13,13 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
+/**
+ * The type User service.
+ */
 @Service
 public class UserService {
     private static final Logger LOG = LogManager.getLogger(UserController.class);
@@ -29,13 +28,21 @@ public class UserService {
      * Initializing the Repositories
      */
     final UserRepository userRepository;
+    /**
+     * The Email notification.
+     */
     final EmailNotification emailNotification;
+    /**
+     * The Sms notification.
+     */
     final SmsNotification smsNotification;
 
     /**
-     * Parameterized constructor
+     * Instantiates a new User service.
      *
-     * @param userRepository
+     * @param userRepository    the user repository
+     * @param emailNotification the email notification
+     * @param smsNotification   the sms notification
      */
     public UserService(UserRepository userRepository,EmailNotification emailNotification,SmsNotification smsNotification) {
         this.userRepository = userRepository;
@@ -46,11 +53,11 @@ public class UserService {
     /**
      * This method is fetching all the active users from the database
      *
-     * @return
+     * @return list of all active users in the database
      */
     public ResponseEntity<Object> listAllActiveUsers() {
         try {
-            List<User> userList = userRepository.findAllByActive(true);
+            List<User> userList = userRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (userList.isEmpty()) {
                 return new ResponseEntity<>("There are no users in the database", HttpStatus.NOT_FOUND);
             } else {
@@ -65,7 +72,7 @@ public class UserService {
     /**
      * This method is fetching all the InActive users from the database
      *
-     * @return
+     * @return response entity
      */
     public ResponseEntity<Object> listOfInActiveUsers() {
         try {
@@ -84,8 +91,8 @@ public class UserService {
     /**
      * This method is adding the user
      *
-     * @param user
-     * @return
+     * @param user the user
+     * @return response entity
      */
     public ResponseEntity<Object> addUser(User user) {
         try {
@@ -120,10 +127,10 @@ public class UserService {
     }
 
     /**
-     * This serivce method is updating the user
+     * This service method is updating the user
      *
-     * @param user
-     * @return
+     * @param user the user
+     * @return response entity
      */
     public ResponseEntity<Object> updateUser(User user) {
         try {
@@ -141,13 +148,11 @@ public class UserService {
     /**
      * Delete user from db by using user ID
      *
-     * @param id
-     * @return
+     * @param id the id
+     * @return response entity
      */
     public ResponseEntity<Object> deleteUser(Long id) {
         try {
-            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            String date = formatter.format(new Date());
             Optional<User> user = userRepository.findById(id);
             if (user.isEmpty()) {
                 return new ResponseEntity<>("There is no user against this id", HttpStatus.NOT_FOUND);
@@ -166,9 +171,9 @@ public class UserService {
     /**
      * This service is authenticating the user from the database
      *
-     * @param email
-     * @param password
-     * @return
+     * @param email    the email
+     * @param password the password
+     * @return response entity
      */
     public ResponseEntity<Object> loginUser(String email, String password) {
         try {
@@ -186,10 +191,11 @@ public class UserService {
 
     /**
      * Authenticating the user account with sms token and email token
-     * @param id
-     * @param smsToken
-     * @param emailToken
-     * @return
+     *
+     * @param id         the id
+     * @param emailToken the email token
+     * @param smsToken   the sms token
+     * @return response entity
      */
     public ResponseEntity<Object> AccountVerification(long id, String emailToken, String smsToken) {
         try {
@@ -218,8 +224,8 @@ public class UserService {
     /**
      * Delete multiple users from db by using multiple users object
      *
-     * @param userList
-     * @return
+     * @param userList the user list
+     * @return response entity
      */
     public ResponseEntity<Object> DeleteMultipleUsers(List<User> userList) {
         try {
@@ -248,32 +254,41 @@ public class UserService {
 
     /**
      * Resending verification token when user will ask for another token
-     * @param email
-     * @return
+     *
+     * @param email the email
+     * @return response entity
      */
     public ResponseEntity<Object> resendVerificationToken(String email){
         try{
             Optional<User> user = userRepository.findUserByEmail(email);
-            Random rnd = new Random(); //Generating a random number
-            int emailToken = rnd.nextInt(999999) + 100000; //Generating a random number of 6 digits
-            emailNotification.sendMail(user.get().getEmail(), "Your verification code is: " + emailToken);
-            user.get().setEmailToken(emailToken+"");
+            if(user.isPresent()){
+                Random rnd = new Random(); //Generating a random number
+                int emailToken = rnd.nextInt(999999) + 100000; //Generating a random number of 6 digits
+                emailNotification.sendMail(user.get().getEmail(), "Your verification code is: " + emailToken);
+                user.get().setEmailToken(emailToken+"");
 
-            int smsToken = rnd.nextInt(999999) + 100000;
-            smsNotification.Notification(user.get().getPhoneNo(), "Your verification code: " + smsToken);
-            user.get().setSmsToken(smsToken + "");
-            tokenExpireTime = DateTime.getExpireTime();
-            userRepository.save(user.get());
-            return new ResponseEntity<>("Tokens are successfully resent to your email and phone number", HttpStatus.OK);
+                int smsToken = rnd.nextInt(999999) + 100000;
+                smsNotification.Notification(user.get().getPhoneNo(), "Your verification code: " + smsToken);
+                user.get().setSmsToken(smsToken + "");
+                tokenExpireTime = DateTime.getExpireTime();
+                userRepository.save(user.get());
+                return new ResponseEntity<>("Tokens are successfully resent to your email and phone number", HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>("User doesn't exist against this email", HttpStatus.BAD_REQUEST);
+            }
         }catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>("There is no user against this email", HttpStatus.NOT_FOUND);
         }
     }
 
     /**
      * This method is storing single crime report in the database
-     * @param crimeReport
-     * @return
+     *
+     * @param id                the id
+     * @param crimeReport       the crime report
+     * @param multipartFileList the multipart file list
+     * @return response entity
      */
     public ResponseEntity<Object> createCrimeReport(long id,CrimeReport crimeReport, MultipartFile[] multipartFileList) {
         try {
@@ -282,7 +297,6 @@ public class UserService {
                 return new ResponseEntity<>("There is no user against this id", HttpStatus.BAD_REQUEST);
             } else {
                 List<CrimeReport> crimeReports = user.get().getCrimeReports();
-
                 String reportUuid= UuidGenerator.getUuid();
                 for (MultipartFile file:multipartFileList
                 ) {
@@ -292,6 +306,7 @@ public class UserService {
                 }
                 crimeReport.setUuid(reportUuid);
                 crimeReport.setCreatedDate(DateTime.getDateTime());
+                crimeReport.setStatus("Pending");
                 crimeReport.setActive(true);
 
                 crimeReports.add(crimeReport);
@@ -300,7 +315,56 @@ public class UserService {
                 return new ResponseEntity<>("Crime Report is successfully added", HttpStatus.OK);
             }
         } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * This method is fetching all the active users from the database
+     *
+     * @param date the date
+     * @return response entity
+     */
+    public ResponseEntity<Object> findUsersByDate(java.sql.Date date) {
+        try {
+            List<User> userList = userRepository.findAllUsersByDate(date);
+            if (userList.isEmpty()) {
+                return new ResponseEntity<>("There are no users in the database", HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(userList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<Object> specificUserRoles(Long userId){
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isPresent()){
+            UserDto userDto = new UserDto();
+            for (Object role:user.get().getRoles()
+                 ) {
+                userDto.setUsersData(Collections.singleton(role));
+            }
+            return new ResponseEntity<>(userDto.getUsersData(),HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("No user found against this user id", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public ResponseEntity<Object> specificUserDepartment(Long userId){
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isPresent()){
+            UserDto userDto = new UserDto();
+            for (Object role:user.get().getCrimeReports()
+            ) {
+                userDto.setUsersData(Collections.singleton(role));
+            }
+            return new ResponseEntity<>(userDto.getUsersData(),HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("No user found against this user id", HttpStatus.NOT_FOUND);
         }
     }
 }

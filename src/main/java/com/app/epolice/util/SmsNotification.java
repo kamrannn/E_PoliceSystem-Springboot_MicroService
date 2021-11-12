@@ -7,17 +7,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Sms notification.
+ */
 @Service
 public class SmsNotification {
     private final String ACCOUNT_SID ="AC899fa2ea88ed71b93e716ffb0135a969";
-    private final String AUTH_TOKEN = "54bb8ce597d51775ed952d6734b587d8";
+    private final String AUTH_TOKEN = "c57e822998741ec54983f59f73621f24";
     private final String FROM_NUMBER = "+17242515324";
 
     /**
-     * Sending the sms notifcation to the specific mobile number
-     * @param toNumber
-     * @param userMessage
-     * @return
+     * Sending the sms notification to the specific mobile number
+     *
+     * @param toNumber    the to number
+     * @param userMessage the user message
+     * @return response entity
      */
     public ResponseEntity<Object> Notification(String toNumber, String userMessage){
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);

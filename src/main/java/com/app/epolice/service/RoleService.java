@@ -1,18 +1,32 @@
 package com.app.epolice.service;
 
+import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.user.Role;
 import com.app.epolice.repository.RoleRepository;
 import com.app.epolice.util.DateTime;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
+/**
+ * The type Role service.
+ */
 @Service
 public class RoleService {
+    private static final Logger LOG = LogManager.getLogger(UserController.class);
+    /**
+     * The Role repository.
+     */
     RoleRepository roleRepository;
 
+    /**
+     * Instantiates a new Role service.
+     *
+     * @param roleRepository the role repository
+     */
     public RoleService(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
@@ -20,25 +34,27 @@ public class RoleService {
     /**
      * Fetching all the roles from the database
      *
-     * @return
+     * @return list of roles
      */
     public ResponseEntity<Object> listAllRoles() {
         try {
-            List<Role> roleList = roleRepository.findAllByActive(true);
+            List<Role> roleList = roleRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (roleList.isEmpty()) {
                 return new ResponseEntity<>("There are no roles in the database", HttpStatus.NOT_FOUND);
             } else {
                 return new ResponseEntity<>(roleList, HttpStatus.OK);
             }
         } catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     /**
      * This method is storing the list of roles in the database
-     * @param roleList
-     * @return
+     *
+     * @param roleList adding list of roles
+     * @return response entity
      */
     public ResponseEntity<Object> addNewRoles(List<Role> roleList) {
         try {
@@ -58,14 +74,16 @@ public class RoleService {
                 }
             }
         } catch (Exception e) {
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     /**
      * This service is deleting the Roles from the database
-     * @param roleList
-     * @return
+     *
+     * @param roleList the role list
+     * @return response entity
      */
     public ResponseEntity<Object> deleteRole(List<Role> roleList){
         try{
@@ -85,14 +103,16 @@ public class RoleService {
                 }
             }
         }catch (Exception e){
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     /**
      * This service is updating the role in the database.
-     * @param role
-     * @return
+     *
+     * @param role the role
+     * @return response entity
      */
     public ResponseEntity<Object> updateRole(Role role){
         try{
@@ -104,7 +124,28 @@ public class RoleService {
                 return new ResponseEntity<>("Role is successfully updated.", HttpStatus.OK);
             }
         }catch (Exception e){
+            LOG.info("Exception: "+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * This method is fetching all the roles for a specific date
+     *
+     * @param date the date
+     * @return response entity
+     */
+    public ResponseEntity<Object> findRolesByDate(java.sql.Date date) {
+        try {
+            List<Role> roleList = roleRepository.findAllRolesByDate(date);
+            if (roleList.isEmpty()) {
+                return new ResponseEntity<>("There are no roles in the database", HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(roleList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOG.info("Exception"+ e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
