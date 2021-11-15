@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -140,6 +141,22 @@ public class InvestigationTeamController {
         if (authorization(token)) {
             LOG.info("Listing all the investigation teams by date");
             return investigationTeamService.findAllInvestigationTeamsByDate(date);
+        } else {
+            return unAuthorizeUser();
+        }
+    }
+
+    /**
+     * Showing all the investigationTeams
+     *
+     * @param token the token
+     * @return response entity
+     */
+    @GetMapping("/list/team")
+    public ResponseEntity<Object> findInvestigationTeamById(@RequestHeader("Authorization") String token,@RequestParam Long id) throws ParseException {
+        if (authorization(token)) {
+            LOG.info("Listing the investigation Team by their id");
+            return investigationTeamService.findInvestigationTeamById(id);
         } else {
             return unAuthorizeUser();
         }

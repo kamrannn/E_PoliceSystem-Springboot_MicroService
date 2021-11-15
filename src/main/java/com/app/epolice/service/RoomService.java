@@ -8,8 +8,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomService {
@@ -28,7 +28,7 @@ public class RoomService {
         try {
             List<Room> roomList = roomRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (roomList.isEmpty()) {
-                return new ResponseEntity<>("There are no rooms in the database", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("There are no rooms in the database", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(roomList, HttpStatus.OK);
             }
@@ -47,7 +47,7 @@ public class RoomService {
     public ResponseEntity<Object> addNewRooms(List<Room> roomList) {
         try {
             if (roomList.isEmpty()) {
-                return new ResponseEntity<>("You are entering empty list", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("You are entering empty list", HttpStatus.OK);
             } else {
                 for (Room room:roomList
                 ) {
@@ -76,7 +76,7 @@ public class RoomService {
     public ResponseEntity<Object> deleteRoom(List<Room> roomList){
         try{
             if(roomList.isEmpty()){
-                return new ResponseEntity<>("No Room is selected for the deletion",HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("No Room is selected for the deletion",HttpStatus.OK);
             }else{
                 for (Room room:roomList
                 ) {
@@ -105,11 +105,16 @@ public class RoomService {
     public ResponseEntity<Object> updateRoom(Room room){
         try{
             if(null==room){
-                return new ResponseEntity<>("Null object passed in the body",HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("Null object passed in the body",HttpStatus.OK);
             }else{
-                room.setUpdatedDate(DateTime.getDateTime());
-                roomRepository.save(room);
-                return new ResponseEntity<>("Room is successfully updated.", HttpStatus.OK);
+                Optional<Room> optionalRoom = roomRepository.findById(room.getId());
+                if(optionalRoom.isPresent()){
+                    room.setUpdatedDate(DateTime.getDateTime());
+                    roomRepository.save(room);
+                    return new ResponseEntity<>("Room is successfully updated.", HttpStatus.OK);
+                }else{
+                    return new ResponseEntity<>("Room doesn't exists in the database.", HttpStatus.OK);
+                }
             }
         }catch (Exception e){
             LOG.info("Exception: "+ e.getMessage());
@@ -127,7 +132,7 @@ public class RoomService {
         try {
             List<Room> roomList = roomRepository.findAllRoomsByDate(date);
             if (roomList.isEmpty()) {
-                return new ResponseEntity<>("There are no rooms in the database", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("There are no rooms in the database", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(roomList, HttpStatus.OK);
             }

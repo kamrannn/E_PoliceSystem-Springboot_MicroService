@@ -1,6 +1,5 @@
 package com.app.epolice.service;
 
-import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.rooms.RoomType;
 import com.app.epolice.repository.RoomTypeRepository;
 import com.app.epolice.util.DateTime;
@@ -11,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomTypeService {
@@ -31,7 +31,7 @@ public class RoomTypeService {
         try {
             List<RoomType> roomTypeList = roomTypeRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (roomTypeList.isEmpty()) {
-                return new ResponseEntity<>("There are no roomTypes in the database", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("There are no roomTypes in the database", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(roomTypeList, HttpStatus.OK);
             }
@@ -50,7 +50,7 @@ public class RoomTypeService {
     public ResponseEntity<Object> addNewRoomTypes(List<RoomType> roomTypeList) {
         try {
             if (roomTypeList.isEmpty()) {
-                return new ResponseEntity<>("You are entering empty list", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("You are entering empty list", HttpStatus.OK);
             } else {
                 for (RoomType roomType:roomTypeList
                 ) {
@@ -79,7 +79,7 @@ public class RoomTypeService {
     public ResponseEntity<Object> deleteRoomType(List<RoomType> roomTypeList){
         try{
             if(roomTypeList.isEmpty()){
-                return new ResponseEntity<>("No RoomType is selected for the deletion",HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("No RoomType is selected for the deletion",HttpStatus.OK);
             }else{
                 for (RoomType roomType:roomTypeList
                 ) {
@@ -108,11 +108,16 @@ public class RoomTypeService {
     public ResponseEntity<Object> updateRoomType(RoomType roomType){
         try{
             if(null==roomType){
-                return new ResponseEntity<>("Null object passed in the body",HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("Null object passed in the body",HttpStatus.OK);
             }else{
-                roomType.setUpdatedDate(DateTime.getDateTime());
-                roomTypeRepository.save(roomType);
-                return new ResponseEntity<>("RoomType is successfully updated.", HttpStatus.OK);
+                Optional<RoomType> optionalRoomType = roomTypeRepository.findById(roomType.getId());
+                if(optionalRoomType.isPresent()){
+                    roomType.setUpdatedDate(DateTime.getDateTime());
+                    roomTypeRepository.save(roomType);
+                    return new ResponseEntity<>("RoomType is successfully updated.", HttpStatus.OK);
+                }else{
+                    return new ResponseEntity<>("RoomType doesn't exists in the database.", HttpStatus.OK);
+                }
             }
         }catch (Exception e){
             LOG.info("Exception: "+ e.getMessage());
@@ -130,7 +135,7 @@ public class RoomTypeService {
         try {
             List<RoomType> roomTypeList = roomTypeRepository.findAllRoomTypesByDate(date);
             if (roomTypeList.isEmpty()) {
-                return new ResponseEntity<>("There are no roomTypes in the database", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("There are no roomTypes in the database", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(roomTypeList, HttpStatus.OK);
             }

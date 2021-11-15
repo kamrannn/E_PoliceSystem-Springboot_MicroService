@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The type Role service.
@@ -40,7 +41,7 @@ public class RoleService {
         try {
             List<Role> roleList = roleRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (roleList.isEmpty()) {
-                return new ResponseEntity<>("There are no roles in the database", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("There are no roles in the database", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(roleList, HttpStatus.OK);
             }
@@ -59,7 +60,7 @@ public class RoleService {
     public ResponseEntity<Object> addNewRoles(List<Role> roleList) {
         try {
             if (roleList.isEmpty()) {
-                return new ResponseEntity<>("You are entering empty list", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("You are entering empty list", HttpStatus.OK);
             } else {
                 for (Role role:roleList
                 ) {
@@ -88,7 +89,7 @@ public class RoleService {
     public ResponseEntity<Object> deleteRole(List<Role> roleList){
         try{
             if(roleList.isEmpty()){
-                return new ResponseEntity<>("No Role is selected for the deletion",HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("No Role is selected for the deletion",HttpStatus.OK);
             }else{
                 for (Role role:roleList
                 ) {
@@ -117,11 +118,16 @@ public class RoleService {
     public ResponseEntity<Object> updateRole(Role role){
         try{
             if(null==role){
-                return new ResponseEntity<>("Null object passed in the body",HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("Null object passed in the body",HttpStatus.OK);
             }else{
-                role.setUpdatedDate(DateTime.getDateTime());
-                roleRepository.save(role);
-                return new ResponseEntity<>("Role is successfully updated.", HttpStatus.OK);
+                Optional<Role> roleOptional = roleRepository.findById(role.getId());
+                if(roleOptional.isPresent()){
+                    role.setUpdatedDate(DateTime.getDateTime());
+                    roleRepository.save(role);
+                    return new ResponseEntity<>("Role is successfully updated.", HttpStatus.OK);
+                }else{
+                    return new ResponseEntity<>("Role doesn't exists in the database.", HttpStatus.OK);
+                }
             }
         }catch (Exception e){
             LOG.info("Exception: "+ e.getMessage());
@@ -139,7 +145,7 @@ public class RoleService {
         try {
             List<Role> roleList = roleRepository.findAllRolesByDate(date);
             if (roleList.isEmpty()) {
-                return new ResponseEntity<>("There are no roles in the database", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("There are no roles in the database", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(roleList, HttpStatus.OK);
             }

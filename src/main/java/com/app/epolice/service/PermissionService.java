@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
@@ -83,13 +84,10 @@ public class PermissionService {
             } else {
                 for (Permission permission:permissionList
                 ) {
-//                    if(permission.getName().trim().isEmpty()){
-//                        return new ResponseEntity<>("You are entering an empty name in the list",HttpStatus.BAD_REQUEST);
-//                    }else{
-                        permission.setCreatedDate(DateTime.getDateTime());
-                        permission.setActive(true);
-                        permissionRepository.save(permission);
-//                    }
+                    permission.setCreatedDate(DateTime.getDateTime());
+                    permission.setActive(true);
+                    permissionRepository.save(permission);
+
                 }
                 if(permissionList.size()==1){
                     return new ResponseEntity<>("Permission is successfully added", HttpStatus.OK);

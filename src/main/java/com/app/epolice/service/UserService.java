@@ -59,7 +59,7 @@ public class UserService {
         try {
             List<User> userList = userRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (userList.isEmpty()) {
-                return new ResponseEntity<>("There are no users in the database", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("There are no users in the database", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(userList, HttpStatus.OK);
             }
@@ -78,7 +78,7 @@ public class UserService {
         try {
             List<User> userList = userRepository.findAllByActive(false);
             if (userList.isEmpty()) {
-                return new ResponseEntity<>("There are no users in the database", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("There are no users in the database", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(userList, HttpStatus.OK);
             }
@@ -99,7 +99,7 @@ public class UserService {
             Optional<User> existingUser = userRepository.findUserByEmail(user.getEmail());
             if (existingUser.isPresent()) {
                 if (existingUser.get().isActive()) {
-                    return new ResponseEntity<>("User already present", HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>("User already present", HttpStatus.OK);
                 } else {
                     existingUser.get().setActive(true);
                     userRepository.save(existingUser.get());
@@ -140,12 +140,12 @@ public class UserService {
                 userRepository.save(user);
                 return new ResponseEntity<>("User has been successfully Updated", HttpStatus.OK);
             }else{
-                return new ResponseEntity<>("User doesn't exist in the database", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("User doesn't exist in the database", HttpStatus.OK);
             }
 
         } catch (Exception e) {
             LOG.info("Exception"+ e.getMessage());
-            return new ResponseEntity<>("User is not Updated", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("User is not Updated", HttpStatus.OK);
         }
     }
 
@@ -159,7 +159,7 @@ public class UserService {
         try {
             Optional<User> user = userRepository.findById(id);
             if (user.isEmpty()) {
-                return new ResponseEntity<>("There is no user against this id", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("There is no user against this id", HttpStatus.OK);
             } else {
                 user.get().setUpdatedDate(DateTime.getDateTime());
                 user.get().setActive(false);
@@ -168,7 +168,7 @@ public class UserService {
             }
         } catch (Exception e) {
             LOG.info("Exception"+ e.getMessage());
-            return new ResponseEntity<>("This user doesn't exist in the database", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("This user doesn't exist in the database", HttpStatus.OK);
         }
     }
 
@@ -185,7 +185,7 @@ public class UserService {
             if (user.isPresent()) {
                 return new ResponseEntity<>("You are successfully logged in", HttpStatus.OK);
             } else {
-                return new ResponseEntity<>("You are entering wrong credentials", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("You are entering wrong credentials", HttpStatus.OK);
             }
         } catch (Exception e) {
             LOG.info("Exception"+ e.getMessage());
@@ -208,7 +208,7 @@ public class UserService {
             System.out.println(tokenExpireTime);
 
             if(verificationTime.after(tokenExpireTime)){
-                return new ResponseEntity<>("The token is expired", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("The token is expired", HttpStatus.OK);
             }
             else{
                 if (user.isPresent()) {
@@ -216,7 +216,7 @@ public class UserService {
                     userRepository.save(user.get());
                     return new ResponseEntity<>("User account has been verified, now you can login", HttpStatus.OK);
                 } else {
-                    return new ResponseEntity<>("Your are entering wrong values for tokens", HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>("Your are entering wrong values for tokens", HttpStatus.OK);
                 }
             }
         } catch (Exception e) {
@@ -224,37 +224,6 @@ public class UserService {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    /**
-     * Delete multiple users from db by using multiple users object
-     *
-     * @param userList the user list
-     * @return response entity
-     */
-/*    public ResponseEntity<Object> DeleteMultipleUsers(List<User> userList) {
-        try {
-            if (userList.isEmpty()) {
-                return new ResponseEntity<>("The entered list is empty", HttpStatus.BAD_REQUEST);
-            } else {
-                for (User user : userList
-                ) {
-                    Optional<User> existingUser = userRepository.findById(user.getId());
-                    if (existingUser.isEmpty()) {
-                        return new ResponseEntity<>("There is no user against this id: " + user.getId(), HttpStatus.NOT_FOUND);
-                    } else {
-                        existingUser.get().setUpdatedDate(DateTime.getDateTime());
-                        existingUser.get().setActive(false);
-                        userRepository.save(existingUser.get());
-                        return new ResponseEntity<>("Users are successfully deleted", HttpStatus.OK);
-                    }
-                }
-            }
-            return new ResponseEntity<>("Successfully added", HttpStatus.OK);
-        } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }*/
 
     /**
      * Resending verification token when user will ask for another token
@@ -278,11 +247,11 @@ public class UserService {
                 userRepository.save(user.get());
                 return new ResponseEntity<>("Tokens are successfully resent to your email and phone number", HttpStatus.OK);
             }else{
-                return new ResponseEntity<>("User doesn't exist against this email", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("User doesn't exist against this email", HttpStatus.OK);
             }
         }catch (Exception e) {
             LOG.info("Exception: "+ e.getMessage());
-            return new ResponseEntity<>("There is no user against this email", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("There is no user against this email", HttpStatus.OK);
         }
     }
 
@@ -298,7 +267,7 @@ public class UserService {
         try {
             Optional<User> user = userRepository.findById(id);
             if (user.isEmpty()) {
-                return new ResponseEntity<>("There is no user against this id", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("There is no user against this id", HttpStatus.OK);
             } else {
                 List<CrimeReport> crimeReports = user.get().getCrimeReports();
                 String reportUuid= UuidGenerator.getUuid();
@@ -334,7 +303,7 @@ public class UserService {
         try {
             List<User> userList = userRepository.findAllUsersByDate(date);
             if (userList.isEmpty()) {
-                return new ResponseEntity<>("There are no users in the database", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("There are no users in the database", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(userList, HttpStatus.OK);
             }
@@ -360,7 +329,7 @@ public class UserService {
             }
             return new ResponseEntity<>(userDto.getUsersData(),HttpStatus.OK);
         }else{
-            return new ResponseEntity<>("No user found against this user id", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No user found against this user id", HttpStatus.OK);
         }
     }
 
@@ -380,7 +349,7 @@ public class UserService {
             }
             return new ResponseEntity<>(userDto.getUsersData(),HttpStatus.OK);
         }else{
-            return new ResponseEntity<>("No user found against this user id", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No user found against this user id", HttpStatus.OK);
         }
     }
 }

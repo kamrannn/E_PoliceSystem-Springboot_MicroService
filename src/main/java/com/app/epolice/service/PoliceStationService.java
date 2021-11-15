@@ -42,7 +42,7 @@ public class PoliceStationService {
         try {
             List<PoliceStation> policeStationList = policeStationRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (policeStationList.isEmpty()) {
-                return new ResponseEntity<>("There are no police stations in the database", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("There are no police stations in the database", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(policeStationList, HttpStatus.OK);
             }
@@ -61,7 +61,7 @@ public class PoliceStationService {
     public ResponseEntity<Object> addNewPoliceStations(List<PoliceStation> policeStationList) {
         try {
             if (policeStationList.isEmpty()) {
-                return new ResponseEntity<>("You are entering empty list", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("You are entering empty list", HttpStatus.OK);
             } else {
                 for (PoliceStation policeStation:policeStationList
                      ) {
@@ -90,7 +90,7 @@ public class PoliceStationService {
     public ResponseEntity<Object> deletePoliceStation(List<PoliceStation> policeStationList){
         try{
             if(policeStationList.isEmpty()){
-                return new ResponseEntity<>("No police station is selected for the deletion",HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("No police station is selected for the deletion",HttpStatus.OK);
             }else{
                 for (PoliceStation policeStation:policeStationList
                      ) {
@@ -119,7 +119,7 @@ public class PoliceStationService {
     public ResponseEntity<Object> updatePoliceStation(PoliceStation policeStation){
         try{
             if(null==policeStation){
-                return new ResponseEntity<>("Null object passed in the body",HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("Null object passed in the body",HttpStatus.OK);
             }else{
                 policeStation.setUpdatedDate(DateTime.getDateTime());
                 policeStationRepository.save(policeStation);
@@ -141,7 +141,7 @@ public class PoliceStationService {
         try {
             List<PoliceStation> policeStationList = policeStationRepository.findAllPoliceStationsByDate(date);
             if (policeStationList.isEmpty()) {
-                return new ResponseEntity<>("There are no police stations in the database", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("There are no police stations in the database", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(policeStationList, HttpStatus.OK);
             }

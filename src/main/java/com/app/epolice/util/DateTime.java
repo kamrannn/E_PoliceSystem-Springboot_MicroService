@@ -55,4 +55,12 @@ public class DateTime {
         Date expireTime = formatter.parse(date);
         return expireTime;
     }
+
+    public static String getStringDateTime() throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        String date = formatter.format(cal.getTime());
+        Date currentTime = formatter.parse(date);
+        return currentTime+"";
+    }
 }
