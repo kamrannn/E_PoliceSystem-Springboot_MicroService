@@ -1,284 +1,96 @@
-2021-11-15 13:26:05,126 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
-2021-11-15 13:26:05,220 INFO o.s.b.StartupInfoLogger [restartedMain] Starting EPoliceApplication using Java 11.0.13 on LTI-TRAINING-05 with PID 2080 (F:\Development\E-Police Project\E-Police\target\classes started by kamranabbasi in F:\Development\E-Police Project\E-Police)
-2021-11-15 13:26:05,251 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
-2021-11-15 13:26:05,376 INFO o.s.b.l.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2021-11-15 13:26:05,376 INFO o.s.b.l.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2021-11-15 13:26:07,251 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2021-11-15 13:26:07,423 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 161 ms. Found 11 JPA repository interfaces.
-2021-11-15 13:26:07,876 INFO o.s.c.c.s.GenericScope [restartedMain] BeanFactory id=8edb98a3-6455-3f36-bd21-6f5bbfd15ba4
-2021-11-15 13:26:08,830 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
-2021-11-15 13:26:08,845 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
-2021-11-15 13:26:08,845 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting service [Tomcat]
-2021-11-15 13:26:08,845 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.54]
-2021-11-15 13:26:09,189 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
-2021-11-15 13:26:09,189 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 3813 ms
-2021-11-15 13:26:09,423 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
-2021-11-15 13:26:09,486 INFO o.h.Version [restartedMain] HHH000412: Hibernate ORM core version 5.4.32.Final
-2021-11-15 13:26:09,705 INFO o.h.a.c.r.j.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2021-11-15 13:26:09,845 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Starting...
-2021-11-15 13:26:10,314 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
-2021-11-15 13:26:10,330 INFO o.h.d.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2021-11-15 13:26:12,017 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-11-15 13:26:12,033 INFO o.s.o.j.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-11-15 13:26:12,876 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-11-15 13:26:13,001 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
-2021-11-15 13:26:13,111 WARN o.s.c.o.FeignClientFactoryBean [restartedMain] The provided URL is empty. Will try picking an instance via load-balancing.
-2021-11-15 13:26:14,923 INFO o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration [restartedMain] Eureka HTTP Client uses RestTemplate.
-2021-11-15 13:26:15,408 WARN o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger [restartedMain] Spring Cloud LoadBalancer is currently working with the default cache. You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2021-11-15 13:26:15,533 INFO o.s.c.n.e.InstanceInfoFactory [restartedMain] Setting initial instance status as: STARTING
-2021-11-15 13:26:15,580 INFO c.n.d.DiscoveryClient [restartedMain] Initializing Eureka in region us-east-1
-2021-11-15 13:26:15,580 INFO c.n.d.s.r.a.ConfigClusterResolver [restartedMain] Resolving eureka endpoints via configuration
-2021-11-15 13:26:15,626 INFO c.n.d.DiscoveryClient [restartedMain] Disable delta property : false
-2021-11-15 13:26:15,626 INFO c.n.d.DiscoveryClient [restartedMain] Single vip registry refresh property : null
-2021-11-15 13:26:15,626 INFO c.n.d.DiscoveryClient [restartedMain] Force full registry fetch : false
-2021-11-15 13:26:15,626 INFO c.n.d.DiscoveryClient [restartedMain] Application is null : false
-2021-11-15 13:26:15,626 INFO c.n.d.DiscoveryClient [restartedMain] Registered Applications size is zero : true
-2021-11-15 13:26:15,626 INFO c.n.d.DiscoveryClient [restartedMain] Application version is -1: true
-2021-11-15 13:26:15,626 INFO c.n.d.DiscoveryClient [restartedMain] Getting all instance registry info from the eureka server
-2021-11-15 13:26:16,220 INFO c.n.d.DiscoveryClient [restartedMain] The response status is 200
-2021-11-15 13:26:16,220 INFO c.n.d.DiscoveryClient [restartedMain] Starting heartbeat executor: renew interval is: 10
-2021-11-15 13:26:16,236 INFO c.n.d.InstanceInfoReplicator [restartedMain] InstanceInfoReplicator onDemand update allowed rate per min is 4
-2021-11-15 13:26:16,236 INFO c.n.d.DiscoveryClient [restartedMain] Discovery Client initialized at timestamp 1636964776236 with initial instances count: 2
-2021-11-15 13:26:16,236 INFO o.s.c.n.e.s.EurekaServiceRegistry [restartedMain] Registering application E-POLICE-SYSTEM with eureka with status UP
-2021-11-15 13:26:16,236 INFO c.n.d.DiscoveryClient$3 [restartedMain] Saw local status change event StatusChangeEvent [timestamp=1636964776236, current=UP, previous=STARTING]
-2021-11-15 13:26:16,251 INFO c.n.d.DiscoveryClient [DiscoveryClient-InstanceInfoReplicator-0] DiscoveryClient_E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system: registering service...
-2021-11-15 13:26:16,251 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
-2021-11-15 13:26:16,283 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
-2021-11-15 13:26:16,283 INFO o.s.c.n.e.s.EurekaAutoServiceRegistration [restartedMain] Updating port to 8080
-2021-11-15 13:26:16,345 INFO c.n.d.DiscoveryClient [DiscoveryClient-InstanceInfoReplicator-0] DiscoveryClient_E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system - registration status: 204
-2021-11-15 13:26:16,783 INFO s.d.s.w.p.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
-2021-11-15 13:26:16,814 INFO s.d.s.w.p.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
-2021-11-15 13:26:16,830 INFO s.d.s.w.s.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
-2021-11-15 13:26:17,736 INFO s.d.s.w.r.o.CachingOperationNameGenerator [restartedMain] Generating unique operation named: uploadReportUsingPOST_1
-2021-11-15 13:26:17,814 INFO o.s.b.StartupInfoLogger [restartedMain] Started EPoliceApplication in 14.903 seconds (JVM running for 19.176)
-2021-11-15 13:26:31,638 INFO o.a.j.l.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-11-15 13:26:31,639 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
-2021-11-15 13:26:31,643 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 3 ms
-2021-11-15 13:26:31,731 INFO c.a.e.c.UserController [http-nio-8080-exec-1] Authorizing the user 
-2021-11-15 13:26:31,732 INFO c.a.e.c.UserController [http-nio-8080-exec-1] Listing all the users
-2021-11-15 13:26:31,906 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-1] select user0_.id as id1_14_, user0_.active as active2_14_, user0_.cnic as cnic3_14_, user0_.created_date as created_4_14_, user0_.department_id as departm15_14_, user0_.dob as dob5_14_, user0_.email as email6_14_, user0_.email_token as email_to7_14_, user0_.first_name as first_na8_14_, user0_.gender as gender9_14_, user0_.last_name as last_na10_14_, user0_.password as passwor11_14_, user0_.phone_no as phone_n12_14_, user0_.police_station_id as police_16_14_, user0_.sms_token as sms_tok13_14_, user0_.updated_date as updated14_14_ from t_user user0_ where user0_.active=1 order by user0_.created_date desc
-2021-11-15 13:26:32,050 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-1] select department0_.id as id1_8_0_, department0_.active as active2_8_0_, department0_.created_date as created_3_8_0_, department0_.name as name4_8_0_, department0_.updated_date as updated_5_8_0_ from t_police_department department0_ where department0_.id=?
-2021-11-15 13:26:32,066 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-1] select policestat0_.id as id1_9_0_, policestat0_.active as active2_9_0_, policestat0_.address as address3_9_0_, policestat0_.city as city4_9_0_, policestat0_.created_date as created_5_9_0_, policestat0_.name as name6_9_0_, policestat0_.updated_date as updated_7_9_0_ from t_police_station policestat0_ where policestat0_.id=?
-2021-11-15 13:26:32,119 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-1] select roles0_.user_id as user_id1_15_0_, roles0_.roles_id as roles_id2_15_0_, role1_.id as id1_10_1_, role1_.active as active2_10_1_, role1_.created_date as created_3_10_1_, role1_.name as name4_10_1_, role1_.updated_date as updated_5_10_1_ from t_user_roles roles0_ inner join t_role role1_ on roles0_.roles_id=role1_.id where roles0_.user_id=?
-2021-11-15 13:26:32,157 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-1] select permission0_.role_id as role_id1_11_0_, permission0_.permissions_id as permissi2_11_0_, permission1_.id as id1_7_1_, permission1_.active as active2_7_1_, permission1_.created_date as created_3_7_1_, permission1_.name as name4_7_1_, permission1_.updated_date as updated_5_7_1_ from t_role_permissions permission0_ inner join t_permission permission1_ on permission0_.permissions_id=permission1_.id where permission0_.role_id=?
-2021-11-15 13:26:32,202 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-1] select crimerepor0_.user_id as user_id12_0_0_, crimerepor0_.id as id1_0_0_, crimerepor0_.id as id1_0_1_, crimerepor0_.active as active2_0_1_, crimerepor0_.address as address3_0_1_, crimerepor0_.city as city4_0_1_, crimerepor0_.created_date as created_5_0_1_, crimerepor0_.description as descript6_0_1_, crimerepor0_.possible_suspect as possible7_0_1_, crimerepor0_.status as status8_0_1_, crimerepor0_.time as time9_0_1_, crimerepor0_.updated_date as updated10_0_1_, crimerepor0_.uuid as uuid11_0_1_ from t_crime_report crimerepor0_ where crimerepor0_.user_id=?
-2021-11-15 13:26:32,219 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-1] select crimetypes0_.crime_report_id as crime_re1_1_0_, crimetypes0_.crime_types_id as crime_ty2_1_0_, crimetype1_.id as id1_2_1_, crimetype1_.active as active2_2_1_, crimetype1_.created_date as created_3_2_1_, crimetype1_.name as name4_2_1_, crimetype1_.updated_date as updated_5_2_1_ from t_crime_report_crime_types crimetypes0_ inner join t_crime_type crimetype1_ on crimetypes0_.crime_types_id=crimetype1_.id where crimetypes0_.crime_report_id=?
-2021-11-15 13:26:32,227 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-1] select crimerepor0_.police_station_id as police_13_0_0_, crimerepor0_.id as id1_0_0_, crimerepor0_.id as id1_0_1_, crimerepor0_.active as active2_0_1_, crimerepor0_.address as address3_0_1_, crimerepor0_.city as city4_0_1_, crimerepor0_.created_date as created_5_0_1_, crimerepor0_.description as descript6_0_1_, crimerepor0_.possible_suspect as possible7_0_1_, crimerepor0_.status as status8_0_1_, crimerepor0_.time as time9_0_1_, crimerepor0_.updated_date as updated10_0_1_, crimerepor0_.uuid as uuid11_0_1_ from t_crime_report crimerepor0_ where crimerepor0_.police_station_id=?
-2021-11-15 13:31:15,647 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 13:36:15,660 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 13:41:15,673 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 13:46:15,687 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 13:51:15,693 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 13:56:15,709 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 14:01:15,725 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 14:06:15,736 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 14:11:15,750 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 14:16:15,761 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 14:21:15,763 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 14:26:15,777 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 14:31:15,779 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 14:36:15,787 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 14:39:23,464 INFO c.a.e.c.UserController [http-nio-8080-exec-3] Authorizing the user 
-2021-11-15 14:39:23,465 INFO c.a.e.c.UserController [http-nio-8080-exec-3] Listing all the users
-2021-11-15 14:39:23,466 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-3] select user0_.id as id1_14_, user0_.active as active2_14_, user0_.cnic as cnic3_14_, user0_.created_date as created_4_14_, user0_.department_id as departm15_14_, user0_.dob as dob5_14_, user0_.email as email6_14_, user0_.email_token as email_to7_14_, user0_.first_name as first_na8_14_, user0_.gender as gender9_14_, user0_.last_name as last_na10_14_, user0_.password as passwor11_14_, user0_.phone_no as phone_n12_14_, user0_.police_station_id as police_16_14_, user0_.sms_token as sms_tok13_14_, user0_.updated_date as updated14_14_ from t_user user0_ where user0_.active=1 order by user0_.created_date desc
-2021-11-15 14:39:23,528 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-3] select department0_.id as id1_8_0_, department0_.active as active2_8_0_, department0_.created_date as created_3_8_0_, department0_.name as name4_8_0_, department0_.updated_date as updated_5_8_0_ from t_police_department department0_ where department0_.id=?
-2021-11-15 14:39:23,635 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-3] select policestat0_.id as id1_9_0_, policestat0_.active as active2_9_0_, policestat0_.address as address3_9_0_, policestat0_.city as city4_9_0_, policestat0_.created_date as created_5_9_0_, policestat0_.name as name6_9_0_, policestat0_.updated_date as updated_7_9_0_ from t_police_station policestat0_ where policestat0_.id=?
-2021-11-15 14:39:23,645 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-3] select roles0_.user_id as user_id1_15_0_, roles0_.roles_id as roles_id2_15_0_, role1_.id as id1_10_1_, role1_.active as active2_10_1_, role1_.created_date as created_3_10_1_, role1_.name as name4_10_1_, role1_.updated_date as updated_5_10_1_ from t_user_roles roles0_ inner join t_role role1_ on roles0_.roles_id=role1_.id where roles0_.user_id=?
-2021-11-15 14:39:23,782 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-3] select permission0_.role_id as role_id1_11_0_, permission0_.permissions_id as permissi2_11_0_, permission1_.id as id1_7_1_, permission1_.active as active2_7_1_, permission1_.created_date as created_3_7_1_, permission1_.name as name4_7_1_, permission1_.updated_date as updated_5_7_1_ from t_role_permissions permission0_ inner join t_permission permission1_ on permission0_.permissions_id=permission1_.id where permission0_.role_id=?
-2021-11-15 14:39:23,811 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-3] select crimerepor0_.user_id as user_id12_0_0_, crimerepor0_.id as id1_0_0_, crimerepor0_.id as id1_0_1_, crimerepor0_.active as active2_0_1_, crimerepor0_.address as address3_0_1_, crimerepor0_.city as city4_0_1_, crimerepor0_.created_date as created_5_0_1_, crimerepor0_.description as descript6_0_1_, crimerepor0_.possible_suspect as possible7_0_1_, crimerepor0_.status as status8_0_1_, crimerepor0_.time as time9_0_1_, crimerepor0_.updated_date as updated10_0_1_, crimerepor0_.uuid as uuid11_0_1_ from t_crime_report crimerepor0_ where crimerepor0_.user_id=?
-2021-11-15 14:39:23,836 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-3] select crimetypes0_.crime_report_id as crime_re1_1_0_, crimetypes0_.crime_types_id as crime_ty2_1_0_, crimetype1_.id as id1_2_1_, crimetype1_.active as active2_2_1_, crimetype1_.created_date as created_3_2_1_, crimetype1_.name as name4_2_1_, crimetype1_.updated_date as updated_5_2_1_ from t_crime_report_crime_types crimetypes0_ inner join t_crime_type crimetype1_ on crimetypes0_.crime_types_id=crimetype1_.id where crimetypes0_.crime_report_id=?
-2021-11-15 14:39:23,912 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-3] select crimerepor0_.police_station_id as police_13_0_0_, crimerepor0_.id as id1_0_0_, crimerepor0_.id as id1_0_1_, crimerepor0_.active as active2_0_1_, crimerepor0_.address as address3_0_1_, crimerepor0_.city as city4_0_1_, crimerepor0_.created_date as created_5_0_1_, crimerepor0_.description as descript6_0_1_, crimerepor0_.possible_suspect as possible7_0_1_, crimerepor0_.status as status8_0_1_, crimerepor0_.time as time9_0_1_, crimerepor0_.updated_date as updated10_0_1_, crimerepor0_.uuid as uuid11_0_1_ from t_crime_report crimerepor0_ where crimerepor0_.police_station_id=?
-2021-11-15 14:41:15,801 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 14:46:15,812 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 14:51:15,817 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 14:56:15,828 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 15:01:15,835 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 15:06:15,847 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 15:11:15,856 INFO c.n.d.s.r.a.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
-2021-11-15 15:15:52,272 INFO o.a.h.i.e.RetryExec [DiscoveryClient-CacheRefreshExecutor-0] I/O exception (java.net.SocketException) caught when processing request to {}->http://192.168.10.9:9000: Connection reset
-2021-11-15 15:15:52,272 INFO o.a.h.i.e.RetryExec [DiscoveryClient-CacheRefreshExecutor-0] Retrying request to {}->http://192.168.10.9:9000
-2021-11-15 15:15:54,550 INFO c.n.d.s.t.d.RedirectingEurekaHttpClient [DiscoveryClient-CacheRefreshExecutor-0] Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://192.168.10.9:9000/eureka/}, exception=I/O error on GET request for "http://192.168.10.9:9000/eureka/apps/delta": Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on GET request for "http://192.168.10.9:9000/eureka/apps/delta": Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:785)
-	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:711)
-	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:602)
-	at org.springframework.cloud.netflix.eureka.http.RestTemplateEurekaHttpClient.getApplicationsInternal(RestTemplateEurekaHttpClient.java:145)
-	at org.springframework.cloud.netflix.eureka.http.RestTemplateEurekaHttpClient.getDelta(RestTemplateEurekaHttpClient.java:155)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$7.execute(EurekaHttpClientDecorator.java:152)
-	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.executeOnNewServer(RedirectingEurekaHttpClient.java:121)
-	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:80)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$7.execute(EurekaHttpClientDecorator.java:152)
-	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:120)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$7.execute(EurekaHttpClientDecorator.java:152)
-	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
-	at com.netflix.discovery.DiscoveryClient.getAndUpdateDelta(DiscoveryClient.java:1135)
-	at com.netflix.discovery.DiscoveryClient.fetchRegistry(DiscoveryClient.java:1016)
-	at com.netflix.discovery.DiscoveryClient.refreshRegistry(DiscoveryClient.java:1531)
-	at com.netflix.discovery.DiscoveryClient$CacheRefreshThread.run(DiscoveryClient.java:1498)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-Caused by: org.apache.http.conn.HttpHostConnectException: Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect
-	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:156)
-	at org.apache.http.impl.conn.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:376)
-	at org.apache.http.impl.execchain.MainClientExec.establishRoute(MainClientExec.java:393)
-	at org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:236)
-	at org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:186)
-	at org.apache.http.impl.execchain.RetryExec.execute(RetryExec.java:89)
-	at org.apache.http.impl.execchain.RedirectExec.execute(RedirectExec.java:110)
-	at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:185)
-	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:83)
-	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)
-	at org.springframework.http.client.HttpComponentsClientHttpRequest.executeInternal(HttpComponentsClientHttpRequest.java:87)
-	at org.springframework.http.client.AbstractBufferingClientHttpRequest.executeInternal(AbstractBufferingClientHttpRequest.java:48)
-	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:776)
-	... 23 more
-Caused by: java.net.ConnectException: Connection refused: connect
-	at java.base/java.net.PlainSocketImpl.connect0(Native Method)
-	at java.base/java.net.PlainSocketImpl.socketConnect(PlainSocketImpl.java:101)
-	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:412)
-	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:255)
-	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:237)
-	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
-	at java.base/java.net.Socket.connect(Socket.java:608)
-	at org.apache.http.conn.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:75)
-	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:142)
-	... 36 more
-
-2021-11-15 15:15:54,551 WARN c.n.d.s.t.d.RetryableEurekaHttpClient [DiscoveryClient-CacheRefreshExecutor-0] Request execution failed with message: I/O error on GET request for "http://192.168.10.9:9000/eureka/apps/delta": Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect
-2021-11-15 15:15:54,553 INFO c.n.d.DiscoveryClient [DiscoveryClient-CacheRefreshExecutor-0] DiscoveryClient_E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system - was unable to refresh its cache! This periodic background refresh will be retried in 30 seconds. status = Cannot execute request on any known server stacktrace = com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
-	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$7.execute(EurekaHttpClientDecorator.java:152)
-	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
-	at com.netflix.discovery.DiscoveryClient.getAndUpdateDelta(DiscoveryClient.java:1135)
-	at com.netflix.discovery.DiscoveryClient.fetchRegistry(DiscoveryClient.java:1016)
-	at com.netflix.discovery.DiscoveryClient.refreshRegistry(DiscoveryClient.java:1531)
-	at com.netflix.discovery.DiscoveryClient$CacheRefreshThread.run(DiscoveryClient.java:1498)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-
-2021-11-15 15:15:56,472 INFO c.n.d.s.t.d.RedirectingEurekaHttpClient [DiscoveryClient-HeartbeatExecutor-0] Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://192.168.10.9:9000/eureka/} exception=I/O error on PUT request for "http://192.168.10.9:9000/eureka/apps/E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system": Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on PUT request for "http://192.168.10.9:9000/eureka/apps/E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system": Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:785)
-	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:711)
-	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:602)
-	at org.springframework.cloud.netflix.eureka.http.RestTemplateEurekaHttpClient.sendHeartBeat(RestTemplateEurekaHttpClient.java:99)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
-	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:91)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
-	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:120)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
-	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
-	at com.netflix.discovery.DiscoveryClient.renew(DiscoveryClient.java:893)
-	at com.netflix.discovery.DiscoveryClient$HeartbeatThread.run(DiscoveryClient.java:1457)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-Caused by: org.apache.http.conn.HttpHostConnectException: Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect
-	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:156)
-	at org.apache.http.impl.conn.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:376)
-	at org.apache.http.impl.execchain.MainClientExec.establishRoute(MainClientExec.java:393)
-	at org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:236)
-	at org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:186)
-	at org.apache.http.impl.execchain.RetryExec.execute(RetryExec.java:89)
-	at org.apache.http.impl.execchain.RedirectExec.execute(RedirectExec.java:110)
-	at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:185)
-	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:83)
-	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)
-	at org.springframework.http.client.HttpComponentsClientHttpRequest.executeInternal(HttpComponentsClientHttpRequest.java:87)
-	at org.springframework.http.client.AbstractBufferingClientHttpRequest.executeInternal(AbstractBufferingClientHttpRequest.java:48)
-	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:776)
-	... 19 more
-Caused by: java.net.ConnectException: Connection refused: connect
-	at java.base/java.net.PlainSocketImpl.connect0(Native Method)
-	at java.base/java.net.PlainSocketImpl.socketConnect(PlainSocketImpl.java:101)
-	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:412)
-	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:255)
-	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:237)
-	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
-	at java.base/java.net.Socket.connect(Socket.java:608)
-	at org.apache.http.conn.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:75)
-	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:142)
-	... 32 more
-
-2021-11-15 15:15:56,472 WARN c.n.d.s.t.d.RetryableEurekaHttpClient [DiscoveryClient-HeartbeatExecutor-0] Request execution failed with message: I/O error on PUT request for "http://192.168.10.9:9000/eureka/apps/E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system": Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect
-2021-11-15 15:15:58,543 INFO c.n.d.s.t.d.RedirectingEurekaHttpClient [DiscoveryClient-HeartbeatExecutor-0] Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://192.168.10.9:9000/eureka/}, exception=I/O error on PUT request for "http://192.168.10.9:9000/eureka/apps/E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system": Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on PUT request for "http://192.168.10.9:9000/eureka/apps/E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system": Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:785)
-	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:711)
-	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:602)
-	at org.springframework.cloud.netflix.eureka.http.RestTemplateEurekaHttpClient.sendHeartBeat(RestTemplateEurekaHttpClient.java:99)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
-	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.executeOnNewServer(RedirectingEurekaHttpClient.java:121)
-	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:80)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
-	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:120)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
-	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
-	at com.netflix.discovery.DiscoveryClient.renew(DiscoveryClient.java:893)
-	at com.netflix.discovery.DiscoveryClient$HeartbeatThread.run(DiscoveryClient.java:1457)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-Caused by: org.apache.http.conn.HttpHostConnectException: Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect
-	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:156)
-	at org.apache.http.impl.conn.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:376)
-	at org.apache.http.impl.execchain.MainClientExec.establishRoute(MainClientExec.java:393)
-	at org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:236)
-	at org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:186)
-	at org.apache.http.impl.execchain.RetryExec.execute(RetryExec.java:89)
-	at org.apache.http.impl.execchain.RedirectExec.execute(RedirectExec.java:110)
-	at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:185)
-	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:83)
-	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)
-	at org.springframework.http.client.HttpComponentsClientHttpRequest.executeInternal(HttpComponentsClientHttpRequest.java:87)
-	at org.springframework.http.client.AbstractBufferingClientHttpRequest.executeInternal(AbstractBufferingClientHttpRequest.java:48)
-	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:776)
-	... 20 more
-Caused by: java.net.ConnectException: Connection refused: connect
-	at java.base/java.net.PlainSocketImpl.connect0(Native Method)
-	at java.base/java.net.PlainSocketImpl.socketConnect(PlainSocketImpl.java:101)
-	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:412)
-	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:255)
-	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:237)
-	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
-	at java.base/java.net.Socket.connect(Socket.java:608)
-	at org.apache.http.conn.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:75)
-	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:142)
-	... 33 more
-
-2021-11-15 15:15:58,544 WARN c.n.d.s.t.d.RetryableEurekaHttpClient [DiscoveryClient-HeartbeatExecutor-0] Request execution failed with message: I/O error on PUT request for "http://192.168.10.9:9000/eureka/apps/E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system": Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to 192.168.10.9:9000 [/192.168.10.9] failed: Connection refused: connect
-2021-11-15 15:15:58,545 ERROR c.n.d.DiscoveryClient [DiscoveryClient-HeartbeatExecutor-0] DiscoveryClient_E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system - was unable to send heartbeat!
-com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
-	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112) ~[eureka-client-1.10.16.jar:1.10.16]
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89) ~[eureka-client-1.10.16.jar:1.10.16]
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92) ~[eureka-client-1.10.16.jar:1.10.16]
-	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77) ~[eureka-client-1.10.16.jar:1.10.16]
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89) ~[eureka-client-1.10.16.jar:1.10.16]
-	at com.netflix.discovery.DiscoveryClient.renew(DiscoveryClient.java:893) [eureka-client-1.10.16.jar:1.10.16]
-	at com.netflix.discovery.DiscoveryClient$HeartbeatThread.run(DiscoveryClient.java:1457) [eureka-client-1.10.16.jar:1.10.16]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515) [?:?]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:264) [?:?]
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) [?:?]
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) [?:?]
-	at java.lang.Thread.run(Thread.java:834) [?:?]
+2021-11-16 10:32:37,946 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
+2021-11-16 10:32:38,017 INFO o.s.b.StartupInfoLogger [restartedMain] Starting EPoliceApplication using Java 11.0.13 on LTI-TRAINING-05 with PID 7156 (F:\Development\E-Police Project\E-Police\target\classes started by kamranabbasi in F:\Development\E-Police Project\E-Police)
+2021-11-16 10:32:38,024 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2021-11-16 10:32:38,121 INFO o.s.b.l.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-11-16 10:32:38,122 INFO o.s.b.l.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-11-16 10:32:40,223 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-11-16 10:32:40,401 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 167 ms. Found 11 JPA repository interfaces.
+2021-11-16 10:32:40,937 INFO o.s.c.c.s.GenericScope [restartedMain] BeanFactory id=8edb98a3-6455-3f36-bd21-6f5bbfd15ba4
+2021-11-16 10:32:42,026 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2021-11-16 10:32:42,037 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2021-11-16 10:32:42,038 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2021-11-16 10:32:42,039 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.54]
+2021-11-16 10:32:42,391 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2021-11-16 10:32:42,391 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 4244 ms
+2021-11-16 10:32:42,592 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-11-16 10:32:42,676 INFO o.h.Version [restartedMain] HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-11-16 10:32:42,915 INFO o.h.a.c.r.j.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-11-16 10:32:43,064 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2021-11-16 10:32:43,586 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2021-11-16 10:32:43,615 INFO o.h.d.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-11-16 10:32:47,670 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index created_date_index on t_crime_report (created_date)
+2021-11-16 10:32:56,997 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index active_index on t_crime_report (active)
+2021-11-16 10:32:58,749 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index address_index on t_crime_report (address)
+2021-11-16 10:33:01,084 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index city_index on t_crime_report (city)
+2021-11-16 10:33:02,832 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index uuid_index on t_crime_report (uuid)
+2021-11-16 10:33:03,512 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index created_date_index on t_crime_type (created_date)
+2021-11-16 10:33:05,119 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index active_index on t_crime_type (active)
+2021-11-16 10:33:06,122 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index created_date_index on t_criminal (created_date)
+2021-11-16 10:33:07,202 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index active_index on t_criminal (active)
+2021-11-16 10:33:08,375 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index address_index on t_criminal (address)
+2021-11-16 10:33:09,515 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index city_index on t_criminal (city)
+2021-11-16 10:33:11,896 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index created_date_index on t_investigation_team (created_date)
+2021-11-16 10:33:14,192 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index active_index on t_investigation_team (active)
+2021-11-16 10:33:15,975 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index operation_ity_index on t_investigation_team (operation_city)
+2021-11-16 10:33:17,498 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index deadline_date_index on t_investigation_team (deadline_date)
+2021-11-16 10:33:19,452 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index created_date_index on t_permission (created_date)
+2021-11-16 10:33:22,928 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index active_index on t_permission (active)
+2021-11-16 10:33:25,685 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index created_date_index on t_police_department (created_date)
+2021-11-16 10:33:31,494 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index active_index on t_police_department (active)
+2021-11-16 10:33:33,496 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index created_date_index on t_police_station (created_date)
+2021-11-16 10:33:35,953 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index active_index on t_police_station (active)
+2021-11-16 10:33:37,956 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index address_index on t_police_station (address)
+2021-11-16 10:33:40,967 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index city_index on t_police_station (city)
+2021-11-16 10:33:42,962 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index created_date_index on t_role (created_date)
+2021-11-16 10:33:44,332 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index active_index on t_role (active)
+2021-11-16 10:33:45,396 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index created_date_index on t_room (created_date)
+2021-11-16 10:33:47,244 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index active_index on t_room (active)
+2021-11-16 10:33:48,209 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index location_index on t_room (location)
+2021-11-16 10:33:49,396 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index created_date_index on t_room_type (created_date)
+2021-11-16 10:33:50,576 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index active_index on t_room_type (active)
+2021-11-16 10:33:54,408 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index created_date_index on t_user (created_date)
+2021-11-16 10:33:57,938 DEBUG o.h.e.j.s.SqlStatementLogger [restartedMain] create index active_index on t_user (active)
+2021-11-16 10:34:03,750 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-11-16 10:34:03,763 INFO o.s.o.j.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-11-16 10:34:05,299 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-11-16 10:34:05,397 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2021-11-16 10:34:05,476 WARN o.s.c.o.FeignClientFactoryBean [restartedMain] The provided URL is empty. Will try picking an instance via load-balancing.
+2021-11-16 10:34:07,823 INFO o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration [restartedMain] Eureka HTTP Client uses RestTemplate.
+2021-11-16 10:34:08,389 WARN o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger [restartedMain] Spring Cloud LoadBalancer is currently working with the default cache. You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2021-11-16 10:34:08,522 INFO o.s.c.n.e.InstanceInfoFactory [restartedMain] Setting initial instance status as: STARTING
+2021-11-16 10:34:08,592 INFO c.n.d.DiscoveryClient [restartedMain] Initializing Eureka in region us-east-1
+2021-11-16 10:34:08,611 INFO c.n.d.s.r.a.ConfigClusterResolver [restartedMain] Resolving eureka endpoints via configuration
+2021-11-16 10:34:08,674 INFO c.n.d.DiscoveryClient [restartedMain] Disable delta property : false
+2021-11-16 10:34:08,675 INFO c.n.d.DiscoveryClient [restartedMain] Single vip registry refresh property : null
+2021-11-16 10:34:08,675 INFO c.n.d.DiscoveryClient [restartedMain] Force full registry fetch : false
+2021-11-16 10:34:08,676 INFO c.n.d.DiscoveryClient [restartedMain] Application is null : false
+2021-11-16 10:34:08,676 INFO c.n.d.DiscoveryClient [restartedMain] Registered Applications size is zero : true
+2021-11-16 10:34:08,676 INFO c.n.d.DiscoveryClient [restartedMain] Application version is -1: true
+2021-11-16 10:34:08,677 INFO c.n.d.DiscoveryClient [restartedMain] Getting all instance registry info from the eureka server
+2021-11-16 10:34:09,554 INFO c.n.d.DiscoveryClient [restartedMain] The response status is 200
+2021-11-16 10:34:09,559 INFO c.n.d.DiscoveryClient [restartedMain] Starting heartbeat executor: renew interval is: 10
+2021-11-16 10:34:09,563 INFO c.n.d.InstanceInfoReplicator [restartedMain] InstanceInfoReplicator onDemand update allowed rate per min is 4
+2021-11-16 10:34:09,605 INFO c.n.d.DiscoveryClient [restartedMain] Discovery Client initialized at timestamp 1637040849569 with initial instances count: 1
+2021-11-16 10:34:09,609 INFO o.s.c.n.e.s.EurekaServiceRegistry [restartedMain] Registering application E-POLICE-SYSTEM with eureka with status UP
+2021-11-16 10:34:09,610 INFO c.n.d.DiscoveryClient$3 [restartedMain] Saw local status change event StatusChangeEvent [timestamp=1637040849610, current=UP, previous=STARTING]
+2021-11-16 10:34:09,613 INFO c.n.d.DiscoveryClient [DiscoveryClient-InstanceInfoReplicator-0] DiscoveryClient_E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system: registering service...
+2021-11-16 10:34:09,614 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2021-11-16 10:34:09,659 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2021-11-16 10:34:09,662 INFO o.s.c.n.e.s.EurekaAutoServiceRegistration [restartedMain] Updating port to 8080
+2021-11-16 10:34:09,700 INFO c.n.d.DiscoveryClient [DiscoveryClient-InstanceInfoReplicator-0] DiscoveryClient_E-POLICE-SYSTEM/LTI-TRAINING-05.d-p-s.com:e-police-system - registration status: 204
+2021-11-16 10:34:10,117 INFO s.d.s.w.p.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
+2021-11-16 10:34:10,183 INFO s.d.s.w.p.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
+2021-11-16 10:34:10,214 INFO s.d.s.w.s.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
+2021-11-16 10:34:11,098 INFO s.d.s.w.r.o.CachingOperationNameGenerator [restartedMain] Generating unique operation named: uploadReportUsingPOST_1
+2021-11-16 10:34:11,171 INFO o.s.b.StartupInfoLogger [restartedMain] Started EPoliceApplication in 94.874 seconds (JVM running for 98.744)
+2021-11-16 10:37:35,298 INFO o.a.j.l.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-11-16 10:37:35,299 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-11-16 10:37:35,302 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 3 ms
+2021-11-16 10:38:03,741 INFO c.a.e.c.CrimeReportController [http-nio-8080-exec-10] Authorizing the user 
+2021-11-16 10:38:03,741 INFO c.a.e.c.CrimeReportController [http-nio-8080-exec-10] listing all the crime reports
+2021-11-16 10:38:04,118 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-10] select crimerepor0_.id as id1_0_, crimerepor0_.active as active2_0_, crimerepor0_.address as address3_0_, crimerepor0_.city as city4_0_, crimerepor0_.created_date as created_5_0_, crimerepor0_.description as descript6_0_, crimerepor0_.possible_suspect as possible7_0_, crimerepor0_.status as status8_0_, crimerepor0_.time as time9_0_, crimerepor0_.updated_date as updated10_0_, crimerepor0_.uuid as uuid11_0_ from t_crime_report crimerepor0_ where crimerepor0_.active=1 order by crimerepor0_.created_date desc
+2021-11-16 10:38:04,292 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-10] select crimetypes0_.crime_report_id as crime_re1_1_0_, crimetypes0_.crime_types_id as crime_ty2_1_0_, crimetype1_.id as id1_2_1_, crimetype1_.active as active2_2_1_, crimetype1_.created_date as created_3_2_1_, crimetype1_.name as name4_2_1_, crimetype1_.updated_date as updated_5_2_1_ from t_crime_report_crime_types crimetypes0_ inner join t_crime_type crimetype1_ on crimetypes0_.crime_types_id=crimetype1_.id where crimetypes0_.crime_report_id=?
+2021-11-16 10:38:18,825 INFO c.a.e.c.CrimeReportController [http-nio-8080-exec-7] Authorizing the user 
+2021-11-16 10:38:18,826 INFO c.a.e.c.CrimeReportController [http-nio-8080-exec-7] Listing all the crime reports by date
+2021-11-16 10:38:19,043 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-7] SELECT * FROM t_crime_report where created_date like CONCAT(?,'%')
+2021-11-16 10:38:19,122 DEBUG o.h.e.j.s.SqlStatementLogger [http-nio-8080-exec-7] select crimetypes0_.crime_report_id as crime_re1_1_0_, crimetypes0_.crime_types_id as crime_ty2_1_0_, crimetype1_.id as id1_2_1_, crimetype1_.active as active2_2_1_, crimetype1_.created_date as created_3_2_1_, crimetype1_.name as name4_2_1_, crimetype1_.updated_date as updated_5_2_1_ from t_crime_report_crime_types crimetypes0_ inner join t_crime_type crimetype1_ on crimetypes0_.crime_types_id=crimetype1_.id where crimetypes0_.crime_report_id=?

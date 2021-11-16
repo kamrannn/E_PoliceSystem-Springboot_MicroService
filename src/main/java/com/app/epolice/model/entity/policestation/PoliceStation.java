@@ -16,7 +16,12 @@ import java.util.List;
  */
 @Entity
 @Data
-@Table(name = "t_police_station")
+@Table(name = "t_police_station", indexes = {
+        @Index(name = "created_date_index", columnList = "createdDate"),
+        @Index(name = "active_index", columnList = "active"),
+        @Index(name = "address_index", columnList = "address"),
+        @Index(name = "city_index", columnList = "city")
+})
 public class PoliceStation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

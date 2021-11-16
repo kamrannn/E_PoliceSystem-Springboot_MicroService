@@ -14,7 +14,10 @@ import java.util.List;
  */
 @Entity
 @Data
-@Table(name = "t_role")
+@Table(name = "t_role", indexes = {
+        @Index(name = "created_date_index", columnList = "createdDate"),
+        @Index(name = "active_index", columnList = "active")
+})
 public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -17,7 +17,10 @@ import java.util.List;
  */
 @Data
 @Entity
-@Table(name = "t_user")
+@Table(name = "t_user", indexes = {
+        @Index(name = "created_date_index", columnList = "createdDate"),
+        @Index(name = "active_index", columnList = "active")
+})
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
