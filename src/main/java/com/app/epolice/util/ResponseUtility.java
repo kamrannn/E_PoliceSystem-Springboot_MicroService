@@ -19,7 +19,7 @@ public class ResponseUtility {
      * @param message the message
      * @return the hash map
      */
-    public static HashMap<String, Object> getResponse(Object obj, String message) throws ParseException {
+    public static HashMap<String, Object> getResponse(String message, Object obj) throws ParseException {
         HashMap<String, Object> map = new HashMap<>();
         if(obj==null){
             map.put("message",message);

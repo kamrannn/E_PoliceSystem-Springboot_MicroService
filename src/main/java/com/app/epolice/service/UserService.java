@@ -59,9 +59,9 @@ public class UserService {
         try {
             List<User> userList = userRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (userList.isEmpty()) {
-                return new ResponseEntity<>("There are no users in the database", HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There are no users in the database",null), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(userList, HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success", userList), HttpStatus.OK);
             }
         } catch (Exception e) {
             LOG.info("Exception"+ e.getMessage());
@@ -78,9 +78,9 @@ public class UserService {
         try {
             List<User> userList = userRepository.findAllByActive(false);
             if (userList.isEmpty()) {
-                return new ResponseEntity<>("There are no users in the database", HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There are no users in the database",null), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(userList, HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success", userList), HttpStatus.OK);
             }
         } catch (Exception e) {
             LOG.info("Exception"+ e.getMessage());
