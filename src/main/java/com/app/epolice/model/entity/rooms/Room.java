@@ -13,7 +13,11 @@ import java.util.Date;
  */
 @Entity
 @Data
-@Table(name = "t_room")
+@Table(name = "t_room", indexes = {
+        @Index(name = "created_date_index", columnList = "createdDate"),
+        @Index(name = "active_index", columnList = "active"),
+        @Index(name = "location_index", columnList = "location")
+})
 public class Room implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

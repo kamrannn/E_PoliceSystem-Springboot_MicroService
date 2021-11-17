@@ -12,7 +12,10 @@ import java.util.Date;
  */
 @Entity
 @Data
-@Table(name = "t_police_department")
+@Table(name = "t_police_department", indexes = {
+        @Index(name = "created_date_index", columnList = "createdDate"),
+        @Index(name = "active_index", columnList = "active")
+})
 public class Department implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

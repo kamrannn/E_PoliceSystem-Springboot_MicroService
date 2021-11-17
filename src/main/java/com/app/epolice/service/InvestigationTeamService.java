@@ -44,9 +44,9 @@ public class InvestigationTeamService {
         try {
             List<InvestigationTeam> investigationTeamList = investigationTeamRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (investigationTeamList.isEmpty()) {
-                return new ResponseEntity<>(ResponseUtility.getResponse(null, "There are no investigation teams in the database"), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There are no investigation teams in the database", null), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(ResponseUtility.getResponse(investigationTeamList, "Success"), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success",investigationTeamList), HttpStatus.OK);
             }
         } catch (Exception e) {
             LOG.info("Exception: " + e.getMessage());
@@ -164,9 +164,9 @@ public class InvestigationTeamService {
         try {
             Optional<InvestigationTeam> investigationTeam = investigationTeamRepository.findById(id);
             if (investigationTeam.isEmpty()) {
-                return new ResponseEntity<>(ResponseUtility.getResponse(null, "There are no investigation team against this id"), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There is no investigation team against this id: "+ id, null), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(ResponseUtility.getResponse(investigationTeam, "Success"), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success",investigationTeam), HttpStatus.OK);
             }
         } catch (Exception e) {
             LOG.info("Exception: " + e.getMessage());

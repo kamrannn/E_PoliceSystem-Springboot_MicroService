@@ -15,7 +15,12 @@ import java.util.List;
  */
 @Entity
 @Data
-@Table(name = "t_criminal")
+@Table(name = "t_criminal", indexes = {
+        @Index(name = "created_date_index", columnList = "createdDate"),
+        @Index(name = "active_index", columnList = "active"),
+        @Index(name = "address_index", columnList = "address"),
+        @Index(name = "city_index", columnList = "city")
+})
 public class Criminal implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +28,7 @@ public class Criminal implements Serializable {
     @NotBlank(message = "Criminal name is mandatory")
     private String name;
     @NotBlank(message = "Criminal cnic is mandatory")
+    @Column(unique = true)
     private String cnic;
     @NotNull(message = "Criminal age is mandatory")
     private int age;

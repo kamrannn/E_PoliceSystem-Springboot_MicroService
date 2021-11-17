@@ -17,7 +17,10 @@ import java.util.List;
  */
 @Data
 @Entity
-@Table(name = "t_user")
+@Table(name = "t_user", indexes = {
+        @Index(name = "created_date_index", columnList = "createdDate"),
+        @Index(name = "active_index", columnList = "active")
+})
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +29,9 @@ public class User implements Serializable {
     private String firstName;
     @NotBlank(message = "Last Name is mandatory")
     private String lastName;
+    @Column(unique = true)
+    @NotBlank(message = "Username is mandatory")
+    private String username;
     @Column(unique = true)
     @NotBlank(message = "Email is mandatory")
     private String email;
