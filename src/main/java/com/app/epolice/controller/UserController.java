@@ -1,12 +1,20 @@
 package com.app.epolice.controller;
 
+import com.app.epolice.config.JwtTokenUtil;
 import com.app.epolice.model.entity.crime.CrimeReport;
+import com.app.epolice.model.entity.jwt.JwtRequest;
+import com.app.epolice.model.entity.jwt.JwtResponse;
 import com.app.epolice.model.entity.user.User;
 import com.app.epolice.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,13 +38,21 @@ public class UserController {
      */
     UserService userService;
 
+    private AuthenticationManager authenticationManager;
+
+    private JwtTokenUtil jwtTokenUtil;
+
     /**
-     * Instantiates a new User controller.
+     * Instantiates a new controller.
      *
-     * @param userService the user service
+     * @param userService           the user service
+     * @param authenticationManager the authentication manager
+     * @param jwtTokenUtil          the jwt token util
      */
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil) {
         this.userService = userService;
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     /**
@@ -65,17 +81,12 @@ public class UserController {
     /**
      * This controller is listing the active users from the database
      *
-     * @param token the token
      * @return response entity
      */
     @GetMapping("/list")
-    public ResponseEntity<Object> listUsers(@RequestHeader("Authorization") String token) {
-        if (authorization(token)) {
+    public ResponseEntity<Object> listUsers() {
             LOG.info("Listing all the users");
             return userService.listAllActiveUsers();
-        } else {
-            return unAuthorizeUser();
-        }
     }
 
     /**
@@ -120,12 +131,8 @@ public class UserController {
      */
     @PostMapping("/signup")
     public ResponseEntity<Object> addUser(@RequestHeader("Authorization") String token,@Valid @RequestBody User user) {
-        if (authorization(token)) {
             LOG.info("Adding the user");
             return userService.addUser(user);
-        } else {
-            return unAuthorizeUser();
-        }
     }
 
     /**
@@ -269,5 +276,35 @@ public class UserController {
         }
 
     }
+
+    /**
+     * Create authentication token response entity.
+     *
+     * @param authenticationRequest the authentication request
+     * @return the response entity
+     * @throws Exception the exception
+     */
+    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+
+        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+
+        final UserDetails userDetails = userService.loadUserByUsername(authenticationRequest.getUsername());
+
+        final String token = jwtTokenUtil.generateToken(userDetails);
+
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    private void authenticate(String username, String password) throws Exception {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        } catch (DisabledException e) {
+            throw new Exception("USER_DISABLED", e);
+        } catch (BadCredentialsException e) {
+            throw new Exception("INVALID_CREDENTIALS", e);
+        }
+    }
+
 }
 

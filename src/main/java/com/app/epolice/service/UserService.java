@@ -8,8 +8,13 @@ import com.app.epolice.repository.UserRepository;
 import com.app.epolice.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +25,7 @@ import java.util.*;
  * The type User service.
  */
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     private static final Logger LOG = LogManager.getLogger(UserController.class);
     private Date tokenExpireTime = null;
 
@@ -36,6 +41,8 @@ public class UserService {
      * The Sms notification.
      */
     final SmsNotification smsNotification;
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
 
     /**
      * Instantiates a new User service.
@@ -44,7 +51,7 @@ public class UserService {
      * @param emailNotification the email notification
      * @param smsNotification   the sms notification
      */
-    public UserService(UserRepository userRepository,EmailNotification emailNotification,SmsNotification smsNotification) {
+    public UserService(UserRepository userRepository,EmailNotification emailNotification,SmsNotification smsNotification ) {
         this.userRepository = userRepository;
         this.emailNotification = emailNotification;
         this.smsNotification = smsNotification;
@@ -117,6 +124,7 @@ public class UserService {
                 tokenExpireTime = DateTime.getExpireTime();
                 user.setActive(false); //the user is active in the start
                 user.setCreatedDate(DateTime.getDateTime());
+                user.setPassword(bcryptEncoder.encode(user.getPassword()));
                 userRepository.save(user);
                 return new ResponseEntity<>("User is successfully added", HttpStatus.OK);
             }
@@ -350,6 +358,16 @@ public class UserService {
             return new ResponseEntity<>(userDto.getUsersData(),HttpStatus.OK);
         }else{
             return new ResponseEntity<>("No user found against this user id", HttpStatus.OK);
+        }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> user = userRepository.findUserByUsername(username);
+        if (user.isPresent()) {
+            return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(),new ArrayList<>());
+        } else {
+            throw new UsernameNotFoundException("User not found with username: " + username);
         }
     }
 }

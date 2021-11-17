@@ -30,6 +30,9 @@ public class User implements Serializable {
     @NotBlank(message = "Last Name is mandatory")
     private String lastName;
     @Column(unique = true)
+    @NotBlank(message = "Username is mandatory")
+    private String username;
+    @Column(unique = true)
     @NotBlank(message = "Email is mandatory")
     private String email;
     @Column(unique = true)
