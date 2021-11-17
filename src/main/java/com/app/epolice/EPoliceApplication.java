@@ -20,9 +20,4 @@ public class EPoliceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EPoliceApplication.class, args);
 	}
-
-/*	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}*/
 }
