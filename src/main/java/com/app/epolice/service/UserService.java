@@ -379,6 +379,11 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    /**
+     * Fetching the roles of a user so that can give him the authorities for the apis
+     * @param user
+     * @return
+     */
     private Set<SimpleGrantedAuthority> getAuthority(User user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         user.getRoles().forEach(role -> {
