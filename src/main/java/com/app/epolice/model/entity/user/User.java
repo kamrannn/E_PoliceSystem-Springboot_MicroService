@@ -59,7 +59,7 @@ public class User implements Serializable {
     /**
      * One user can have multiple roles, and one role can have multiple users
      */
-    @ManyToMany(targetEntity = Role.class,fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToMany(targetEntity = Role.class,fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<Role> roles = new ArrayList<>();
 
     /**

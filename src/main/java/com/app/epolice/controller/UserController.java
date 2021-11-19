@@ -131,11 +131,11 @@ public class UserController {
      * @param password the password
      * @return response entity
      */
-    @GetMapping("/login")
+/*    @GetMapping("/login")
     public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password) {
             LOG.info("User is trying to login the system");
             return userService.loginUser(email, password);
-    }
+    }*/
 
     /**
      * This method is to verify the sms and email token
@@ -210,7 +210,7 @@ public class UserController {
      * @return the response entity
      * @throws Exception the exception
      */
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
