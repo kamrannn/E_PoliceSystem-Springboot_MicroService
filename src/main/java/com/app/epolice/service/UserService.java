@@ -71,7 +71,8 @@ public class UserService implements UserDetailsService {
                 return new ResponseEntity<>(ResponseUtility.getResponse("Success", userList), HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
+            e.printStackTrace();
+            LOG.info("Exception"+ e.getMessage()+ e.getCause());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

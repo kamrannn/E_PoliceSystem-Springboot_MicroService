@@ -31,6 +31,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
+    /**
+     * This method is working as an authentication
+     * @param auth
+     * @throws Exception
+     */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         // configure AuthenticationManager so that it knows from where to load
@@ -50,17 +55,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    /**
+     * This method is working as an authorization for the spring security
+     * @param httpSecurity
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         // We don't need CSRF for this example
         httpSecurity.csrf().disable()
                 // dont authenticate this particular request
-                .authorizeRequests().antMatchers("/users/authenticate","/users/verification","/users/signup","/permissions/*","/roles/*","/police-stations/*","/departments/*").permitAll().
+                .authorizeRequests()
+                .antMatchers("/users/authenticate","/users/verification","/users/signup").permitAll()
                 // all other requests need to be authenticated
-                        anyRequest().authenticated().and().
+                .antMatchers("/**").hasRole("admin")
+                .and()
                 // make sure we use stateless session; session won't be used to
                 // store user's state.
-                        exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // Add a filter to validate the tokens with every request
