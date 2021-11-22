@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -71,7 +72,8 @@ public class UserService implements UserDetailsService {
                 return new ResponseEntity<>(ResponseUtility.getResponse("Success", userList), HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
+            e.printStackTrace();
+            LOG.info("Exception"+ e.getMessage()+ e.getCause());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -361,13 +363,32 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    /**
+     * This method is getting used by Spring security as well as /login api to authenticate the user
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findUserByUsername(username);
         if (user.isPresent()) {
-            return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(),new ArrayList<>());
+            return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(),getAuthority(user.get()));
         } else {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
+    }
+
+    /**
+     * Fetching the roles of a user so that can give him the authorities for the apis
+     * @param user
+     * @return
+     */
+    private Set<SimpleGrantedAuthority> getAuthority(User user) {
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        user.getRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        });
+        return authorities;
     }
 }

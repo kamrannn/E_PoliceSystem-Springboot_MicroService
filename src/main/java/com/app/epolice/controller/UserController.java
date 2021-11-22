@@ -9,6 +9,7 @@ import com.app.epolice.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -67,11 +68,10 @@ public class UserController {
     /**
      * This controller is listing all inactive user from the database
      *
-     * @param token the token
      * @return response entity
      */
     @GetMapping("/list/inactive")
-    public ResponseEntity<Object> listOfInActiveUsers(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<Object> listOfInActiveUsers() {
             LOG.info("Listing all the users that are not active");
             return userService.listOfInActiveUsers();
     }
@@ -125,19 +125,6 @@ public class UserController {
     }
 
     /**
-     * This method is for the login of the user
-     *
-     * @param email    the email
-     * @param password the password
-     * @return response entity
-     */
-    @GetMapping("/login")
-    public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password) {
-            LOG.info("User is trying to login the system");
-            return userService.loginUser(email, password);
-    }
-
-    /**
      * This method is to verify the sms and email token
      *
      * @param id         the id
@@ -166,14 +153,13 @@ public class UserController {
     /**
      * Adding a single report with multiple pictures
      *
-     * @param token  the token
      * @param id     the id
      * @param report the report
      * @param file   the file
      * @return response entity
      */
     @PostMapping("/upload_single_report")
-    public ResponseEntity<Object> uploadReport(@RequestHeader("Authorization") String token,@RequestHeader long id, CrimeReport report, @RequestParam("files") MultipartFile[] file) {
+    public ResponseEntity<Object> uploadReport(@RequestHeader long id, CrimeReport report, @RequestParam("files") MultipartFile[] file) {
             LOG.info("Uploading the single crime report having images attached");
             return userService.createCrimeReport(id,report,file);
     }
@@ -210,7 +196,7 @@ public class UserController {
      * @return the response entity
      * @throws Exception the exception
      */
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());

@@ -3,6 +3,7 @@ package com.app.epolice.model.entity.user;
 import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.model.entity.policestation.Department;
 import com.app.epolice.model.entity.policestation.PoliceStation;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -59,12 +60,14 @@ public class User implements Serializable {
     /**
      * One user can have multiple roles, and one role can have multiple users
      */
-    @ManyToMany(targetEntity = Role.class,fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToMany(targetEntity = Role.class,fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<Role> roles = new ArrayList<>();
 
     /**
      * One user can have multiple reports
      */
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(targetEntity = CrimeReport.class,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<CrimeReport> crimeReports = new ArrayList<>();
@@ -72,12 +75,14 @@ public class User implements Serializable {
     /**
      * One department will have multiple users while one user will be limited to 1 department
      */
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(targetEntity = Department.class,fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Department department;
 
     /**
      * One Police station will have multiple users while one user will be limited to 1 police station
      */
-    @ManyToOne(targetEntity = PoliceStation.class,fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(targetEntity = PoliceStation.class,fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private PoliceStation policeStation;
 }

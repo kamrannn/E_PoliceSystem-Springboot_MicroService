@@ -26,8 +26,8 @@ public class ResponseUtility {
             map.put("Timestamp", DateTime.getStringDateTime());
         }else{
             map.put("message",message);
-            map.put("result",obj);
             map.put("Timestamp", DateTime.getStringDateTime());
+            map.put("result",obj);
         }
         return map;
     }

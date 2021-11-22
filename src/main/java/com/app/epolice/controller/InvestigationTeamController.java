@@ -4,14 +4,11 @@ import com.app.epolice.model.entity.policestation.InvestigationTeam;
 import com.app.epolice.service.InvestigationTeamService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 import javax.validation.Valid;
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -23,7 +20,6 @@ import java.util.List;
 @RequestMapping("/investigation-team")
 public class InvestigationTeamController {
     private static final Logger LOG = LogManager.getLogger(InvestigationTeamController.class);
-    private static final String token = "40dc498b-e837-4fa9-8e53-c1d51e01af15";
 
     /**
      * The Investigation team service.
@@ -40,125 +36,72 @@ public class InvestigationTeamController {
     }
 
     /**
-     * Authorizing the token
-     *
-     * @param token the token
-     * @return boolean boolean
-     * @author "Kamran"
-     */
-    public boolean authorization(String token) {
-        LOG.info("Authorizing the user ");
-        return InvestigationTeamController.token.equals(token);
-    }
-
-    /**
-     * if the user is un-authorized
-     *
-     * @return response entity
-     * @author "Kamran"
-     */
-    public ResponseEntity<Object> unAuthorizeUser() {
-        LOG.info("Unauthorized user is trying to get access");
-        return new ResponseEntity<>("Kindly do the authorization first", HttpStatus.UNAUTHORIZED);
-    }
-
-    /**
      * Showing all the investigationTeams
      *
-     * @param token the token
      * @return response entity
      */
     @GetMapping("/list")
-    public ResponseEntity<Object> listOfInvestigationTeams(@RequestHeader("Authorization") String token){
-        if (authorization(token)) {
-            LOG.info("Listing all the investigation Teams");
-            return investigationTeamService.listAllInvestigationTeams();
-        } else {
-            return unAuthorizeUser();
-        }
+    public ResponseEntity<Object> listOfInvestigationTeams() {
+        LOG.info("Listing all the investigation Teams");
+        return investigationTeamService.listAllInvestigationTeams();
     }
 
     /**
      * Adding the investigationTeams
      *
-     * @param token             the token
      * @param investigationTeam the investigation team
      * @return response entity
      */
     @PostMapping("/add")
-    public ResponseEntity<Object> addInvestigationTeam(@RequestHeader("Authorization") String token,@Valid @RequestBody List<InvestigationTeam> investigationTeam){
-        if (authorization(token)) {
-            LOG.info("Adding the investigation Teams");
-            return investigationTeamService.addNewInvestigationTeams(investigationTeam);
-        } else {
-            return unAuthorizeUser();
-        }
+    public ResponseEntity<Object> addInvestigationTeam(@Valid @RequestBody List<InvestigationTeam> investigationTeam) {
+        LOG.info("Adding the investigation Teams");
+        return investigationTeamService.addNewInvestigationTeams(investigationTeam);
     }
 
     /**
      * Updating the investigationTeams
      *
-     * @param token             the token
      * @param investigationTeam the investigation team
      * @return response entity
      */
     @PutMapping("/update")
-    public ResponseEntity<Object> updateInvestigationTeam(@RequestHeader("Authorization") String token, @RequestBody InvestigationTeam investigationTeam){
-        if (authorization(token)) {
-            LOG.info("updating the investigation Teams");
-            return investigationTeamService.updateInvestigationTeam(investigationTeam);
-        } else {
-            return unAuthorizeUser();
-        }
+    public ResponseEntity<Object> updateInvestigationTeam(@RequestBody InvestigationTeam investigationTeam) {
+        LOG.info("updating the investigation Teams");
+        return investigationTeamService.updateInvestigationTeam(investigationTeam);
     }
 
     /**
      * deleting the investigationTeams
      *
-     * @param token                 the token
      * @param investigationTeamList the investigation team list
      * @return response entity
      */
     @DeleteMapping("/delete")
-    public ResponseEntity<Object> deleteInvestigationTeam(@RequestHeader("Authorization") String token, @RequestBody List<InvestigationTeam> investigationTeamList){
-        if (authorization(token)) {
-            LOG.info("deleting the investigation Teams");
-            return investigationTeamService.deleteInvestigationTeam(investigationTeamList);
-        } else {
-            return unAuthorizeUser();
-        }
+    public ResponseEntity<Object> deleteInvestigationTeam(@RequestBody List<InvestigationTeam> investigationTeamList) {
+        LOG.info("deleting the investigation Teams");
+        return investigationTeamService.deleteInvestigationTeam(investigationTeamList);
     }
 
     /**
      * Find all investigation teams by date response entity.
      *
-     * @param token the token
-     * @param date  the date
+     * @param date the date
      * @return the response entity
      */
     @GetMapping("/by-date")
-    public ResponseEntity<Object> findAllInvestigationTeamsByDate(@RequestHeader("Authorization") String token, @RequestParam java.sql.Date date) {
-        if (authorization(token)) {
-            LOG.info("Listing all the investigation teams by date");
-            return investigationTeamService.findAllInvestigationTeamsByDate(date);
-        } else {
-            return unAuthorizeUser();
-        }
+    public ResponseEntity<Object> findAllInvestigationTeamsByDate(@RequestParam java.sql.Date date) {
+        LOG.info("Listing all the investigation teams by date");
+        return investigationTeamService.findAllInvestigationTeamsByDate(date);
     }
 
     /**
      * Showing all the investigationTeams
      *
-     * @param token the token
      * @return response entity
      */
     @GetMapping("/list/team")
-    public ResponseEntity<Object> findInvestigationTeamById(@RequestHeader("Authorization") String token,@RequestParam Long id) throws ParseException {
-        if (authorization(token)) {
-            LOG.info("Listing the investigation Team by their id");
-            return investigationTeamService.findInvestigationTeamById(id);
-        } else {
-            return unAuthorizeUser();
-        }
+    public ResponseEntity<Object> findInvestigationTeamById(@RequestParam Long id) {
+        LOG.info("Listing the investigation Team by their id");
+        return investigationTeamService.findInvestigationTeamById(id);
     }
 }
