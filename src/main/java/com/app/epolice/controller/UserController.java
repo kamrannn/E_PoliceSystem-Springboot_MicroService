@@ -1,6 +1,5 @@
 package com.app.epolice.controller;
 
-import com.app.epolice.config.jwt.JwtTokenUtil;
 import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.model.entity.jwt.JwtRequest;
 import com.app.epolice.model.entity.jwt.JwtResponse;
@@ -38,8 +37,6 @@ public class UserController {
 
     private AuthenticationManager authenticationManager;
 
-    private JwtTokenUtil jwtTokenUtil;
-
     /**
      * Instantiates a new controller.
      *
@@ -47,10 +44,9 @@ public class UserController {
      * @param authenticationManager the authentication manager
      * @param jwtTokenUtil          the jwt token util
      */
-    public UserController(UserService userService, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil) {
+    public UserController(UserService userService, AuthenticationManager authenticationManager) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
-        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     /**
@@ -195,7 +191,7 @@ public class UserController {
      * @return the response entity
      * @throws Exception the exception
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+/*    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
@@ -205,7 +201,7 @@ public class UserController {
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));
-    }
+    }*/
 
     /**
      * This method is getting used by /authenticate or login method
