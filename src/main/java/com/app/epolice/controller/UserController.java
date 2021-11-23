@@ -1,6 +1,6 @@
 package com.app.epolice.controller;
 
-import com.app.epolice.config.JwtTokenUtil;
+import com.app.epolice.config.jwt.JwtTokenUtil;
 import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.model.entity.jwt.JwtRequest;
 import com.app.epolice.model.entity.jwt.JwtResponse;
@@ -9,7 +9,6 @@ import com.app.epolice.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
