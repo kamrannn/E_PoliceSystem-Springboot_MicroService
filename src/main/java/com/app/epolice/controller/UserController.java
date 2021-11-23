@@ -35,18 +35,13 @@ public class UserController {
      */
     UserService userService;
 
-    private AuthenticationManager authenticationManager;
-
     /**
      * Instantiates a new controller.
      *
      * @param userService           the user service
-     * @param authenticationManager the authentication manager
-     * @param jwtTokenUtil          the jwt token util
      */
-    public UserController(UserService userService, AuthenticationManager authenticationManager) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.authenticationManager = authenticationManager;
     }
 
     /**
@@ -209,6 +204,7 @@ public class UserController {
      * @param password
      * @throws Exception
      */
+/*
     private void authenticate(String username, String password) throws Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
@@ -218,5 +214,6 @@ public class UserController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
+*/
 }
 
