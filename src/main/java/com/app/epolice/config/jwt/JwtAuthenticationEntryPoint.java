@@ -1,4 +1,4 @@
-package com.app.epolice.config;
+package com.app.epolice.config.jwt;
 
 import java.io.IOException;
 import java.io.Serializable;

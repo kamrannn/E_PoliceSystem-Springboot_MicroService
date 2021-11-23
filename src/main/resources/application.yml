@@ -1,8 +1,6 @@
 spring:
   application:
     name: e-police-system
-#server:
-#  port: 9080
 eureka:
   instance:
     prefer-ip-address: true

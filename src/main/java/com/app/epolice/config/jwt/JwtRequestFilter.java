@@ -1,4 +1,4 @@
-package com.app.epolice.config;
+package com.app.epolice.config.jwt;
 
 import com.app.epolice.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
