@@ -1,18 +1,12 @@
 package com.app.epolice.controller;
 
 import com.app.epolice.model.entity.crime.CrimeReport;
-import com.app.epolice.model.entity.jwt.JwtRequest;
-import com.app.epolice.model.entity.jwt.JwtResponse;
+
 import com.app.epolice.model.entity.user.User;
 import com.app.epolice.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -123,7 +117,7 @@ public class UserController {
      * @return response entity
      */
     @GetMapping("/verification")
-    public ResponseEntity<Object> AccountVerification(@RequestHeader Long id, @RequestHeader String emailToken, @RequestHeader String smsToken) {
+    public ResponseEntity<Object> accountVerification(@RequestHeader Long id, @RequestHeader String emailToken, @RequestHeader String smsToken) {
             LOG.info("Doing the account verification through tokens");
             return userService.AccountVerification(id, emailToken, smsToken);
     }
