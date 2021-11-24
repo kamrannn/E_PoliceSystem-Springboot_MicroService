@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Service
 public class CrimeTypeService {
-    private static final Logger LOG = LogManager.getLogger(UserController.class);
+    private static final Logger LOG = LogManager.getLogger(CrimeTypeService.class);
 
     /**
      * Initializing the crimeType Repository
@@ -47,7 +47,7 @@ public class CrimeTypeService {
                 return new ResponseEntity<>(crimeTypeList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -76,7 +76,7 @@ public class CrimeTypeService {
                 }
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -105,7 +105,7 @@ public class CrimeTypeService {
                 }
             }
         }catch (Exception e){
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -126,7 +126,7 @@ public class CrimeTypeService {
                 return new ResponseEntity<>("Crime Type is successfully updated.", HttpStatus.OK);
             }
         }catch (Exception e){
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -146,7 +146,7 @@ public class CrimeTypeService {
                 return new ResponseEntity<>(crimeTypeList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
+            LOG.info("Exception: {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

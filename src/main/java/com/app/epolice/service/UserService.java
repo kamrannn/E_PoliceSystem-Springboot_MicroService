@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
@@ -27,7 +28,7 @@ import java.util.*;
  */
 @Service
 public class UserService implements UserDetailsService {
-    private static final Logger LOG = LogManager.getLogger(UserController.class);
+    private static final Logger LOG = LogManager.getLogger(UserService.class);
     private Date tokenExpireTime = null;
 
     /**
@@ -63,16 +64,15 @@ public class UserService implements UserDetailsService {
      *
      * @return list of all active users in the database
      */
-    public ResponseEntity<Object> listAllActiveUsers() {
+    public ResponseEntity<Object> listAllActiveUsers(HttpServletRequest httpServletRequest) {
         try {
             List<User> userList = userRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (userList.isEmpty()) {
-                return new ResponseEntity<>(ResponseUtility.getResponse("There are no users in the database",null), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There are no users in the database",null,httpServletRequest.getRequestURI() ), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(ResponseUtility.getResponse("Success", userList), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success", userList ,httpServletRequest.getRequestURI()), HttpStatus.OK);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             LOG.info("Exception"+ e.getMessage()+ e.getCause());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -83,13 +83,13 @@ public class UserService implements UserDetailsService {
      *
      * @return response entity
      */
-    public ResponseEntity<Object> listOfInActiveUsers() {
+    public ResponseEntity<Object> listOfInActiveUsers(HttpServletRequest httpServletRequest) {
         try {
             List<User> userList = userRepository.findAllByActive(false);
             if (userList.isEmpty()) {
-                return new ResponseEntity<>(ResponseUtility.getResponse("There are no users in the database",null), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There are no users in the database",null, httpServletRequest.getRequestURI()), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(ResponseUtility.getResponse("Success", userList), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success", userList, httpServletRequest.getRequestURI()), HttpStatus.OK);
             }
         } catch (Exception e) {
             LOG.info("Exception"+ e.getMessage());
@@ -103,7 +103,7 @@ public class UserService implements UserDetailsService {
      * @param user the user
      * @return response entity
      */
-    public ResponseEntity<Object> addUser(User user) {
+    public ResponseEntity<Object> addUser(User user,HttpServletRequest httpServletRequest) {
         try {
             Optional<User> existingUser = userRepository.findUserByEmail(user.getEmail());
             if (existingUser.isPresent()) {
@@ -140,9 +140,10 @@ public class UserService implements UserDetailsService {
      * This service method is updating the user
      *
      * @param user the user
+     * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> updateUser(User user) {
+    public ResponseEntity<Object> updateUser(User user, HttpServletRequest httpServletRequest) {
         try {
             Optional<User> userOptional = userRepository.findById(user.getId());
             if(userOptional.isPresent()){
@@ -163,9 +164,10 @@ public class UserService implements UserDetailsService {
      * Delete user from db by using user ID
      *
      * @param id the id
+     * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> deleteUser(Long id) {
+    public ResponseEntity<Object> deleteUser(Long id, HttpServletRequest httpServletRequest) {
         try {
             Optional<User> user = userRepository.findById(id);
             if (user.isEmpty()) {
@@ -209,9 +211,10 @@ public class UserService implements UserDetailsService {
      * @param id         the id
      * @param emailToken the email token
      * @param smsToken   the sms token
+     * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> AccountVerification(long id, String emailToken, String smsToken) {
+    public ResponseEntity<Object> AccountVerification(long id, String emailToken, String smsToken, HttpServletRequest httpServletRequest) {
         try {
             Optional<User> user = userRepository.findUserByIdAndEmailTokenAndSmsToken(id,emailToken,smsToken);
             Date verificationTime = DateTime.getDateTime();
@@ -239,9 +242,10 @@ public class UserService implements UserDetailsService {
      * Resending verification token when user will ask for another token
      *
      * @param email the email
+     * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> resendVerificationToken(String email){
+    public ResponseEntity<Object> resendVerificationToken(String email, HttpServletRequest httpServletRequest){
         try{
             Optional<User> user = userRepository.findUserByEmail(email);
             if(user.isPresent()){
@@ -271,9 +275,10 @@ public class UserService implements UserDetailsService {
      * @param id                the id
      * @param crimeReport       the crime report
      * @param multipartFileList the multipart file list
+     * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> createCrimeReport(long id,CrimeReport crimeReport, MultipartFile[] multipartFileList) {
+    public ResponseEntity<Object> createCrimeReport(long id, CrimeReport crimeReport, MultipartFile[] multipartFileList, HttpServletRequest httpServletRequest) {
         try {
             Optional<User> user = userRepository.findById(id);
             if (user.isEmpty()) {
@@ -307,9 +312,10 @@ public class UserService implements UserDetailsService {
      * This method is fetching all the active users from the database
      *
      * @param date the date
+     * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> findUsersByDate(java.sql.Date date) {
+    public ResponseEntity<Object> findUsersByDate(java.sql.Date date, HttpServletRequest httpServletRequest) {
         try {
             List<User> userList = userRepository.findAllUsersByDate(date);
             if (userList.isEmpty()) {
@@ -327,9 +333,10 @@ public class UserService implements UserDetailsService {
      * Specific user roles response entity.
      *
      * @param userId the user id
+     * @param httpServletRequest
      * @return the response entity
      */
-    public ResponseEntity<Object> specificUserRoles(Long userId){
+    public ResponseEntity<Object> specificUserRoles(Long userId, HttpServletRequest httpServletRequest){
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()){
             UserDto userDto = new UserDto();
@@ -347,9 +354,10 @@ public class UserService implements UserDetailsService {
      * Specific user department response entity.
      *
      * @param userId the user id
+     * @param httpServletRequest
      * @return the response entity
      */
-    public ResponseEntity<Object> specificUserDepartment(Long userId){
+    public ResponseEntity<Object> specificUserDepartment(Long userId, HttpServletRequest httpServletRequest){
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()){
             UserDto userDto = new UserDto();

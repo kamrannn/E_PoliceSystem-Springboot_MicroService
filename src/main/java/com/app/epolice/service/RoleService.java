@@ -17,7 +17,7 @@ import java.util.Optional;
  */
 @Service
 public class RoleService {
-    private static final Logger LOG = LogManager.getLogger(UserController.class);
+    private static final Logger LOG = LogManager.getLogger(RoleService.class);
     /**
      * The Role repository.
      */

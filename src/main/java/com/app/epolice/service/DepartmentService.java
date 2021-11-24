@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Service
 public class DepartmentService {
-    private static final Logger LOG = LogManager.getLogger(UserController.class);
+    private static final Logger LOG = LogManager.getLogger(DepartmentService.class);
 
     /**
      * The Department repository.

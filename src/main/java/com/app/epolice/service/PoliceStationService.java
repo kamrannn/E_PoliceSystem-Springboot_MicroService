@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Service
 public class PoliceStationService {
-    private static final Logger LOG = LogManager.getLogger(UserController.class);
+    private static final Logger LOG = LogManager.getLogger(PoliceStationService.class);
 
     /**
      * Initializing the objects

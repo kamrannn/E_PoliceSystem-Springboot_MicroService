@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Service
 public class PermissionService {
-    private static final Logger LOG = LogManager.getLogger(UserController.class);
+    private static final Logger LOG = LogManager.getLogger(PermissionService.class);
 
     /**
      * The Permission repository.

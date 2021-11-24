@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -44,9 +45,9 @@ public class UserController {
      * @return response entity
      */
     @GetMapping("/list")
-    public ResponseEntity<Object> listUsers() {
+    public ResponseEntity<Object> listUsers(HttpServletRequest httpServletRequest) {
             LOG.info("Listing all the users");
-            return userService.listAllActiveUsers();
+            return userService.listAllActiveUsers(httpServletRequest);
     }
 
     /**
@@ -55,9 +56,9 @@ public class UserController {
      * @return response entity
      */
     @GetMapping("/list/inactive")
-    public ResponseEntity<Object> listOfInActiveUsers() {
+    public ResponseEntity<Object> listOfInActiveUsers(HttpServletRequest httpServletRequest) {
             LOG.info("Listing all the users that are not active");
-            return userService.listOfInActiveUsers();
+            return userService.listOfInActiveUsers(httpServletRequest);
     }
 
     /**
@@ -67,9 +68,9 @@ public class UserController {
      * @return response entity
      */
     @GetMapping("/by-date")
-    public ResponseEntity<Object> findUsersByDate(@RequestParam java.sql.Date date) {
+    public ResponseEntity<Object> findUsersByDate(@RequestParam java.sql.Date date, HttpServletRequest httpServletRequest) {
             LOG.info("Listing all the users by date");
-            return userService.findUsersByDate(date);
+            return userService.findUsersByDate(date, httpServletRequest);
     }
 
     /**
@@ -79,9 +80,9 @@ public class UserController {
      * @return response entity
      */
     @PostMapping("/signup")
-    public ResponseEntity<Object> addUser(@Valid @RequestBody User user) {
+    public ResponseEntity<Object> addUser(@Valid @RequestBody User user, HttpServletRequest httpServletRequest) {
             LOG.info("Adding the user");
-            return userService.addUser(user);
+            return userService.addUser(user, httpServletRequest);
     }
 
     /**
@@ -91,9 +92,9 @@ public class UserController {
      * @return response entity
      */
     @PutMapping("/update")
-    public ResponseEntity<Object> updateUser(@RequestBody User user) {
+    public ResponseEntity<Object> updateUser(@RequestBody User user, HttpServletRequest httpServletRequest) {
             LOG.info("Updating the user");
-            return userService.updateUser(user);
+            return userService.updateUser(user,httpServletRequest);
     }
 
     /**
@@ -103,9 +104,9 @@ public class UserController {
      * @return response entity
      */
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteUser(@PathVariable Long id, HttpServletRequest httpServletRequest) {
             LOG.info("Deleting the user from the database");
-            return userService.deleteUser(id);
+            return userService.deleteUser(id, httpServletRequest);
     }
 
     /**
@@ -117,9 +118,9 @@ public class UserController {
      * @return response entity
      */
     @GetMapping("/verification")
-    public ResponseEntity<Object> accountVerification(@RequestHeader Long id, @RequestHeader String emailToken, @RequestHeader String smsToken) {
+    public ResponseEntity<Object> accountVerification(@RequestHeader Long id, @RequestHeader String emailToken, @RequestHeader String smsToken, HttpServletRequest httpServletRequest) {
             LOG.info("Doing the account verification through tokens");
-            return userService.AccountVerification(id, emailToken, smsToken);
+            return userService.AccountVerification(id, emailToken, smsToken, httpServletRequest);
     }
 
     /**
@@ -129,9 +130,9 @@ public class UserController {
      * @return response entity
      */
     @PostMapping("/resend-verification-token")
-    public ResponseEntity<Object> resendVerificationToken(@RequestBody User user ){
+    public ResponseEntity<Object> resendVerificationToken(@RequestBody User user, HttpServletRequest httpServletRequest){
             LOG.info("Resending the verification tokens");
-            return userService.resendVerificationToken(user.getEmail());
+            return userService.resendVerificationToken(user.getEmail(), httpServletRequest);
     }
 
     /**
@@ -143,9 +144,9 @@ public class UserController {
      * @return response entity
      */
     @PostMapping("/upload_single_report")
-    public ResponseEntity<Object> uploadReport(@RequestHeader long id, CrimeReport report, @RequestParam("files") MultipartFile[] file) {
+    public ResponseEntity<Object> uploadReport(@RequestHeader long id, CrimeReport report, @RequestParam("files") MultipartFile[] file, HttpServletRequest httpServletRequest) {
             LOG.info("Uploading the single crime report having images attached");
-            return userService.createCrimeReport(id,report,file);
+            return userService.createCrimeReport(id,report,file, httpServletRequest);
     }
 
     /**
@@ -155,9 +156,9 @@ public class UserController {
      * @return the response entity
      */
     @GetMapping("/view-roles")
-    public ResponseEntity<Object> viewRolesOfSpecificUser(@RequestHeader Long userId){
-            LOG.info("checking the roles of a specific user having id: "+userId);
-            return userService.specificUserRoles(userId);
+    public ResponseEntity<Object> viewRolesOfSpecificUser(@RequestHeader Long userId, HttpServletRequest httpServletRequest){
+            LOG.info("checking the roles of a specific user having id: {}", userId);
+            return userService.specificUserRoles(userId,httpServletRequest);
     }
 
     /**
@@ -167,9 +168,9 @@ public class UserController {
      * @return the response entity
      */
     @GetMapping("/view-department")
-    public ResponseEntity<Object> viewSpecificUserDepartment(@RequestHeader Long userId){
-            LOG.info("checking the department of a specific user having id: "+userId);
-            return userService.specificUserDepartment(userId);
+    public ResponseEntity<Object> viewSpecificUserDepartment(@RequestHeader Long userId, HttpServletRequest httpServletRequest){
+            LOG.info("checking the department of a specific user having id: ",userId);
+            return userService.specificUserDepartment(userId, httpServletRequest);
 
     }
 

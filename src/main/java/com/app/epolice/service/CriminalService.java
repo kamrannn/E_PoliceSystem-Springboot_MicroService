@@ -19,7 +19,7 @@ import java.util.Optional;
  */
 @Service
 public class CriminalService {
-    private static final Logger LOG = LogManager.getLogger(UserController.class);
+    private static final Logger LOG = LogManager.getLogger(CriminalService.class);
 
     /**
      * The Feign e bank service.

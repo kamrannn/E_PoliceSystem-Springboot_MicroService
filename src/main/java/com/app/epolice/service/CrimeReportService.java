@@ -1,6 +1,5 @@
 package com.app.epolice.service;
 
-import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.model.entity.policestation.PoliceStation;
 import com.app.epolice.repository.CrimeReportRepository;
@@ -15,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +24,7 @@ import java.util.Optional;
  */
 @Service
 public class CrimeReportService {
-    private static final Logger LOG = LogManager.getLogger(UserController.class);
+    private static final Logger LOG = LogManager.getLogger(CrimeReportService.class);
 
     /**
      * Initializing the repositories
@@ -60,7 +60,7 @@ public class CrimeReportService {
                 return new ResponseEntity<>(crimeReportList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -76,20 +76,20 @@ public class CrimeReportService {
             if (crimeReportList.isEmpty()) {
                 return new ResponseEntity<>("You are entering empty list", HttpStatus.BAD_REQUEST);
             } else {
-                for (CrimeReport crimeReport:crimeReportList
+                for (CrimeReport crimeReport : crimeReportList
                 ) {
                     crimeReport.setCreatedDate(DateTime.getDateTime());
                     crimeReport.setActive(true);
                     crimeReportRepository.save(crimeReport);
                 }
-                if(crimeReportList.size()==1){
+                if (crimeReportList.size() == 1) {
                     return new ResponseEntity<>("Crime Report is successfully added", HttpStatus.OK);
-                }else{
+                } else {
                     return new ResponseEntity<>("Crime Reports are successfully added", HttpStatus.OK);
                 }
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -106,12 +106,12 @@ public class CrimeReportService {
             if (null == crimeReport) {
                 return new ResponseEntity<>("You are entering report", HttpStatus.BAD_REQUEST);
             } else {
-                String reportUuid= UuidGenerator.getUuid();
-                for (MultipartFile file:multipartFileList
-                     ) {
+                String reportUuid = UuidGenerator.getUuid();
+                for (MultipartFile file : multipartFileList
+                ) {
                     String reportPictureName = StringUtils.cleanPath(file.getOriginalFilename());
-                    String uploadDir = "F:\\Development\\E-Police Project\\Images\\" +reportUuid ;
-                    FileUpload.saveFile(uploadDir,reportPictureName, file);
+                    String uploadDir = "F:\\Development\\E-Police Project\\Images\\" + reportUuid;
+                    FileUpload.saveFile(uploadDir, reportPictureName, file);
                 }
                 crimeReport.setUuid(reportUuid);
                 crimeReport.setCreatedDate(DateTime.getDateTime());
@@ -121,7 +121,7 @@ public class CrimeReportService {
                 return new ResponseEntity<>("Crime Report is successfully added", HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -132,25 +132,25 @@ public class CrimeReportService {
      * @param crimeReportList the crime report list
      * @return response entity
      */
-    public ResponseEntity<Object> deleteCrimeReport(List<CrimeReport> crimeReportList){
-        try{
-            if(crimeReportList.isEmpty()){
-                return new ResponseEntity<>("No Crime Report is selected for the deletion",HttpStatus.BAD_REQUEST);
-            }else{
-                for (CrimeReport crimeReport:crimeReportList
+    public ResponseEntity<Object> deleteCrimeReport(List<CrimeReport> crimeReportList) {
+        try {
+            if (crimeReportList.isEmpty()) {
+                return new ResponseEntity<>("No Crime Report is selected for the deletion", HttpStatus.BAD_REQUEST);
+            } else {
+                for (CrimeReport crimeReport : crimeReportList
                 ) {
                     crimeReport.setActive(false);
                     crimeReport.setUpdatedDate(DateTime.getDateTime());
                     crimeReportRepository.save(crimeReport);
                 }
-                if(crimeReportList.size()==1){
-                    return new ResponseEntity<>("Crime Report is successfully deleted",HttpStatus.OK);
-                }else{
-                    return new ResponseEntity<>("Crime Reports are successfully deleted",HttpStatus.OK);
+                if (crimeReportList.size() == 1) {
+                    return new ResponseEntity<>("Crime Report is successfully deleted", HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>("Crime Reports are successfully deleted", HttpStatus.OK);
                 }
             }
-        }catch (Exception e){
-            LOG.info("Exception: "+ e.getMessage());
+        } catch (Exception e) {
+            LOG.info("Exception: {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -161,17 +161,17 @@ public class CrimeReportService {
      * @param crimeReport the crime report
      * @return response entity
      */
-    public ResponseEntity<Object> updateCrimeReport(CrimeReport crimeReport){
-        try{
-            if(null==crimeReport){
-                return new ResponseEntity<>("Null object passed in the body",HttpStatus.BAD_REQUEST);
-            }else{
+    public ResponseEntity<Object> updateCrimeReport(CrimeReport crimeReport) {
+        try {
+            if (null == crimeReport) {
+                return new ResponseEntity<>("Null object passed in the body", HttpStatus.BAD_REQUEST);
+            } else {
                 crimeReport.setUpdatedDate(DateTime.getDateTime());
                 crimeReportRepository.save(crimeReport);
                 return new ResponseEntity<>("Crime Report is successfully updated.", HttpStatus.OK);
             }
-        }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -183,28 +183,28 @@ public class CrimeReportService {
      * @param policeStationId the police station id
      * @return response entity
      */
-    public ResponseEntity<Object> verifyReport(String status,long crimeReportId,long policeStationId) {
+    public ResponseEntity<Object> verifyReport(String status, long crimeReportId, long policeStationId) {
         List<CrimeReport> crimeReportList = new ArrayList<>();
-        try{
+        try {
             Optional<CrimeReport> report = crimeReportRepository.findById(crimeReportId);
-            crimeReportList.add(report.get());
-            if(report.isPresent()){
+            if (report.isPresent()) {
+                crimeReportList.add(report.get());
                 Optional<PoliceStation> policeStation = policeStationRepository.findById(policeStationId);
-                if(policeStation.isPresent()){
+                if (policeStation.isPresent()) {
                     report.get().setStatus(status);
                     report.get().setUpdatedDate(DateTime.getDateTime());
                     policeStation.get().setCrimeReports(crimeReportList);
                     policeStationRepository.save(policeStation.get());
                     crimeReportRepository.save(report.get());
-                    return new ResponseEntity<>("The crime report is "+status, HttpStatus.OK);
-                }else{
+                    return new ResponseEntity<>("The crime report is " + status, HttpStatus.OK);
+                } else {
                     return new ResponseEntity<>("There is no police station against this police id ", HttpStatus.BAD_REQUEST);
                 }
-            }else{
+            } else {
                 return new ResponseEntity<>("There is no report against this crime Id", HttpStatus.NOT_FOUND);
             }
-        }catch (Exception e){
-            LOG.info("Exception: "+ e.getMessage());
+        } catch (Exception e) {
+            LOG.info("Exception: {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -224,7 +224,7 @@ public class CrimeReportService {
                 return new ResponseEntity<>(crimeReportList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
+            LOG.info("Exception: {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

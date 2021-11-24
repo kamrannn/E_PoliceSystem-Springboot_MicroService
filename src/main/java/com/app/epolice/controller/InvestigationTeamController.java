@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -41,9 +43,9 @@ public class InvestigationTeamController {
      * @return response entity
      */
     @GetMapping("/list")
-    public ResponseEntity<Object> listOfInvestigationTeams() {
+    public ResponseEntity<Object> listOfInvestigationTeams( HttpServletRequest httpServletRequest) {
         LOG.info("Listing all the investigation Teams");
-        return investigationTeamService.listAllInvestigationTeams();
+        return investigationTeamService.listAllInvestigationTeams(httpServletRequest);
     }
 
     /**
@@ -53,9 +55,9 @@ public class InvestigationTeamController {
      * @return response entity
      */
     @PostMapping("/add")
-    public ResponseEntity<Object> addInvestigationTeam(@Valid @RequestBody List<InvestigationTeam> investigationTeam) {
+    public ResponseEntity<Object> addInvestigationTeam(@Valid @RequestBody List<InvestigationTeam> investigationTeam, HttpServletRequest httpServletRequest) {
         LOG.info("Adding the investigation Teams");
-        return investigationTeamService.addNewInvestigationTeams(investigationTeam);
+        return investigationTeamService.addNewInvestigationTeams(investigationTeam,httpServletRequest);
     }
 
     /**
@@ -65,9 +67,9 @@ public class InvestigationTeamController {
      * @return response entity
      */
     @PutMapping("/update")
-    public ResponseEntity<Object> updateInvestigationTeam(@RequestBody InvestigationTeam investigationTeam) {
+    public ResponseEntity<Object> updateInvestigationTeam(@RequestBody InvestigationTeam investigationTeam, HttpServletRequest httpServletRequest) {
         LOG.info("updating the investigation Teams");
-        return investigationTeamService.updateInvestigationTeam(investigationTeam);
+        return investigationTeamService.updateInvestigationTeam(investigationTeam, httpServletRequest);
     }
 
     /**
@@ -77,9 +79,9 @@ public class InvestigationTeamController {
      * @return response entity
      */
     @DeleteMapping("/delete")
-    public ResponseEntity<Object> deleteInvestigationTeam(@RequestBody List<InvestigationTeam> investigationTeamList) {
+    public ResponseEntity<Object> deleteInvestigationTeam(@RequestBody List<InvestigationTeam> investigationTeamList, HttpServletRequest httpServletRequest) {
         LOG.info("deleting the investigation Teams");
-        return investigationTeamService.deleteInvestigationTeam(investigationTeamList);
+        return investigationTeamService.deleteInvestigationTeam(investigationTeamList,httpServletRequest);
     }
 
     /**
@@ -89,9 +91,9 @@ public class InvestigationTeamController {
      * @return the response entity
      */
     @GetMapping("/by-date")
-    public ResponseEntity<Object> findAllInvestigationTeamsByDate(@RequestParam java.sql.Date date) {
+    public ResponseEntity<Object> findAllInvestigationTeamsByDate(@RequestParam java.sql.Date date, HttpServletRequest httpServletRequest) {
         LOG.info("Listing all the investigation teams by date");
-        return investigationTeamService.findAllInvestigationTeamsByDate(date);
+        return investigationTeamService.findAllInvestigationTeamsByDate(date, httpServletRequest);
     }
 
     /**
@@ -100,8 +102,8 @@ public class InvestigationTeamController {
      * @return response entity
      */
     @GetMapping("/list/team")
-    public ResponseEntity<Object> findInvestigationTeamById(@RequestParam Long id) {
+    public ResponseEntity<Object> findInvestigationTeamById(@RequestParam Long id, HttpServletRequest httpServletRequest) {
         LOG.info("Listing the investigation Team by their id");
-        return investigationTeamService.findInvestigationTeamById(id);
+        return investigationTeamService.findInvestigationTeamById(id, httpServletRequest);
     }
 }

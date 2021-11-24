@@ -1,6 +1,5 @@
 package com.app.epolice.service;
 
-import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.policestation.InvestigationTeam;
 import com.app.epolice.repository.InvestigationTeamRepository;
 import com.app.epolice.util.DateTime;
@@ -11,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ import java.util.Optional;
  */
 @Service
 public class InvestigationTeamService {
-    private static final Logger LOG = LogManager.getLogger(UserController.class);
+    private static final Logger LOG = LogManager.getLogger(InvestigationTeamService.class);
 
     /**
      * The Investigation team repository.
@@ -39,14 +40,15 @@ public class InvestigationTeamService {
      * Fetching all the Investigation teams from the database
      *
      * @return response entity
+     * @param httpServletRequest
      */
-    public ResponseEntity<Object> listAllInvestigationTeams() {
+    public ResponseEntity<Object> listAllInvestigationTeams(HttpServletRequest httpServletRequest) {
         try {
             List<InvestigationTeam> investigationTeamList = investigationTeamRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (investigationTeamList.isEmpty()) {
-                return new ResponseEntity<>(ResponseUtility.getResponse("There are no investigation teams in the database", null), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There are no investigation teams in the database", null,httpServletRequest.getRequestURI()), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(ResponseUtility.getResponse("Success",investigationTeamList), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success",investigationTeamList, httpServletRequest.getRequestURI()), HttpStatus.OK);
             }
         } catch (Exception e) {
             LOG.info("Exception: " + e.getMessage());
@@ -58,9 +60,10 @@ public class InvestigationTeamService {
      * This method is storing the list of Investigation teams in the database
      *
      * @param investigationTeamList the investigation team list
+     * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> addNewInvestigationTeams(List<InvestigationTeam> investigationTeamList) {
+    public ResponseEntity<Object> addNewInvestigationTeams(List<InvestigationTeam> investigationTeamList, HttpServletRequest httpServletRequest) {
         try {
             if (investigationTeamList.isEmpty()) {
                 return new ResponseEntity<>("You are entering empty list", HttpStatus.BAD_REQUEST);
@@ -88,9 +91,10 @@ public class InvestigationTeamService {
      * This service is deleting the InvestigationTeams from the database
      *
      * @param investigationTeamList the investigation team list
+     * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> deleteInvestigationTeam(List<InvestigationTeam> investigationTeamList) {
+    public ResponseEntity<Object> deleteInvestigationTeam(List<InvestigationTeam> investigationTeamList, HttpServletRequest httpServletRequest) {
         try {
             if (investigationTeamList.isEmpty()) {
                 return new ResponseEntity<>("No investigation team is selected for the deletion", HttpStatus.BAD_REQUEST);
@@ -117,9 +121,10 @@ public class InvestigationTeamService {
      * This service is updating the investigation team in the database.
      *
      * @param investigationTeam the investigation team
+     * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> updateInvestigationTeam(InvestigationTeam investigationTeam) {
+    public ResponseEntity<Object> updateInvestigationTeam(InvestigationTeam investigationTeam, HttpServletRequest httpServletRequest) {
         try {
             if (null == investigationTeam) {
                 return new ResponseEntity<>("Null object passed in the body", HttpStatus.BAD_REQUEST);
@@ -138,9 +143,10 @@ public class InvestigationTeamService {
      * Find all investigation teams by date response entity.
      *
      * @param date the date
+     * @param httpServletRequest
      * @return the response entity
      */
-    public ResponseEntity<Object> findAllInvestigationTeamsByDate(java.sql.Date date) {
+    public ResponseEntity<Object> findAllInvestigationTeamsByDate(Date date, HttpServletRequest httpServletRequest) {
         try {
             List<InvestigationTeam> investigationTeamList = investigationTeamRepository.findAllInvestigationTeamsByDate(date);
             if (investigationTeamList.isEmpty()) {
@@ -158,15 +164,16 @@ public class InvestigationTeamService {
      * Find investigation team by id response entity.
      *
      * @param id the id
+     * @param httpServletRequest
      * @return the response entity
      */
-    public ResponseEntity<Object> findInvestigationTeamById(Long id){
+    public ResponseEntity<Object> findInvestigationTeamById(Long id, HttpServletRequest httpServletRequest){
         try {
             Optional<InvestigationTeam> investigationTeam = investigationTeamRepository.findById(id);
             if (investigationTeam.isEmpty()) {
-                return new ResponseEntity<>(ResponseUtility.getResponse("There is no investigation team against this id: "+ id, null), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There is no investigation team against this id: "+ id, null, httpServletRequest.getRequestURI()), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(ResponseUtility.getResponse("Success",investigationTeam), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success",investigationTeam, httpServletRequest.getRequestURI()), HttpStatus.OK);
             }
         } catch (Exception e) {
             LOG.info("Exception: " + e.getMessage());
