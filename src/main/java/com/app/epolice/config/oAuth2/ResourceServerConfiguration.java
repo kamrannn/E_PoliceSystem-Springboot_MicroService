@@ -11,6 +11,29 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
+    private final static String[] adminAccessPoints ={
+            "/users/**",
+            "/roles/**",
+            "/permissions/**",
+            "/role-type/**",
+            "/room/**",
+            "/role-type/**",
+            "/police-stations/**",
+            "/investigation-team/**",
+            "/departments/**",
+            "/criminal/**",
+            "/crime-type/**",
+            "/crime-reports/**"
+    };
+
+    private final static String[] publicUserAccessPoints ={
+            "/users/update",
+            "/users/verification",
+            "/users/resend-verification-token",
+            "/users/delete/{id}",
+            "/users/upload_single_report"
+    };
+
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
         resources.resourceId("api").stateless(false);
@@ -21,8 +44,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         http.
                 anonymous().disable()
                 .authorizeRequests()
-                .antMatchers("/users/list").hasAuthority("admin")
-                .antMatchers("/roles/**").hasAuthority("public_user")
+                .antMatchers(adminAccessPoints).hasAuthority("admin")
+                .antMatchers(publicUserAccessPoints).hasAuthority("public_user")
                 .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
     }
 }

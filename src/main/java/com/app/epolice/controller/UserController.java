@@ -14,6 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.text.ParseException;
 
 /**
  * The type User controller.
@@ -108,6 +109,19 @@ public class UserController {
             LOG.info("Deleting the user from the database");
             return userService.deleteUser(id, httpServletRequest);
     }
+
+    /**
+     * This controller is deleting the user
+     *
+     * @param id the id
+     * @return response entity
+     */
+    @GetMapping("/find_by/{id}")
+    public ResponseEntity<Object> findUserbyId(@PathVariable Long id, HttpServletRequest httpServletRequest) throws ParseException {
+        LOG.info("Deleting the user from the database");
+        return userService.findUserById(id, httpServletRequest);
+    }
+
 
     /**
      * This method is to verify the sms and email token

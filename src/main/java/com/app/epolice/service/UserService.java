@@ -21,6 +21,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -326,6 +327,26 @@ public class UserService implements UserDetailsService {
         } catch (Exception e) {
             LOG.info("Exception"+ e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * This method is fetching the user by user id from the database
+     *
+     * @param httpServletRequest
+     * @return response entity
+     */
+    public ResponseEntity<Object> findUserById(long userId, HttpServletRequest httpServletRequest) throws ParseException {
+        try {
+            Optional<User> optionalUser = userRepository.findById(userId);
+            if (optionalUser.isEmpty()) {
+                return new ResponseEntity<>(ResponseUtility.getResponse("There is no user against this id",null, httpServletRequest.getRequestURI()), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success",optionalUser, httpServletRequest.getRequestURI()), HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            LOG.info("Exception: {}", e.getMessage());
+            return new ResponseEntity<>(ResponseUtility.getResponse("Internal Server error",null, httpServletRequest.getRequestURI()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
