@@ -3,6 +3,7 @@ package com.app.epolice.model.entity.user;
 import com.app.epolice.model.entity.crime.CrimeReport;
 import com.app.epolice.model.entity.policestation.Department;
 import com.app.epolice.model.entity.policestation.PoliceStation;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import javax.persistence.*;
@@ -54,7 +55,9 @@ public class User implements Serializable {
     private Date createdDate;
     private Date updatedDate;
     private boolean active;
+    @JsonIgnore
     private String smsToken;
+    @JsonIgnore
     private String emailToken;
 
     /**

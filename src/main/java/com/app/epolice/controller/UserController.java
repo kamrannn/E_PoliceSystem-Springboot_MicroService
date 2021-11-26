@@ -6,7 +6,11 @@ import com.app.epolice.model.entity.user.User;
 import com.app.epolice.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.common.OAuth2RefreshToken;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +34,8 @@ public class UserController {
      * Initializing the service constructor
      */
     UserService userService;
+    @Autowired
+    TokenStore tokenStore;
 
     /**
      * Instantiates a new controller.
@@ -46,7 +52,7 @@ public class UserController {
      * @return response entity
      */
     @GetMapping("/list")
-    public ResponseEntity<Object> listUsers(HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> listUsers(HttpServletRequest httpServletRequest) throws ParseException {
             LOG.info("Listing all the users");
             return userService.listAllActiveUsers(httpServletRequest);
     }
@@ -57,7 +63,7 @@ public class UserController {
      * @return response entity
      */
     @GetMapping("/list/inactive")
-    public ResponseEntity<Object> listOfInActiveUsers(HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> listOfInActiveUsers(HttpServletRequest httpServletRequest) throws ParseException {
             LOG.info("Listing all the users that are not active");
             return userService.listOfInActiveUsers(httpServletRequest);
     }
@@ -69,7 +75,7 @@ public class UserController {
      * @return response entity
      */
     @GetMapping("/by-date")
-    public ResponseEntity<Object> findUsersByDate(@RequestParam java.sql.Date date, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> findUsersByDate(@RequestParam java.sql.Date date, HttpServletRequest httpServletRequest) throws ParseException {
             LOG.info("Listing all the users by date");
             return userService.findUsersByDate(date, httpServletRequest);
     }
@@ -93,7 +99,7 @@ public class UserController {
      * @return response entity
      */
     @PutMapping("/update")
-    public ResponseEntity<Object> updateUser(@RequestBody User user, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> updateUser(@RequestBody User user, HttpServletRequest httpServletRequest) throws ParseException {
             LOG.info("Updating the user");
             return userService.updateUser(user,httpServletRequest);
     }
@@ -105,7 +111,7 @@ public class UserController {
      * @return response entity
      */
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deleteUser(@PathVariable Long id, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> deleteUser(@PathVariable Long id, HttpServletRequest httpServletRequest) throws ParseException {
             LOG.info("Deleting the user from the database");
             return userService.deleteUser(id, httpServletRequest);
     }
@@ -122,7 +128,6 @@ public class UserController {
         return userService.findUserById(id, httpServletRequest);
     }
 
-
     /**
      * This method is to verify the sms and email token
      *
@@ -132,7 +137,7 @@ public class UserController {
      * @return response entity
      */
     @GetMapping("/verification")
-    public ResponseEntity<Object> accountVerification(@RequestHeader Long id, @RequestHeader String emailToken, @RequestHeader String smsToken, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> accountVerification(@RequestHeader Long id, @RequestHeader String emailToken, @RequestHeader String smsToken, HttpServletRequest httpServletRequest) throws ParseException {
             LOG.info("Doing the account verification through tokens");
             return userService.AccountVerification(id, emailToken, smsToken, httpServletRequest);
     }
@@ -144,7 +149,7 @@ public class UserController {
      * @return response entity
      */
     @PostMapping("/resend-verification-token")
-    public ResponseEntity<Object> resendVerificationToken(@RequestBody User user, HttpServletRequest httpServletRequest){
+    public ResponseEntity<Object> resendVerificationToken(@RequestBody User user, HttpServletRequest httpServletRequest) throws ParseException {
             LOG.info("Resending the verification tokens");
             return userService.resendVerificationToken(user.getEmail(), httpServletRequest);
     }
@@ -158,7 +163,7 @@ public class UserController {
      * @return response entity
      */
     @PostMapping("/upload_single_report")
-    public ResponseEntity<Object> uploadReport(@RequestHeader long id, CrimeReport report, @RequestParam("files") MultipartFile[] file, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> uploadReport(@RequestHeader long id, CrimeReport report, @RequestParam("files") MultipartFile[] file, HttpServletRequest httpServletRequest) throws ParseException {
             LOG.info("Uploading the single crime report having images attached");
             return userService.createCrimeReport(id,report,file, httpServletRequest);
     }
@@ -170,7 +175,7 @@ public class UserController {
      * @return the response entity
      */
     @GetMapping("/view-roles")
-    public ResponseEntity<Object> viewRolesOfSpecificUser(@RequestHeader Long userId, HttpServletRequest httpServletRequest){
+    public ResponseEntity<Object> viewRolesOfSpecificUser(@RequestHeader Long userId, HttpServletRequest httpServletRequest) throws ParseException {
             LOG.info("checking the roles of a specific user having id: {}", userId);
             return userService.specificUserRoles(userId,httpServletRequest);
     }
@@ -182,10 +187,31 @@ public class UserController {
      * @return the response entity
      */
     @GetMapping("/view-department")
-    public ResponseEntity<Object> viewSpecificUserDepartment(@RequestHeader Long userId, HttpServletRequest httpServletRequest){
+    public ResponseEntity<Object> viewSpecificUserDepartment(@RequestHeader Long userId, HttpServletRequest httpServletRequest) throws ParseException {
             LOG.info("checking the department of a specific user having id: ",userId);
             return userService.specificUserDepartment(userId, httpServletRequest);
 
+    }
+
+    @DeleteMapping("/oauth/logout")
+    public ResponseEntity<String> revoke(HttpServletRequest request) {
+        try {
+            String authorization = request.getHeader("Authorization");
+            if (authorization != null && authorization.contains("Bearer")) {
+                String tokenValue = authorization.replace("Bearer", "").trim();
+
+                OAuth2AccessToken accessToken = tokenStore.readAccessToken(tokenValue);
+                tokenStore.removeAccessToken(accessToken);
+
+                //OAuth2RefreshToken refreshToken = tokenStore.readRefreshToken(tokenValue);
+                OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
+                tokenStore.removeRefreshToken(refreshToken);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Invalid access token");
+        }
+
+        return ResponseEntity.ok().body("Access token invalidated successfully");
     }
 
     /**

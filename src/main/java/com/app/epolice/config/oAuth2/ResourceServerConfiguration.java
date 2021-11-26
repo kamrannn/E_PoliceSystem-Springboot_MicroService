@@ -2,6 +2,7 @@ package com.app.epolice.config.oAuth2;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
@@ -15,9 +16,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
             "/users/**",
             "/roles/**",
             "/permissions/**",
-            "/role-type/**",
             "/room/**",
-            "/role-type/**",
+            "/room-type/**",
             "/police-stations/**",
             "/investigation-team/**",
             "/departments/**",
@@ -28,10 +28,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     private final static String[] publicUserAccessPoints ={
             "/users/update",
-            "/users/verification",
             "/users/resend-verification-token",
             "/users/delete/{id}",
-            "/users/upload_single_report"
+            "/users/upload_single_report",
+            "/police-stations/list"
     };
 
     @Override
@@ -41,11 +41,23 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.
-                anonymous().disable()
+        http
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
+                .antMatchers("swagger-ui.html/","/swagger-ui.html/","/api-docs/**","/v2/api-docs/**","/permissions/add","/roles/add","/police-stations/add","/departments/add","/users/signup","/users/verification").permitAll()
                 .antMatchers(adminAccessPoints).hasAuthority("admin")
                 .antMatchers(publicUserAccessPoints).hasAuthority("public_user")
+                .antMatchers("/api/**").authenticated()
+                .anyRequest().authenticated()
                 .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+
+/*        http.
+                anonymous().disable()
+                .authorizeRequests()
+                .antMatchers("/permissions/add","/roles/add","/police-stations/add","/departments/add").permitAll()
+                .antMatchers(adminAccessPoints).hasAnyAuthority("admin")
+                .antMatchers(publicUserAccessPoints).hasAnyAuthority("public_user")
+                .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());*/
     }
 }

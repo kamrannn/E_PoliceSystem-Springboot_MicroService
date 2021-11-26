@@ -65,17 +65,17 @@ public class UserService implements UserDetailsService {
      *
      * @return list of all active users in the database
      */
-    public ResponseEntity<Object> listAllActiveUsers(HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> listAllActiveUsers(HttpServletRequest httpServletRequest) throws ParseException {
         try {
             List<User> userList = userRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (userList.isEmpty()) {
-                return new ResponseEntity<>(ResponseUtility.getResponse("There are no users in the database",null,httpServletRequest.getRequestURI() ), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There are no users in the database",null,httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(ResponseUtility.getResponse("Success", userList ,httpServletRequest.getRequestURI()), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success", userList ,httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage()+ e.getCause());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            LOG.info("Exception: {}", e.getMessage());
+            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(), null ,httpServletRequest.getRequestURI(), HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -84,17 +84,17 @@ public class UserService implements UserDetailsService {
      *
      * @return response entity
      */
-    public ResponseEntity<Object> listOfInActiveUsers(HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> listOfInActiveUsers(HttpServletRequest httpServletRequest) throws ParseException {
         try {
             List<User> userList = userRepository.findAllByActive(false);
             if (userList.isEmpty()) {
-                return new ResponseEntity<>(ResponseUtility.getResponse("There are no users in the database",null, httpServletRequest.getRequestURI()), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There are no users in the database",null, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(ResponseUtility.getResponse("Success", userList, httpServletRequest.getRequestURI()), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success", userList, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            LOG.info("Exception {}", e.getMessage());
+            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(), null, httpServletRequest.getRequestURI(), HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -109,11 +109,13 @@ public class UserService implements UserDetailsService {
             Optional<User> existingUser = userRepository.findUserByEmail(user.getEmail());
             if (existingUser.isPresent()) {
                 if (existingUser.get().isActive()) {
-                    return new ResponseEntity<>("User already present", HttpStatus.OK);
+                    return new ResponseEntity<>(ResponseUtility.getResponse("User already present against this email", user, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
                 } else {
-                    existingUser.get().setActive(true);
-                    userRepository.save(existingUser.get());
-                    return new ResponseEntity<>("User is successfully added", HttpStatus.OK);
+                    user.setActive(true);
+                    updateUser(user, httpServletRequest);
+/*                    existingUser.get().setUpdatedDate(DateTime.getDateTime());
+                    userRepository.save(existingUser.get());*/
+                    return new ResponseEntity<>(ResponseUtility.getResponse("Your account was inactive before, now you can login with your old credentials", user, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
                 }
             } else {
                 Random rnd = new Random(); //Generating a random number
@@ -132,7 +134,7 @@ public class UserService implements UserDetailsService {
                 return new ResponseEntity<>("User is successfully added", HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
+            LOG.info("Exception: {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -144,20 +146,22 @@ public class UserService implements UserDetailsService {
      * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> updateUser(User user, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> updateUser(User user, HttpServletRequest httpServletRequest) throws ParseException {
         try {
             Optional<User> userOptional = userRepository.findById(user.getId());
             if(userOptional.isPresent()){
                 user.setUpdatedDate(DateTime.getDateTime());
+                user.setEmailToken(userOptional.get().getEmailToken());
+                user.setSmsToken(userOptional.get().getSmsToken());
                 userRepository.save(user);
-                return new ResponseEntity<>("User has been successfully Updated", HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("User has been successfully Updated",user, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
             }else{
-                return new ResponseEntity<>("User doesn't exist in the database", HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("User doesn't exist in the database",null, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
             }
 
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
-            return new ResponseEntity<>("User is not Updated", HttpStatus.OK);
+            LOG.info("Exception: {}", e.getMessage());
+            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(),null, httpServletRequest.getRequestURI(),HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -168,20 +172,20 @@ public class UserService implements UserDetailsService {
      * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> deleteUser(Long id, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> deleteUser(Long id, HttpServletRequest httpServletRequest) throws ParseException {
         try {
             Optional<User> user = userRepository.findById(id);
             if (user.isEmpty()) {
-                return new ResponseEntity<>("There is no user against this id", HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There is no user against this id",null, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
             } else {
                 user.get().setUpdatedDate(DateTime.getDateTime());
                 user.get().setActive(false);
                 userRepository.save(user.get());
-                return new ResponseEntity<>("User is successfully deleted", HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("User is successfully deleted",user, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
-            return new ResponseEntity<>("This user doesn't exist in the database", HttpStatus.OK);
+            LOG.info("Exception: {}", e.getMessage());
+            return new ResponseEntity<>(ResponseUtility.getResponse("This user doesn't exist in the database",null, httpServletRequest.getRequestURI(),HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -192,7 +196,7 @@ public class UserService implements UserDetailsService {
      * @param password the password
      * @return response entity
      */
-    public ResponseEntity<Object> loginUser(String email, String password) {
+    /*public ResponseEntity<Object> loginUser(String email, String password) {
         try {
             Optional<User> user = userRepository.findUserByEmailAndPassword(email, password);
             if (user.isPresent()) {
@@ -201,10 +205,10 @@ public class UserService implements UserDetailsService {
                 return new ResponseEntity<>("You are entering wrong credentials", HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
+            LOG.info("Exception: {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
 
     /**
      * Authenticating the user account with sms token and email token
@@ -215,27 +219,27 @@ public class UserService implements UserDetailsService {
      * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> AccountVerification(long id, String emailToken, String smsToken, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> AccountVerification(long id, String emailToken, String smsToken, HttpServletRequest httpServletRequest) throws ParseException {
         try {
             Optional<User> user = userRepository.findUserByIdAndEmailTokenAndSmsToken(id,emailToken,smsToken);
             Date verificationTime = DateTime.getDateTime();
             System.out.println(tokenExpireTime);
 
             if(verificationTime.after(tokenExpireTime)){
-                return new ResponseEntity<>("The token is expired", HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("The tokens are expired",null, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
             }
             else{
                 if (user.isPresent()) {
                     user.get().setActive(true);
                     userRepository.save(user.get());
-                    return new ResponseEntity<>("User account has been verified, now you can login", HttpStatus.OK);
+                    return new ResponseEntity<>(ResponseUtility.getResponse("User account has been verified, now you can login",null, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
                 } else {
-                    return new ResponseEntity<>("Your are entering wrong values for tokens", HttpStatus.OK);
+                    return new ResponseEntity<>(ResponseUtility.getResponse("Your are entering wrong values for tokens",null, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
                 }
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            LOG.info("Exception: {}", e.getMessage());
+            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(),null, httpServletRequest.getRequestURI(),HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -246,7 +250,7 @@ public class UserService implements UserDetailsService {
      * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> resendVerificationToken(String email, HttpServletRequest httpServletRequest){
+    public ResponseEntity<Object> resendVerificationToken(String email, HttpServletRequest httpServletRequest) throws ParseException {
         try{
             Optional<User> user = userRepository.findUserByEmail(email);
             if(user.isPresent()){
@@ -260,13 +264,13 @@ public class UserService implements UserDetailsService {
                 user.get().setSmsToken(smsToken + "");
                 tokenExpireTime = DateTime.getExpireTime();
                 userRepository.save(user.get());
-                return new ResponseEntity<>("Tokens are successfully resent to your email and phone number", HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Tokens are successfully sent to your email and phone number",null, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
             }else{
                 return new ResponseEntity<>("User doesn't exist against this email", HttpStatus.OK);
             }
         }catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
-            return new ResponseEntity<>("There is no user against this email", HttpStatus.OK);
+            LOG.info("Exception: {}", e.getMessage());
+            return new ResponseEntity<>(ResponseUtility.getResponse("There is no user against this email or phone number",null, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
         }
     }
 
@@ -279,11 +283,11 @@ public class UserService implements UserDetailsService {
      * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> createCrimeReport(long id, CrimeReport crimeReport, MultipartFile[] multipartFileList, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> createCrimeReport(long id, CrimeReport crimeReport, MultipartFile[] multipartFileList, HttpServletRequest httpServletRequest) throws ParseException {
         try {
             Optional<User> user = userRepository.findById(id);
             if (user.isEmpty()) {
-                return new ResponseEntity<>("There is no user against this id", HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There is no user against this id",null, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
             } else {
                 List<CrimeReport> crimeReports = user.get().getCrimeReports();
                 String reportUuid= UuidGenerator.getUuid();
@@ -301,11 +305,11 @@ public class UserService implements UserDetailsService {
                 crimeReports.add(crimeReport);
 
                 userRepository.save(user.get());
-                return new ResponseEntity<>("Crime Report is successfully added", HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Crime Report is successfully added",null, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            LOG.info("Exception: {}", e.getMessage());
+            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(),null, httpServletRequest.getRequestURI(),HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -316,17 +320,17 @@ public class UserService implements UserDetailsService {
      * @param httpServletRequest
      * @return response entity
      */
-    public ResponseEntity<Object> findUsersByDate(java.sql.Date date, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> findUsersByDate(java.sql.Date date, HttpServletRequest httpServletRequest) throws ParseException {
         try {
             List<User> userList = userRepository.findAllUsersByDate(date);
             if (userList.isEmpty()) {
-                return new ResponseEntity<>("There are no users in the database", HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There are no users registered on this date in the database",null, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(userList, HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success",userList, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            LOG.info("Exception: {}", e.getMessage());
+            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(),null, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -340,13 +344,13 @@ public class UserService implements UserDetailsService {
         try {
             Optional<User> optionalUser = userRepository.findById(userId);
             if (optionalUser.isEmpty()) {
-                return new ResponseEntity<>(ResponseUtility.getResponse("There is no user against this id",null, httpServletRequest.getRequestURI()), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There is no user against this id",null, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(ResponseUtility.getResponse("Success",optionalUser, httpServletRequest.getRequestURI()), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success",optionalUser, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
             }
         } catch (Exception e) {
             LOG.info("Exception: {}", e.getMessage());
-            return new ResponseEntity<>(ResponseUtility.getResponse("Internal Server error",null, httpServletRequest.getRequestURI()), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(),null, httpServletRequest.getRequestURI(),HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -357,18 +361,23 @@ public class UserService implements UserDetailsService {
      * @param httpServletRequest
      * @return the response entity
      */
-    public ResponseEntity<Object> specificUserRoles(Long userId, HttpServletRequest httpServletRequest){
-        Optional<User> user = userRepository.findById(userId);
-        if(user.isPresent()){
-            UserDto userDto = new UserDto();
-            for (Object role:user.get().getRoles()
-                 ) {
-                userDto.setUsersData(Collections.singleton(role));
+    public ResponseEntity<Object> specificUserRoles(Long userId, HttpServletRequest httpServletRequest) throws ParseException {
+        try{
+            Optional<User> user = userRepository.findById(userId);
+            if(user.isPresent()){
+                UserDto userDto = new UserDto();
+                for (Object role:user.get().getRoles()
+                ) {
+                    userDto.setUsersData(Collections.singleton(role));
+                }
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success",userDto.getUsersData(), httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(ResponseUtility.getResponse("User is not present",null, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
             }
-            return new ResponseEntity<>(userDto.getUsersData(),HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>("No user found against this user id", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(),null, httpServletRequest.getRequestURI(), HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     /**
@@ -378,17 +387,22 @@ public class UserService implements UserDetailsService {
      * @param httpServletRequest
      * @return the response entity
      */
-    public ResponseEntity<Object> specificUserDepartment(Long userId, HttpServletRequest httpServletRequest){
-        Optional<User> user = userRepository.findById(userId);
-        if(user.isPresent()){
-            UserDto userDto = new UserDto();
-            for (Object role:user.get().getCrimeReports()
-            ) {
-                userDto.setUsersData(Collections.singleton(role));
+    public ResponseEntity<Object> specificUserDepartment(Long userId, HttpServletRequest httpServletRequest) throws ParseException {
+        try{
+            Optional<User> user = userRepository.findById(userId);
+            if(user.isPresent()){
+                UserDto userDto = new UserDto();
+                for (Object role:user.get().getCrimeReports()
+                ) {
+                    userDto.setUsersData(Collections.singleton(role));
+                }
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success",userDto.getUsersData(), httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
+
+            }else{
+                return new ResponseEntity<>(ResponseUtility.getResponse("No user found against this user id",null, httpServletRequest.getRequestURI(),HttpStatus.OK), HttpStatus.OK);
             }
-            return new ResponseEntity<>(userDto.getUsersData(),HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>("No user found against this user id", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(),null, httpServletRequest.getRequestURI(),HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

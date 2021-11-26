@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,17 +43,17 @@ public class InvestigationTeamService {
      * @return response entity
      * @param httpServletRequest
      */
-    public ResponseEntity<Object> listAllInvestigationTeams(HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> listAllInvestigationTeams(HttpServletRequest httpServletRequest) throws ParseException {
         try {
             List<InvestigationTeam> investigationTeamList = investigationTeamRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (investigationTeamList.isEmpty()) {
-                return new ResponseEntity<>(ResponseUtility.getResponse("There are no investigation teams in the database", null,httpServletRequest.getRequestURI()), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There are no investigation teams in the database", null,httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(ResponseUtility.getResponse("Success",investigationTeamList, httpServletRequest.getRequestURI()), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success",investigationTeamList, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception: " + e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            LOG.info("Exception: {}", e.getMessage());
+            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(),null, httpServletRequest.getRequestURI(), HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -167,17 +168,17 @@ public class InvestigationTeamService {
      * @param httpServletRequest
      * @return the response entity
      */
-    public ResponseEntity<Object> findInvestigationTeamById(Long id, HttpServletRequest httpServletRequest){
+    public ResponseEntity<Object> findInvestigationTeamById(Long id, HttpServletRequest httpServletRequest) throws ParseException {
         try {
             Optional<InvestigationTeam> investigationTeam = investigationTeamRepository.findById(id);
             if (investigationTeam.isEmpty()) {
-                return new ResponseEntity<>(ResponseUtility.getResponse("There is no investigation team against this id: "+ id, null, httpServletRequest.getRequestURI()), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There is no investigation team against the given investigation team id " , null, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(ResponseUtility.getResponse("Success",investigationTeam, httpServletRequest.getRequestURI()), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success",investigationTeam, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
             }
         } catch (Exception e) {
             LOG.info("Exception: " + e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(),null, httpServletRequest.getRequestURI(), HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

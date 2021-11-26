@@ -1,6 +1,7 @@
 package com.app.epolice.util;
 
 import org.bouncycastle.asn1.cms.TimeStampedData;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,17 +21,18 @@ public class ResponseUtility {
      * @param message the message
      * @return the hash map
      */
-    public static HashMap<String, Object> getResponse(String message, Object obj, String path) throws ParseException {
+    public static HashMap<String, Object> getResponse(String message, Object obj, String path, HttpStatus status) throws ParseException {
         HashMap<String, Object> map = new HashMap<>();
         if(obj==null){
-            map.put("message",message);
+            map.put("Message",message);
+            map.put("Status", status);
             map.put("Timestamp", DateTime.getStringDateTime());
             map.put("uri", path);
         }else{
-            map.put("message",message);
+            map.put("Message",message);
             map.put("Timestamp", DateTime.getStringDateTime());
             map.put("uri", path);
-            map.put("result",obj);
+            map.put("Result",obj);
         }
         return map;
     }

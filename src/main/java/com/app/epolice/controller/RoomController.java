@@ -33,7 +33,6 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-
     /**
      * Showing all the rooms
      *

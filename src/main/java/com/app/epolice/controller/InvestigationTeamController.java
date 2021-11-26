@@ -11,6 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class InvestigationTeamController {
      * @return response entity
      */
     @GetMapping("/list")
-    public ResponseEntity<Object> listOfInvestigationTeams( HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> listOfInvestigationTeams( HttpServletRequest httpServletRequest) throws ParseException {
         LOG.info("Listing all the investigation Teams");
         return investigationTeamService.listAllInvestigationTeams(httpServletRequest);
     }
@@ -102,7 +103,7 @@ public class InvestigationTeamController {
      * @return response entity
      */
     @GetMapping("/list/team")
-    public ResponseEntity<Object> findInvestigationTeamById(@RequestParam Long id, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> findInvestigationTeamById(@RequestParam Long id, HttpServletRequest httpServletRequest) throws ParseException {
         LOG.info("Listing the investigation Team by their id");
         return investigationTeamService.findInvestigationTeamById(id, httpServletRequest);
     }
