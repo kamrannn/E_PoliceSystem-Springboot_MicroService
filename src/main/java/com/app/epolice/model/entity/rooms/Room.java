@@ -1,6 +1,5 @@
 package com.app.epolice.model.entity.rooms;
 
-import com.app.epolice.model.entity.policestation.Department;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -36,6 +35,6 @@ public class Room implements Serializable {
     /**
      * One room will have one room type while one room type can have multiple rooms
      */
-    @ManyToOne(targetEntity = RoomType.class,fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne(targetEntity = RoomType.class, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private RoomType roomType;
 }

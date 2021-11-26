@@ -39,6 +39,6 @@ public class InvestigationTeam implements Serializable {
     private Date updatedDate;
     private boolean active;
 
-    @ManyToMany(targetEntity = User.class,fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = User.class, fetch = FetchType.LAZY)
     private List<User> userList = new ArrayList<>();
 }

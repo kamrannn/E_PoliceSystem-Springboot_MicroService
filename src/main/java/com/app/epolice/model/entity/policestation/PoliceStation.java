@@ -1,7 +1,6 @@
 package com.app.epolice.model.entity.policestation;
 
 import com.app.epolice.model.entity.crime.CrimeReport;
-import com.app.epolice.model.entity.user.User;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -40,7 +39,7 @@ public class PoliceStation implements Serializable {
     /**
      * One Police can have multiple reports, but 1 report will be specific to single police station
      */
-    @OneToMany(targetEntity = CrimeReport.class,fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = CrimeReport.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "police_station_id", referencedColumnName = "id")
     private List<CrimeReport> crimeReports = new ArrayList<>();
 

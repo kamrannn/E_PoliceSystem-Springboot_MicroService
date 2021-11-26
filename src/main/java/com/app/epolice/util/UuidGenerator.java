@@ -1,6 +1,7 @@
 package com.app.epolice.util;
 
 import org.springframework.stereotype.Service;
+
 import java.util.UUID;
 
 /**
@@ -13,7 +14,7 @@ public class UuidGenerator {
      *
      * @return the string
      */
-    public static String getUuid(){
+    public static String getUuid() {
         UUID uuid = UUID.randomUUID();
         String uuidAsString = uuid.toString();
         return uuidAsString;

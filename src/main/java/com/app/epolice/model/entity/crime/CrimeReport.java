@@ -39,6 +39,6 @@ public class CrimeReport implements Serializable {
     private String status;
     private boolean active;
 
-    @ManyToMany(targetEntity = CrimeType.class,fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = CrimeType.class, fetch = FetchType.LAZY)
     private List<CrimeType> crimeTypes = new ArrayList<>();
 }

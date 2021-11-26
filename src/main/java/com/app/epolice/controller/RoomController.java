@@ -39,21 +39,21 @@ public class RoomController {
      * @return response entity
      */
     @GetMapping("/list")
-    public ResponseEntity<Object> listOfRooms(){
-            LOG.info("Listing all the rooms");
-            return roomService.listAllRooms();
+    public ResponseEntity<Object> listOfRooms() {
+        LOG.info("Listing all the rooms");
+        return roomService.listAllRooms();
     }
 
     /**
      * Find rooms by date response entity.
      *
-     * @param date  the date
+     * @param date the date
      * @return the response entity
      */
     @GetMapping("/by-date")
     public ResponseEntity<Object> findRoomsByDate(@RequestParam java.sql.Date date) {
-            LOG.info("Listing all the rooms by date");
-            return roomService.findRoomsByDate(date);
+        LOG.info("Listing all the rooms by date");
+        return roomService.findRoomsByDate(date);
     }
 
     /**
@@ -63,21 +63,21 @@ public class RoomController {
      * @return response entity
      */
     @PostMapping("/add")
-    public ResponseEntity<Object> addRoom(@Valid @RequestBody List<Room> rooms){
-            LOG.info("Adding new rooms");
-            return roomService.addNewRooms(rooms);
+    public ResponseEntity<Object> addRoom(@Valid @RequestBody List<Room> rooms) {
+        LOG.info("Adding new rooms");
+        return roomService.addNewRooms(rooms);
     }
 
     /**
      * Updating the rooms
      *
-     * @param room  the room
+     * @param room the room
      * @return response entity
      */
     @PutMapping("/update")
-    public ResponseEntity<Object> updateRoom(@RequestBody Room room){
-            LOG.info("Updating existing rooms");
-            return roomService.updateRoom(room);
+    public ResponseEntity<Object> updateRoom(@RequestBody Room room) {
+        LOG.info("Updating existing rooms");
+        return roomService.updateRoom(room);
     }
 
     /**
@@ -87,8 +87,8 @@ public class RoomController {
      * @return response entity
      */
     @DeleteMapping("/delete")
-    public ResponseEntity<Object> deleteRoom(@RequestBody List<Room> roomList){
-            LOG.info("deleting existing rooms");
-            return roomService.deleteRoom(roomList);
+    public ResponseEntity<Object> deleteRoom(@RequestBody List<Room> roomList) {
+        LOG.info("deleting existing rooms");
+        return roomService.deleteRoom(roomList);
     }
 }

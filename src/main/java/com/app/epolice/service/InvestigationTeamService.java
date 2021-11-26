@@ -40,20 +40,21 @@ public class InvestigationTeamService {
     /**
      * Fetching all the Investigation teams from the database
      *
+     * @param httpServletRequest the http servlet request
      * @return response entity
-     * @param httpServletRequest
+     * @throws ParseException the parse exception
      */
     public ResponseEntity<Object> listAllInvestigationTeams(HttpServletRequest httpServletRequest) throws ParseException {
         try {
             List<InvestigationTeam> investigationTeamList = investigationTeamRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (investigationTeamList.isEmpty()) {
-                return new ResponseEntity<>(ResponseUtility.getResponse("There are no investigation teams in the database", null,httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There are no investigation teams in the database", null, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(ResponseUtility.getResponse("Success",investigationTeamList, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success", investigationTeamList, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
             }
         } catch (Exception e) {
             LOG.info("Exception: {}", e.getMessage());
-            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(),null, httpServletRequest.getRequestURI(), HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(), null, httpServletRequest.getRequestURI(), HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -61,7 +62,7 @@ public class InvestigationTeamService {
      * This method is storing the list of Investigation teams in the database
      *
      * @param investigationTeamList the investigation team list
-     * @param httpServletRequest
+     * @param httpServletRequest    the http servlet request
      * @return response entity
      */
     public ResponseEntity<Object> addNewInvestigationTeams(List<InvestigationTeam> investigationTeamList, HttpServletRequest httpServletRequest) {
@@ -92,7 +93,7 @@ public class InvestigationTeamService {
      * This service is deleting the InvestigationTeams from the database
      *
      * @param investigationTeamList the investigation team list
-     * @param httpServletRequest
+     * @param httpServletRequest    the http servlet request
      * @return response entity
      */
     public ResponseEntity<Object> deleteInvestigationTeam(List<InvestigationTeam> investigationTeamList, HttpServletRequest httpServletRequest) {
@@ -121,8 +122,8 @@ public class InvestigationTeamService {
     /**
      * This service is updating the investigation team in the database.
      *
-     * @param investigationTeam the investigation team
-     * @param httpServletRequest
+     * @param investigationTeam  the investigation team
+     * @param httpServletRequest the http servlet request
      * @return response entity
      */
     public ResponseEntity<Object> updateInvestigationTeam(InvestigationTeam investigationTeam, HttpServletRequest httpServletRequest) {
@@ -143,8 +144,8 @@ public class InvestigationTeamService {
     /**
      * Find all investigation teams by date response entity.
      *
-     * @param date the date
-     * @param httpServletRequest
+     * @param date               the date
+     * @param httpServletRequest the http servlet request
      * @return the response entity
      */
     public ResponseEntity<Object> findAllInvestigationTeamsByDate(Date date, HttpServletRequest httpServletRequest) {
@@ -164,21 +165,22 @@ public class InvestigationTeamService {
     /**
      * Find investigation team by id response entity.
      *
-     * @param id the id
-     * @param httpServletRequest
+     * @param id                 the id
+     * @param httpServletRequest the http servlet request
      * @return the response entity
+     * @throws ParseException the parse exception
      */
     public ResponseEntity<Object> findInvestigationTeamById(Long id, HttpServletRequest httpServletRequest) throws ParseException {
         try {
             Optional<InvestigationTeam> investigationTeam = investigationTeamRepository.findById(id);
             if (investigationTeam.isEmpty()) {
-                return new ResponseEntity<>(ResponseUtility.getResponse("There is no investigation team against the given investigation team id " , null, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("There is no investigation team against the given investigation team id ", null, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(ResponseUtility.getResponse("Success",investigationTeam, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseUtility.getResponse("Success", investigationTeam, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
             }
         } catch (Exception e) {
             LOG.info("Exception: " + e.getMessage());
-            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(),null, httpServletRequest.getRequestURI(), HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ResponseUtility.getResponse(e.getMessage(), null, httpServletRequest.getRequestURI(), HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

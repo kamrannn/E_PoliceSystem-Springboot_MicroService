@@ -6,6 +6,7 @@ import com.app.epolice.model.entity.policestation.PoliceStation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -39,7 +40,7 @@ public class User implements Serializable {
     private String email;
     @Column(unique = true)
     @NotBlank(message = "Phone number is mandatory")
-    @Size(min=11, max=14, message = "Minimum size should be 11 and maximum size should be 14")
+    @Size(min = 11, max = 14, message = "Minimum size should be 11 and maximum size should be 14")
     private String phoneNo;
     @NotBlank(message = "Date of birth is mandatory")
     private String dob;
@@ -47,7 +48,7 @@ public class User implements Serializable {
     private String gender;
     @Column(unique = true)
     @NotBlank(message = "Cnic is mandatory")
-    @Size(min=13, max=15, message = "Minimum size should be 13 and maximum size should be 15")
+    @Size(min = 13, max = 15, message = "Minimum size should be 13 and maximum size should be 15")
     private String cnic;
     @Column(nullable = false)
     @NotBlank(message = "Password is mandatory")
@@ -64,14 +65,14 @@ public class User implements Serializable {
      * One user can have multiple roles, and one role can have multiple users
      */
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToMany(targetEntity = Role.class,fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<Role> roles = new ArrayList<>();
 
     /**
      * One user can have multiple reports
      */
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(targetEntity = CrimeReport.class,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = CrimeReport.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<CrimeReport> crimeReports = new ArrayList<>();
 
@@ -79,13 +80,13 @@ public class User implements Serializable {
      * One department will have multiple users while one user will be limited to 1 department
      */
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(targetEntity = Department.class,fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne(targetEntity = Department.class, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Department department;
 
     /**
      * One Police station will have multiple users while one user will be limited to 1 police station
      */
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(targetEntity = PoliceStation.class,fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(targetEntity = PoliceStation.class, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private PoliceStation policeStation;
 }

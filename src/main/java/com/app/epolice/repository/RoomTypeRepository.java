@@ -7,8 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
+
+/**
+ * The interface Room type repository.
+ */
 @Repository
-public interface RoomTypeRepository extends JpaRepository<RoomType,Long> {
+public interface RoomTypeRepository extends JpaRepository<RoomType, Long> {
     /**
      * Find all by active true order by created date desc list.
      *

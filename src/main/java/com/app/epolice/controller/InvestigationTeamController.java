@@ -41,10 +41,12 @@ public class InvestigationTeamController {
     /**
      * Showing all the investigationTeams
      *
+     * @param httpServletRequest the http servlet request
      * @return response entity
+     * @throws ParseException the parse exception
      */
     @GetMapping("/list")
-    public ResponseEntity<Object> listOfInvestigationTeams( HttpServletRequest httpServletRequest) throws ParseException {
+    public ResponseEntity<Object> listOfInvestigationTeams(HttpServletRequest httpServletRequest) throws ParseException {
         LOG.info("Listing all the investigation Teams");
         return investigationTeamService.listAllInvestigationTeams(httpServletRequest);
     }
@@ -52,19 +54,21 @@ public class InvestigationTeamController {
     /**
      * Adding the investigationTeams
      *
-     * @param investigationTeam the investigation team
+     * @param investigationTeam  the investigation team
+     * @param httpServletRequest the http servlet request
      * @return response entity
      */
     @PostMapping("/add")
     public ResponseEntity<Object> addInvestigationTeam(@Valid @RequestBody List<InvestigationTeam> investigationTeam, HttpServletRequest httpServletRequest) {
         LOG.info("Adding the investigation Teams");
-        return investigationTeamService.addNewInvestigationTeams(investigationTeam,httpServletRequest);
+        return investigationTeamService.addNewInvestigationTeams(investigationTeam, httpServletRequest);
     }
 
     /**
      * Updating the investigationTeams
      *
-     * @param investigationTeam the investigation team
+     * @param investigationTeam  the investigation team
+     * @param httpServletRequest the http servlet request
      * @return response entity
      */
     @PutMapping("/update")
@@ -77,18 +81,20 @@ public class InvestigationTeamController {
      * deleting the investigationTeams
      *
      * @param investigationTeamList the investigation team list
+     * @param httpServletRequest    the http servlet request
      * @return response entity
      */
     @DeleteMapping("/delete")
     public ResponseEntity<Object> deleteInvestigationTeam(@RequestBody List<InvestigationTeam> investigationTeamList, HttpServletRequest httpServletRequest) {
         LOG.info("deleting the investigation Teams");
-        return investigationTeamService.deleteInvestigationTeam(investigationTeamList,httpServletRequest);
+        return investigationTeamService.deleteInvestigationTeam(investigationTeamList, httpServletRequest);
     }
 
     /**
      * Find all investigation teams by date response entity.
      *
-     * @param date the date
+     * @param date               the date
+     * @param httpServletRequest the http servlet request
      * @return the response entity
      */
     @GetMapping("/by-date")
@@ -100,7 +106,10 @@ public class InvestigationTeamController {
     /**
      * Showing all the investigationTeams
      *
+     * @param id                 the id
+     * @param httpServletRequest the http servlet request
      * @return response entity
+     * @throws ParseException the parse exception
      */
     @GetMapping("/list/team")
     public ResponseEntity<Object> findInvestigationTeamById(@RequestParam Long id, HttpServletRequest httpServletRequest) throws ParseException {

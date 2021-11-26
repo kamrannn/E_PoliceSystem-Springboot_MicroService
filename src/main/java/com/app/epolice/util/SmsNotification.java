@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SmsNotification {
-    private final String ACCOUNT_SID ="AC899fa2ea88ed71b93e716ffb0135a969";
+    private final String ACCOUNT_SID = "AC899fa2ea88ed71b93e716ffb0135a969";
     private final String AUTH_TOKEN = "37e7b19992a05104c5de5a7c4142d456";
     private final String FROM_NUMBER = "+17242515324";
 
@@ -23,12 +23,12 @@ public class SmsNotification {
      * @param userMessage the user message
      * @return response entity
      */
-    public ResponseEntity<Object> Notification(String toNumber, String userMessage){
+    public ResponseEntity<Object> Notification(String toNumber, String userMessage) {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message.creator(new PhoneNumber(toNumber), new PhoneNumber(FROM_NUMBER), userMessage)
                 .create();
-        System.out.println("here is my id:"+message.getSid());// Unique resource ID created to manage this transaction
-        return new ResponseEntity<>("The message has been successfully sent to: "+toNumber, HttpStatus.OK);
+        System.out.println("here is my id:" + message.getSid());// Unique resource ID created to manage this transaction
+        return new ResponseEntity<>("The message has been successfully sent to: " + toNumber, HttpStatus.OK);
     }
 
 }

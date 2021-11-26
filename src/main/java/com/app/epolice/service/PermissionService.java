@@ -1,6 +1,5 @@
 package com.app.epolice.service;
 
-import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.user.Permission;
 import com.app.epolice.repository.PermissionRepository;
 import com.app.epolice.util.DateTime;
@@ -47,7 +46,7 @@ public class PermissionService {
                 return new ResponseEntity<>(permissionList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -66,7 +65,7 @@ public class PermissionService {
                 return new ResponseEntity<>(permissionList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -82,21 +81,21 @@ public class PermissionService {
             if (permissionList.isEmpty()) {
                 return new ResponseEntity<>("You are entering empty list", HttpStatus.BAD_REQUEST);
             } else {
-                for (Permission permission:permissionList
+                for (Permission permission : permissionList
                 ) {
                     permission.setCreatedDate(DateTime.getDateTime());
                     permission.setActive(true);
                     permissionRepository.save(permission);
 
                 }
-                if(permissionList.size()==1){
+                if (permissionList.size() == 1) {
                     return new ResponseEntity<>("Permission is successfully added", HttpStatus.OK);
-                }else{
+                } else {
                     return new ResponseEntity<>("Permissions are successfully added", HttpStatus.OK);
                 }
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -107,25 +106,25 @@ public class PermissionService {
      * @param permissionList the permission list
      * @return response entity
      */
-    public ResponseEntity<Object> deletePermission(List<Permission> permissionList){
-        try{
-            if(permissionList.isEmpty()){
-                return new ResponseEntity<>("No Permission is selected for the deletion",HttpStatus.BAD_REQUEST);
-            }else{
-                for (Permission permission:permissionList
+    public ResponseEntity<Object> deletePermission(List<Permission> permissionList) {
+        try {
+            if (permissionList.isEmpty()) {
+                return new ResponseEntity<>("No Permission is selected for the deletion", HttpStatus.BAD_REQUEST);
+            } else {
+                for (Permission permission : permissionList
                 ) {
                     permission.setActive(false);
                     permission.setUpdatedDate(DateTime.getDateTime());
                     permissionRepository.save(permission);
                 }
-                if(permissionList.size()==1){
-                    return new ResponseEntity<>("Permission is successfully deleted",HttpStatus.OK);
-                }else{
-                    return new ResponseEntity<>("Permissions are successfully deleted",HttpStatus.OK);
+                if (permissionList.size() == 1) {
+                    return new ResponseEntity<>("Permission is successfully deleted", HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>("Permissions are successfully deleted", HttpStatus.OK);
                 }
             }
-        }catch (Exception e){
-            LOG.info("Exception: "+ e.getMessage());
+        } catch (Exception e) {
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -136,18 +135,18 @@ public class PermissionService {
      * @param permission the permission
      * @return response entity
      */
-    public ResponseEntity<Object> updatePermission(Permission permission){
-        try{
-            if(null==permission){
-                return new ResponseEntity<>("Null object passed in the body",HttpStatus.BAD_REQUEST);
-            }else{
+    public ResponseEntity<Object> updatePermission(Permission permission) {
+        try {
+            if (null == permission) {
+                return new ResponseEntity<>("Null object passed in the body", HttpStatus.BAD_REQUEST);
+            } else {
                 permission.setUpdatedDate(DateTime.getDateTime());
                 permissionRepository.save(permission);
                 return new ResponseEntity<>("Permission is successfully updated.", HttpStatus.OK);
             }
-        }catch (Exception e){
-            LOG.info("Exception: "+ e.getMessage());
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            LOG.info("Exception: " + e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -166,7 +165,7 @@ public class PermissionService {
                 return new ResponseEntity<>(permissionList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
+            LOG.info("Exception" + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

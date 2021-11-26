@@ -8,11 +8,14 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 
+/**
+ * The type Resource server configuration.
+ */
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
-    private final static String[] adminAccessPoints ={
+    private final static String[] adminAccessPoints = {
             "/users/**",
             "/roles/**",
             "/permissions/**",
@@ -26,7 +29,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
             "/crime-reports/**"
     };
 
-    private final static String[] publicUserAccessPoints ={
+    private final static String[] publicUserAccessPoints = {
             "/users/update",
             "/users/resend-verification-token",
             "/users/delete/{id}",
@@ -45,7 +48,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("swagger-ui.html/","/swagger-ui.html/","/api-docs/**","/v2/api-docs/**","/permissions/add","/roles/add","/police-stations/add","/departments/add","/users/signup","/users/verification").permitAll()
+                .antMatchers("swagger-ui.html/", "/swagger-ui.html/", "/api-docs/**", "/v2/api-docs/**", "/permissions/add", "/roles/add", "/police-stations/add", "/departments/add", "/users/signup", "/users/verification").permitAll()
                 .antMatchers(adminAccessPoints).hasAuthority("admin")
                 .antMatchers(publicUserAccessPoints).hasAuthority("public_user")
                 .antMatchers("/api/**").authenticated()

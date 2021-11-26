@@ -42,9 +42,9 @@ public class DepartmentController {
      * @return response entity
      */
     @GetMapping("/list")
-    public ResponseEntity<Object> listOfDepartments(){
+    public ResponseEntity<Object> listOfDepartments() {
         LOG.info("Listing all the departments");
-            return departmentService.listAllDepartments();
+        return departmentService.listAllDepartments();
     }
 
     /**
@@ -54,9 +54,9 @@ public class DepartmentController {
      * @return response entity
      */
     @PostMapping("/add")
-    public ResponseEntity<Object> addDepartment(@Valid @RequestBody List<Department> department){
+    public ResponseEntity<Object> addDepartment(@Valid @RequestBody List<Department> department) {
         LOG.info("adding the departments");
-            return departmentService.addNewDepartments(department);
+        return departmentService.addNewDepartments(department);
     }
 
     /**
@@ -66,9 +66,9 @@ public class DepartmentController {
      * @return response entity
      */
     @PutMapping("/update")
-    public ResponseEntity<Object> updateDepartment( @RequestBody Department department){
+    public ResponseEntity<Object> updateDepartment(@RequestBody Department department) {
         LOG.info("updating the departments");
-            return departmentService.updateDepartment(department);
+        return departmentService.updateDepartment(department);
     }
 
     /**
@@ -78,21 +78,21 @@ public class DepartmentController {
      * @return response entity
      */
     @DeleteMapping("/delete")
-    public ResponseEntity<Object> deleteDepartment( @RequestBody List<Department> departmentList){
+    public ResponseEntity<Object> deleteDepartment(@RequestBody List<Department> departmentList) {
         LOG.info("deleting the departments");
-            return departmentService.deleteDepartment(departmentList);
+        return departmentService.deleteDepartment(departmentList);
 
     }
 
     /**
      * Find all departments by date response entity.
      *
-     * @param date  the date
+     * @param date the date
      * @return the response entity
      */
     @GetMapping("/by-date")
-    public ResponseEntity<Object> findAllDepartmentsByDate( @RequestParam java.sql.Date date) {
+    public ResponseEntity<Object> findAllDepartmentsByDate(@RequestParam java.sql.Date date) {
         LOG.info("Listing all the departments by date");
-            return departmentService.findAllDepartmentsByDate(date);
+        return departmentService.findAllDepartmentsByDate(date);
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
  * The interface Department repository.
  */
 @Repository
-public interface DepartmentRepository extends JpaRepository<Department,Long> {
+public interface DepartmentRepository extends JpaRepository<Department, Long> {
     /**
      * Find departments by active list.
      *

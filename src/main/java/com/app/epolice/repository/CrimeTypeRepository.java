@@ -12,7 +12,7 @@ import java.util.List;
  * The interface Crime type repository.
  */
 @Repository
-public interface CrimeTypeRepository extends JpaRepository<CrimeType,Long> {
+public interface CrimeTypeRepository extends JpaRepository<CrimeType, Long> {
     /**
      * Find all by active list.
      *

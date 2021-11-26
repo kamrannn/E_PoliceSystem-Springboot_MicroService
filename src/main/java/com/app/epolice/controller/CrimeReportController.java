@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -81,7 +82,7 @@ public class CrimeReportController {
      * Upload a file controller (Testing)
      *
      * @param file the file
-     * @return string
+     * @return string string
      * @throws IOException the io exception
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

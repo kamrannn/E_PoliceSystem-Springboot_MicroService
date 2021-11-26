@@ -99,7 +99,7 @@ public class CriminalController {
      * find criminals by their cnic having return type boolean
      *
      * @param cnic the cnic
-     * @return boolean
+     * @return boolean boolean
      */
     @GetMapping("/check-criminal-record")
     public boolean verifyPersonCriminalRecord(@RequestHeader String cnic) {
@@ -122,7 +122,7 @@ public class CriminalController {
     /**
      * Checking whether feign client is working or not
      *
-     * @return string
+     * @return string string
      */
     @GetMapping("/check-currency-record")
     public String checkFeignCurrencyMethod() {

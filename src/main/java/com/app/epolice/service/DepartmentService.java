@@ -1,6 +1,5 @@
 package com.app.epolice.service;
 
-import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.policestation.Department;
 import com.app.epolice.repository.DepartmentRepository;
 import com.app.epolice.util.DateTime;
@@ -47,7 +46,7 @@ public class DepartmentService {
                 return new ResponseEntity<>(departmentList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -63,20 +62,20 @@ public class DepartmentService {
             if (departmentList.isEmpty()) {
                 return new ResponseEntity<>("You are entering empty list", HttpStatus.BAD_REQUEST);
             } else {
-                for (Department department:departmentList
+                for (Department department : departmentList
                 ) {
                     department.setCreatedDate(DateTime.getDateTime());
                     department.setActive(true);
                     departmentRepository.save(department);
                 }
-                if(departmentList.size()==1){
+                if (departmentList.size() == 1) {
                     return new ResponseEntity<>("Department is successfully added", HttpStatus.OK);
-                }else{
+                } else {
                     return new ResponseEntity<>("Departments are successfully added", HttpStatus.OK);
                 }
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -87,25 +86,25 @@ public class DepartmentService {
      * @param departmentList the department list
      * @return response entity
      */
-    public ResponseEntity<Object> deleteDepartment(List<Department> departmentList){
-        try{
-            if(departmentList.isEmpty()){
-                return new ResponseEntity<>("No Department is selected for the deletion",HttpStatus.BAD_REQUEST);
-            }else{
-                for (Department department:departmentList
+    public ResponseEntity<Object> deleteDepartment(List<Department> departmentList) {
+        try {
+            if (departmentList.isEmpty()) {
+                return new ResponseEntity<>("No Department is selected for the deletion", HttpStatus.BAD_REQUEST);
+            } else {
+                for (Department department : departmentList
                 ) {
                     department.setActive(false);
                     department.setUpdatedDate(DateTime.getDateTime());
                     departmentRepository.save(department);
                 }
-                if(departmentList.size()==1){
-                    return new ResponseEntity<>("Department is successfully deleted",HttpStatus.OK);
-                }else{
-                    return new ResponseEntity<>("Departments are successfully deleted",HttpStatus.OK);
+                if (departmentList.size() == 1) {
+                    return new ResponseEntity<>("Department is successfully deleted", HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>("Departments are successfully deleted", HttpStatus.OK);
                 }
             }
-        }catch (Exception e){
-            LOG.info("Exception: "+ e.getMessage());
+        } catch (Exception e) {
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -116,18 +115,18 @@ public class DepartmentService {
      * @param department the department
      * @return response entity
      */
-    public ResponseEntity<Object> updateDepartment(Department department){
-        try{
-            if(null==department){
-                return new ResponseEntity<>("Null object passed in the body",HttpStatus.BAD_REQUEST);
-            }else{
+    public ResponseEntity<Object> updateDepartment(Department department) {
+        try {
+            if (null == department) {
+                return new ResponseEntity<>("Null object passed in the body", HttpStatus.BAD_REQUEST);
+            } else {
                 department.setUpdatedDate(DateTime.getDateTime());
                 departmentRepository.save(department);
                 return new ResponseEntity<>("Department is successfully updated.", HttpStatus.OK);
             }
-        }catch (Exception e){
-            LOG.info("Exception: "+ e.getMessage());
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            LOG.info("Exception: " + e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -146,7 +145,7 @@ public class DepartmentService {
                 return new ResponseEntity<>(departmentList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
+            LOG.info("Exception" + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

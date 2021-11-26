@@ -27,7 +27,7 @@ public class ExceptionHandling {
      * @param e the e
      * @return the response entity
      */
-    @ExceptionHandler({RequestRejectedException.class,JsonMappingException.class, MethodArgumentNotValidException.class, ConstraintViolationException.class, InvalidFormatException.class, HttpMessageNotReadableException.class, MissingRequestHeaderException.class, MissingPathVariableException.class, HttpRequestMethodNotSupportedException.class})
+    @ExceptionHandler({RequestRejectedException.class, JsonMappingException.class, MethodArgumentNotValidException.class, ConstraintViolationException.class, InvalidFormatException.class, HttpMessageNotReadableException.class, MissingRequestHeaderException.class, MissingPathVariableException.class, HttpRequestMethodNotSupportedException.class})
     public ResponseEntity<Object> inputValidationException(Exception e) {
         return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
     }

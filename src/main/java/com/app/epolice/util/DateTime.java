@@ -1,6 +1,7 @@
 package com.app.epolice.util;
 
 import org.springframework.stereotype.Service;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -56,11 +57,17 @@ public class DateTime {
         return expireTime;
     }
 
+    /**
+     * Gets string date time.
+     *
+     * @return the string date time
+     * @throws ParseException the parse exception
+     */
     public static String getStringDateTime() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Calendar cal = Calendar.getInstance();
         String date = formatter.format(cal.getTime());
         Date currentTime = formatter.parse(date);
-        return currentTime+"";
+        return currentTime + "";
     }
 }

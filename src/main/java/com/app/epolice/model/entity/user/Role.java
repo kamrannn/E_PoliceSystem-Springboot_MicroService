@@ -30,6 +30,6 @@ public class Role implements Serializable {
     private Date updatedDate;
     private boolean active;
 
-    @ManyToMany(targetEntity = Permission.class,fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(targetEntity = Permission.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<Permission> permissions = new ArrayList<>();
 }

@@ -1,6 +1,5 @@
 package com.app.epolice.service;
 
-import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.crime.Criminal;
 import com.app.epolice.repository.CriminalRepository;
 import com.app.epolice.service.feignclients.FeignEBankService;
@@ -36,9 +35,9 @@ public class CriminalService {
      * @param criminalRepository the criminal repository
      * @param feignEBankService  the feign e bank service
      */
-    public CriminalService(CriminalRepository criminalRepository,FeignEBankService feignEBankService) {
+    public CriminalService(CriminalRepository criminalRepository, FeignEBankService feignEBankService) {
         this.criminalRepository = criminalRepository;
-        this.feignEBankService=feignEBankService;
+        this.feignEBankService = feignEBankService;
     }
 
     /**
@@ -48,14 +47,14 @@ public class CriminalService {
      */
     public ResponseEntity<Object> listAllCriminals() {
         try {
-            List<Criminal> criminalList =criminalRepository.findAllByActiveTrueOrderByCreatedDateDesc();
+            List<Criminal> criminalList = criminalRepository.findAllByActiveTrueOrderByCreatedDateDesc();
             if (criminalList.isEmpty()) {
                 return new ResponseEntity<>("There are no criminals in the database", HttpStatus.NOT_FOUND);
             } else {
                 return new ResponseEntity<>(criminalList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -71,20 +70,20 @@ public class CriminalService {
             if (criminalList.isEmpty()) {
                 return new ResponseEntity<>("You are entering empty list", HttpStatus.BAD_REQUEST);
             } else {
-                for (Criminal criminal:criminalList
+                for (Criminal criminal : criminalList
                 ) {
-                   criminal.setCreatedDate(DateTime.getDateTime());
-                   criminal.setActive(true);
-                   criminalRepository.save(criminal);
+                    criminal.setCreatedDate(DateTime.getDateTime());
+                    criminal.setActive(true);
+                    criminalRepository.save(criminal);
                 }
-                if(criminalList.size()==1){
+                if (criminalList.size() == 1) {
                     return new ResponseEntity<>("Criminal is successfully added", HttpStatus.OK);
-                }else{
+                } else {
                     return new ResponseEntity<>("Criminals are successfully added", HttpStatus.OK);
                 }
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -95,25 +94,25 @@ public class CriminalService {
      * @param criminalList the criminal list
      * @return response entity
      */
-    public ResponseEntity<Object> deleteCriminal(List<Criminal> criminalList){
-        try{
-            if(criminalList.isEmpty()){
-                return new ResponseEntity<>("No criminal is selected for the deletion",HttpStatus.BAD_REQUEST);
-            }else{
-                for (Criminal criminal:criminalList
+    public ResponseEntity<Object> deleteCriminal(List<Criminal> criminalList) {
+        try {
+            if (criminalList.isEmpty()) {
+                return new ResponseEntity<>("No criminal is selected for the deletion", HttpStatus.BAD_REQUEST);
+            } else {
+                for (Criminal criminal : criminalList
                 ) {
-                   criminal.setActive(false);
-                   criminal.setUpdatedDate(DateTime.getDateTime());
-                   criminalRepository.save(criminal);
+                    criminal.setActive(false);
+                    criminal.setUpdatedDate(DateTime.getDateTime());
+                    criminalRepository.save(criminal);
                 }
-                if(criminalList.size()==1){
-                    return new ResponseEntity<>("Criminal is successfully deleted",HttpStatus.OK);
-                }else{
-                    return new ResponseEntity<>("Criminals are successfully deleted",HttpStatus.OK);
+                if (criminalList.size() == 1) {
+                    return new ResponseEntity<>("Criminal is successfully deleted", HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>("Criminals are successfully deleted", HttpStatus.OK);
                 }
             }
-        }catch (Exception e){
-            LOG.info("Exception: "+ e.getMessage());
+        } catch (Exception e) {
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -124,18 +123,18 @@ public class CriminalService {
      * @param criminal the criminal
      * @return response entity
      */
-    public ResponseEntity<Object> updateCriminal(Criminal criminal){
-        try{
-            if(null==criminal){
-                return new ResponseEntity<>("Null object passed in the body",HttpStatus.BAD_REQUEST);
-            }else{
-               criminal.setUpdatedDate(DateTime.getDateTime());
-               criminalRepository.save(criminal);
+    public ResponseEntity<Object> updateCriminal(Criminal criminal) {
+        try {
+            if (null == criminal) {
+                return new ResponseEntity<>("Null object passed in the body", HttpStatus.BAD_REQUEST);
+            } else {
+                criminal.setUpdatedDate(DateTime.getDateTime());
+                criminalRepository.save(criminal);
                 return new ResponseEntity<>("Criminal is successfully updated.", HttpStatus.OK);
             }
-        }catch (Exception e){
-            LOG.info("Exception: "+ e.getMessage());
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            LOG.info("Exception: " + e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -145,16 +144,16 @@ public class CriminalService {
      * @param cnic the cnic
      * @return ResponseEntity response entity
      */
-    public ResponseEntity<Object> findCriminalByCnic(String cnic){
+    public ResponseEntity<Object> findCriminalByCnic(String cnic) {
         try {
             Optional<Criminal> criminal = criminalRepository.findByCnic(cnic);
-            if(criminal.isPresent()){
-                return new ResponseEntity<>(criminal,HttpStatus.OK);
-            }else{
+            if (criminal.isPresent()) {
+                return new ResponseEntity<>(criminal, HttpStatus.OK);
+            } else {
                 return new ResponseEntity<>("There is no criminal against this cnic", HttpStatus.NOT_FOUND);
             }
-        }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -184,7 +183,7 @@ public class CriminalService {
                 return new ResponseEntity<>(criminalList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
+            LOG.info("Exception" + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -194,7 +193,7 @@ public class CriminalService {
      *
      * @return string string
      */
-    public String checkFeignCurrencyMethod(){
+    public String checkFeignCurrencyMethod() {
         return feignEBankService.checkCurrency();
     }
 }

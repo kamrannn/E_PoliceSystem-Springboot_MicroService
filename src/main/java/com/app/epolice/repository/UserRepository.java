@@ -55,7 +55,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param smsToken   the sms token
      * @return the optional
      */
-    Optional<User> findUserByIdAndEmailTokenAndSmsToken(long id ,String emailToken, String smsToken);
+    Optional<User> findUserByIdAndEmailTokenAndSmsToken(long id, String emailToken, String smsToken);
 
     /**
      * Find all by active true order by created date desc list.

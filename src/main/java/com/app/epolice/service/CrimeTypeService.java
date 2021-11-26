@@ -1,6 +1,5 @@
 package com.app.epolice.service;
 
-import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.crime.CrimeType;
 import com.app.epolice.repository.CrimeTypeRepository;
 import com.app.epolice.util.DateTime;
@@ -63,15 +62,15 @@ public class CrimeTypeService {
             if (crimeTypeList.isEmpty()) {
                 return new ResponseEntity<>("You are entering empty list", HttpStatus.BAD_REQUEST);
             } else {
-                for (CrimeType crimeType:crimeTypeList
+                for (CrimeType crimeType : crimeTypeList
                 ) {
                     crimeType.setCreatedDate(DateTime.getDateTime());
                     crimeType.setActive(true);
                     crimeTypeRepository.save(crimeType);
                 }
-                if(crimeTypeList.size()==1){
+                if (crimeTypeList.size() == 1) {
                     return new ResponseEntity<>("Crime Type is successfully added", HttpStatus.OK);
-                }else{
+                } else {
                     return new ResponseEntity<>("Crime Types are successfully added", HttpStatus.OK);
                 }
             }
@@ -87,24 +86,24 @@ public class CrimeTypeService {
      * @param crimeTypeList the crime type list
      * @return response entity
      */
-    public ResponseEntity<Object> deleteCrimeType(List<CrimeType> crimeTypeList){
-        try{
-            if(crimeTypeList.isEmpty()){
-                return new ResponseEntity<>("No Crime Type is selected for the deletion",HttpStatus.BAD_REQUEST);
-            }else{
-                for (CrimeType crimeType:crimeTypeList
+    public ResponseEntity<Object> deleteCrimeType(List<CrimeType> crimeTypeList) {
+        try {
+            if (crimeTypeList.isEmpty()) {
+                return new ResponseEntity<>("No Crime Type is selected for the deletion", HttpStatus.BAD_REQUEST);
+            } else {
+                for (CrimeType crimeType : crimeTypeList
                 ) {
                     crimeType.setActive(false);
                     crimeType.setUpdatedDate(DateTime.getDateTime());
                     crimeTypeRepository.save(crimeType);
                 }
-                if(crimeTypeList.size()==1){
-                    return new ResponseEntity<>("Crime Type is successfully deleted",HttpStatus.OK);
-                }else{
-                    return new ResponseEntity<>("Crime Types are successfully deleted",HttpStatus.OK);
+                if (crimeTypeList.size() == 1) {
+                    return new ResponseEntity<>("Crime Type is successfully deleted", HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>("Crime Types are successfully deleted", HttpStatus.OK);
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             LOG.info("Exception: {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -116,18 +115,18 @@ public class CrimeTypeService {
      * @param crimeType the crime type
      * @return response entity
      */
-    public ResponseEntity<Object> updateCrimeType(CrimeType crimeType){
-        try{
-            if(null==crimeType){
-                return new ResponseEntity<>("Null object passed in the body",HttpStatus.BAD_REQUEST);
-            }else{
+    public ResponseEntity<Object> updateCrimeType(CrimeType crimeType) {
+        try {
+            if (null == crimeType) {
+                return new ResponseEntity<>("Null object passed in the body", HttpStatus.BAD_REQUEST);
+            } else {
                 crimeType.setUpdatedDate(DateTime.getDateTime());
                 crimeTypeRepository.save(crimeType);
                 return new ResponseEntity<>("Crime Type is successfully updated.", HttpStatus.OK);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             LOG.info("Exception: {}", e.getMessage());
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

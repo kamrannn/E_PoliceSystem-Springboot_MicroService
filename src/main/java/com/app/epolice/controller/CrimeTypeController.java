@@ -42,9 +42,9 @@ public class CrimeTypeController {
      * @return response entity
      */
     @GetMapping("/list")
-    public ResponseEntity<Object> listOfCrimeTypes(){
+    public ResponseEntity<Object> listOfCrimeTypes() {
         LOG.info("listing the crime types");
-            return crimeTypeService.listAllCrimeTypes();
+        return crimeTypeService.listAllCrimeTypes();
     }
 
     /**
@@ -54,9 +54,9 @@ public class CrimeTypeController {
      * @return response entity
      */
     @PostMapping("/add")
-    public ResponseEntity<Object> addCrimeType(@Valid @RequestBody List<CrimeType> crimeType){
+    public ResponseEntity<Object> addCrimeType(@Valid @RequestBody List<CrimeType> crimeType) {
         LOG.info("adding the crime types");
-            return crimeTypeService.addNewCrimeTypes(crimeType);
+        return crimeTypeService.addNewCrimeTypes(crimeType);
     }
 
     /**
@@ -66,9 +66,9 @@ public class CrimeTypeController {
      * @return response entity
      */
     @PutMapping("/update")
-    public ResponseEntity<Object> updateCrimeType( @RequestBody CrimeType crimeType){
+    public ResponseEntity<Object> updateCrimeType(@RequestBody CrimeType crimeType) {
         LOG.info("updating the crime types");
-            return crimeTypeService.updateCrimeType(crimeType);
+        return crimeTypeService.updateCrimeType(crimeType);
     }
 
     /**
@@ -78,20 +78,20 @@ public class CrimeTypeController {
      * @return response entity
      */
     @DeleteMapping("/delete")
-    public ResponseEntity<Object> deleteCrimeType( @RequestBody List<CrimeType> crimeTypeList){
+    public ResponseEntity<Object> deleteCrimeType(@RequestBody List<CrimeType> crimeTypeList) {
         LOG.info("updating the crime types");
-            return crimeTypeService.deleteCrimeType(crimeTypeList);
+        return crimeTypeService.deleteCrimeType(crimeTypeList);
     }
 
     /**
      * Find all crime types by date response entity.
      *
-     * @param date  the date
+     * @param date the date
      * @return the response entity
      */
     @GetMapping("/by-date")
-    public ResponseEntity<Object> findAllCrimeTypesByDate( @RequestParam java.sql.Date date) {
+    public ResponseEntity<Object> findAllCrimeTypesByDate(@RequestParam java.sql.Date date) {
         LOG.info("Listing all the crime types by date");
-            return crimeTypeService.findAllCrimeTypesByDate(date);
+        return crimeTypeService.findAllCrimeTypesByDate(date);
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
  * The interface Police station repository.
  */
 @Repository
-public interface PoliceStationRepository extends JpaRepository<PoliceStation,Long> {
+public interface PoliceStationRepository extends JpaRepository<PoliceStation, Long> {
     /**
      * Find police stations by active list.
      *

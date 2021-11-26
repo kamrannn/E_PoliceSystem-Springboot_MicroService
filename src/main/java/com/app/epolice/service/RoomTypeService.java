@@ -12,12 +12,23 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Room type service.
+ */
 @Service
 public class RoomTypeService {
     private static final Logger LOG = LogManager.getLogger(RoomTypeService.class);
 
+    /**
+     * The Room type repository.
+     */
     RoomTypeRepository roomTypeRepository;
 
+    /**
+     * Instantiates a new Room type service.
+     *
+     * @param roomTypeRepository the room type repository
+     */
     public RoomTypeService(RoomTypeRepository roomTypeRepository) {
         this.roomTypeRepository = roomTypeRepository;
     }
@@ -36,7 +47,7 @@ public class RoomTypeService {
                 return new ResponseEntity<>(roomTypeList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -52,20 +63,20 @@ public class RoomTypeService {
             if (roomTypeList.isEmpty()) {
                 return new ResponseEntity<>("You are entering empty list", HttpStatus.OK);
             } else {
-                for (RoomType roomType:roomTypeList
+                for (RoomType roomType : roomTypeList
                 ) {
                     roomType.setCreatedDate(DateTime.getDateTime());
                     roomType.setActive(true);
                     roomTypeRepository.save(roomType);
                 }
-                if(roomTypeList.size()==1){
+                if (roomTypeList.size() == 1) {
                     return new ResponseEntity<>("RoomType is successfully added", HttpStatus.OK);
-                }else{
+                } else {
                     return new ResponseEntity<>("RoomTypes are successfully added", HttpStatus.OK);
                 }
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -76,25 +87,25 @@ public class RoomTypeService {
      * @param roomTypeList the roomType list
      * @return response entity
      */
-    public ResponseEntity<Object> deleteRoomType(List<RoomType> roomTypeList){
-        try{
-            if(roomTypeList.isEmpty()){
-                return new ResponseEntity<>("No RoomType is selected for the deletion",HttpStatus.OK);
-            }else{
-                for (RoomType roomType:roomTypeList
+    public ResponseEntity<Object> deleteRoomType(List<RoomType> roomTypeList) {
+        try {
+            if (roomTypeList.isEmpty()) {
+                return new ResponseEntity<>("No RoomType is selected for the deletion", HttpStatus.OK);
+            } else {
+                for (RoomType roomType : roomTypeList
                 ) {
                     roomType.setActive(false);
                     roomType.setUpdatedDate(DateTime.getDateTime());
                     roomTypeRepository.save(roomType);
                 }
-                if(roomTypeList.size()==1){
-                    return new ResponseEntity<>("RoomType is successfully deleted",HttpStatus.OK);
-                }else{
-                    return new ResponseEntity<>("RoomTypes are successfully deleted",HttpStatus.OK);
+                if (roomTypeList.size() == 1) {
+                    return new ResponseEntity<>("RoomType is successfully deleted", HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>("RoomTypes are successfully deleted", HttpStatus.OK);
                 }
             }
-        }catch (Exception e){
-            LOG.info("Exception: "+ e.getMessage());
+        } catch (Exception e) {
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -105,23 +116,23 @@ public class RoomTypeService {
      * @param roomType the roomType
      * @return response entity
      */
-    public ResponseEntity<Object> updateRoomType(RoomType roomType){
-        try{
-            if(null==roomType){
-                return new ResponseEntity<>("Null object passed in the body",HttpStatus.OK);
-            }else{
+    public ResponseEntity<Object> updateRoomType(RoomType roomType) {
+        try {
+            if (null == roomType) {
+                return new ResponseEntity<>("Null object passed in the body", HttpStatus.OK);
+            } else {
                 Optional<RoomType> optionalRoomType = roomTypeRepository.findById(roomType.getId());
-                if(optionalRoomType.isPresent()){
+                if (optionalRoomType.isPresent()) {
                     roomType.setUpdatedDate(DateTime.getDateTime());
                     roomTypeRepository.save(roomType);
                     return new ResponseEntity<>("RoomType is successfully updated.", HttpStatus.OK);
-                }else{
+                } else {
                     return new ResponseEntity<>("RoomType doesn't exists in the database.", HttpStatus.OK);
                 }
             }
-        }catch (Exception e){
-            LOG.info("Exception: "+ e.getMessage());
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            LOG.info("Exception: " + e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -140,7 +151,7 @@ public class RoomTypeService {
                 return new ResponseEntity<>(roomTypeList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
+            LOG.info("Exception" + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

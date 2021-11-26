@@ -19,6 +19,9 @@ import java.util.List;
 @RequestMapping("/role-type")
 public class RoomTypeController {
     private static final Logger LOG = LogManager.getLogger(RoomTypeController.class);
+    /**
+     * The Room type service.
+     */
     RoomTypeService roomTypeService;
 
     /**
@@ -36,21 +39,21 @@ public class RoomTypeController {
      * @return response entity
      */
     @GetMapping("/list")
-    public ResponseEntity<Object> listOfRoomTypes(){
-            LOG.info("Listing all the roomTypes");
-            return roomTypeService.listAllRoomTypes();
+    public ResponseEntity<Object> listOfRoomTypes() {
+        LOG.info("Listing all the roomTypes");
+        return roomTypeService.listAllRoomTypes();
     }
 
     /**
      * Find room types by date response entity.
      *
-     * @param date  the date
+     * @param date the date
      * @return the response entity
      */
     @GetMapping("/by-date")
     public ResponseEntity<Object> findRoomTypesByDate(@RequestParam java.sql.Date date) {
-            LOG.info("Listing all the roomTypes by date");
-            return roomTypeService.findRoomTypesByDate(date);
+        LOG.info("Listing all the roomTypes by date");
+        return roomTypeService.findRoomTypesByDate(date);
     }
 
     /**
@@ -60,9 +63,9 @@ public class RoomTypeController {
      * @return response entity
      */
     @PostMapping("/add")
-    public ResponseEntity<Object> addRoomType(@Valid @RequestBody List<RoomType> roomTypes){
-            LOG.info("Adding new roomTypes");
-            return roomTypeService.addNewRoomTypes(roomTypes);
+    public ResponseEntity<Object> addRoomType(@Valid @RequestBody List<RoomType> roomTypes) {
+        LOG.info("Adding new roomTypes");
+        return roomTypeService.addNewRoomTypes(roomTypes);
     }
 
     /**
@@ -72,9 +75,9 @@ public class RoomTypeController {
      * @return response entity
      */
     @PutMapping("/update")
-    public ResponseEntity<Object> updateRoomType(@RequestBody RoomType roomType){
-            LOG.info("Updating existing roomTypes");
-            return roomTypeService.updateRoomType(roomType);
+    public ResponseEntity<Object> updateRoomType(@RequestBody RoomType roomType) {
+        LOG.info("Updating existing roomTypes");
+        return roomTypeService.updateRoomType(roomType);
     }
 
     /**
@@ -84,9 +87,9 @@ public class RoomTypeController {
      * @return response entity
      */
     @DeleteMapping("/delete")
-    public ResponseEntity<Object> deleteRoomType(@RequestBody List<RoomType> roomTypeList){
-            LOG.info("deleting existing roomTypes");
-            return roomTypeService.deleteRoomType(roomTypeList);
+    public ResponseEntity<Object> deleteRoomType(@RequestBody List<RoomType> roomTypeList) {
+        LOG.info("deleting existing roomTypes");
+        return roomTypeService.deleteRoomType(roomTypeList);
 
     }
 }

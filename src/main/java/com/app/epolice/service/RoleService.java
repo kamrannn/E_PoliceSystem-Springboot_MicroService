@@ -1,6 +1,5 @@
 package com.app.epolice.service;
 
-import com.app.epolice.controller.UserController;
 import com.app.epolice.model.entity.user.Role;
 import com.app.epolice.repository.RoleRepository;
 import com.app.epolice.util.DateTime;
@@ -9,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +46,7 @@ public class RoleService {
                 return new ResponseEntity<>(roleList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -62,20 +62,20 @@ public class RoleService {
             if (roleList.isEmpty()) {
                 return new ResponseEntity<>("You are entering empty list", HttpStatus.OK);
             } else {
-                for (Role role:roleList
+                for (Role role : roleList
                 ) {
                     role.setCreatedDate(DateTime.getDateTime());
                     role.setActive(true);
                     roleRepository.save(role);
                 }
-                if(roleList.size()==1){
+                if (roleList.size() == 1) {
                     return new ResponseEntity<>("Role is successfully added", HttpStatus.OK);
-                }else{
+                } else {
                     return new ResponseEntity<>("Roles are successfully added", HttpStatus.OK);
                 }
             }
         } catch (Exception e) {
-            LOG.info("Exception: "+ e.getMessage());
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -86,25 +86,25 @@ public class RoleService {
      * @param roleList the role list
      * @return response entity
      */
-    public ResponseEntity<Object> deleteRole(List<Role> roleList){
-        try{
-            if(roleList.isEmpty()){
-                return new ResponseEntity<>("No Role is selected for the deletion",HttpStatus.OK);
-            }else{
-                for (Role role:roleList
+    public ResponseEntity<Object> deleteRole(List<Role> roleList) {
+        try {
+            if (roleList.isEmpty()) {
+                return new ResponseEntity<>("No Role is selected for the deletion", HttpStatus.OK);
+            } else {
+                for (Role role : roleList
                 ) {
                     role.setActive(false);
                     role.setUpdatedDate(DateTime.getDateTime());
                     roleRepository.save(role);
                 }
-                if(roleList.size()==1){
-                    return new ResponseEntity<>("Role is successfully deleted",HttpStatus.OK);
-                }else{
-                    return new ResponseEntity<>("Roles are successfully deleted",HttpStatus.OK);
+                if (roleList.size() == 1) {
+                    return new ResponseEntity<>("Role is successfully deleted", HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>("Roles are successfully deleted", HttpStatus.OK);
                 }
             }
-        }catch (Exception e){
-            LOG.info("Exception: "+ e.getMessage());
+        } catch (Exception e) {
+            LOG.info("Exception: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -115,23 +115,23 @@ public class RoleService {
      * @param role the role
      * @return response entity
      */
-    public ResponseEntity<Object> updateRole(Role role){
-        try{
-            if(null==role){
-                return new ResponseEntity<>("Null object passed in the body",HttpStatus.OK);
-            }else{
+    public ResponseEntity<Object> updateRole(Role role) {
+        try {
+            if (null == role) {
+                return new ResponseEntity<>("Null object passed in the body", HttpStatus.OK);
+            } else {
                 Optional<Role> roleOptional = roleRepository.findById(role.getId());
-                if(roleOptional.isPresent()){
+                if (roleOptional.isPresent()) {
                     role.setUpdatedDate(DateTime.getDateTime());
                     roleRepository.save(role);
                     return new ResponseEntity<>("Role is successfully updated.", HttpStatus.OK);
-                }else{
+                } else {
                     return new ResponseEntity<>("Role doesn't exists in the database.", HttpStatus.OK);
                 }
             }
-        }catch (Exception e){
-            LOG.info("Exception: "+ e.getMessage());
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            LOG.info("Exception: " + e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -150,7 +150,7 @@ public class RoleService {
                 return new ResponseEntity<>(roleList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            LOG.info("Exception"+ e.getMessage());
+            LOG.info("Exception" + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

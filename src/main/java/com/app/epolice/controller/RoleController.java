@@ -47,6 +47,12 @@ public class RoleController {
         return roleService.listAllRoles();
     }
 
+    /**
+     * Find roles by date response entity.
+     *
+     * @param date the date
+     * @return the response entity
+     */
     @GetMapping("/by-date")
     public ResponseEntity<Object> findRolesByDate(@RequestParam java.sql.Date date) {
         LOG.info("Listing all the roles by date");

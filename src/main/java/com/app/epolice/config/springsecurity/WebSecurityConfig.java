@@ -15,8 +15,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+
 import javax.annotation.Resource;
 
+/**
+ * The type Web security config.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
@@ -31,6 +35,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    /**
+     * Global user details.
+     *
+     * @param auth the auth
+     * @throws Exception the exception
+     */
     @Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
@@ -56,11 +66,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/webjars/**");
     }
 
+    /**
+     * Encoder b crypt password encoder.
+     *
+     * @return the b crypt password encoder
+     */
     @Bean
-    public BCryptPasswordEncoder encoder(){
+    public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Cors filter filter registration bean.
+     *
+     * @return the filter registration bean
+     */
     @Bean
     public FilterRegistrationBean corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

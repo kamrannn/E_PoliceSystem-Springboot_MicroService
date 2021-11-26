@@ -7,7 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import java.sql.Date;
 import java.util.List;
 
-public interface RoomRepository extends JpaRepository<Room,Long> {
+/**
+ * The interface Room repository.
+ */
+public interface RoomRepository extends JpaRepository<Room, Long> {
     /**
      * Find all by active true order by created date desc list.
      *
