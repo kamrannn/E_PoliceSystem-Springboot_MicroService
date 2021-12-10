@@ -7,6 +7,7 @@ import com.app.epolice.repository.UserRepository;
 import com.app.epolice.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * The type User service.
@@ -44,6 +46,8 @@ public class UserService implements UserDetailsService {
     private Date tokenExpireTime = null;
     @Autowired
     private PasswordEncoder bcryptEncoder;
+    @Autowired
+    LoggingServiceTest loggingServiceTest;
 
     /**
      * Instantiates a new User service.
@@ -68,6 +72,8 @@ public class UserService implements UserDetailsService {
     public ResponseEntity<Object> listAllActiveUsers(HttpServletRequest httpServletRequest) throws ParseException {
         try {
             List<User> userList = userRepository.findAllByActiveTrueOrderByCreatedDateDesc();
+            List<Object> objectList= userList.stream().distinct().map(user -> user.getRoles()).filter(roles -> roles.contains("admin")).collect(Collectors.toList());
+            System.out.println(objectList.toString());
             if (userList.isEmpty()) {
                 return new ResponseEntity<>(ResponseUtility.getResponse("There are no users in the database", null, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
             } else {
@@ -87,7 +93,20 @@ public class UserService implements UserDetailsService {
      * @throws ParseException the parse exception
      */
     public ResponseEntity<Object> listOfInActiveUsers(HttpServletRequest httpServletRequest) throws ParseException {
+        User user = new User();
+        user.setEmail("email");
         try {
+            HashMap<String, Object> requestMap = new HashMap<>();
+            HashMap<String, Object> responseMap = new HashMap<>();
+            requestMap.put("user",user);
+//            requestMap.put("sourceAppId","123");
+            responseMap.put("status", "200");
+            try {
+                loggingServiceTest.postLogging(user, responseMap, "User get service");
+            }catch (JSONException jsonException){
+                jsonException.printStackTrace();
+                System.out.println(jsonException.getMessage());
+            }
             List<User> userList = userRepository.findAllByActive(false);
             if (userList.isEmpty()) {
                 return new ResponseEntity<>(ResponseUtility.getResponse("There are no users in the database", null, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
@@ -352,8 +371,20 @@ public class UserService implements UserDetailsService {
      */
     public ResponseEntity<Object> findUserById(long userId, HttpServletRequest httpServletRequest) throws ParseException {
         try {
-            Optional<User> optionalUser = userRepository.findById(userId);
-            if (optionalUser.isEmpty()) {
+            User optionalUser = userRepository.findById(userId).get();
+
+            HashMap<String, Object> requestMap = new HashMap<>();
+            HashMap<String, Object> responseMap = new HashMap<>();
+            requestMap.put("sourceAppId","123");
+            responseMap.put("status", "200");
+            try {
+                loggingServiceTest.getLogging(requestMap, responseMap, "User get service");
+            }catch (JSONException jsonException){
+                jsonException.printStackTrace();
+                System.out.println(jsonException.getMessage());
+            }
+
+            if (optionalUser!=null) {
                 return new ResponseEntity<>(ResponseUtility.getResponse("There is no user against this id", null, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(ResponseUtility.getResponse("Success", optionalUser, httpServletRequest.getRequestURI(), HttpStatus.OK), HttpStatus.OK);

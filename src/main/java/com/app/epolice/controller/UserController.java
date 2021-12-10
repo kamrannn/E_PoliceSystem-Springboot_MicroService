@@ -138,7 +138,7 @@ public class UserController {
      * @throws ParseException the parse exception
      */
     @GetMapping("/find_by/{id}")
-    public ResponseEntity<Object> findUserbyId(@PathVariable Long id, HttpServletRequest httpServletRequest) throws ParseException {
+    public ResponseEntity<Object> findUserById(@PathVariable Long id, HttpServletRequest httpServletRequest) throws ParseException {
         LOG.info("Deleting the user from the database");
         return userService.findUserById(id, httpServletRequest);
     }
@@ -213,7 +213,7 @@ public class UserController {
      */
     @GetMapping("/view-department")
     public ResponseEntity<Object> viewSpecificUserDepartment(@RequestHeader Long userId, HttpServletRequest httpServletRequest) throws ParseException {
-        LOG.info("checking the department of a specific user having id: ", userId);
+        LOG.info("checking the department of a specific user having id: {}", userId);
         return userService.specificUserDepartment(userId, httpServletRequest);
 
     }
